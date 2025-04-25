@@ -99,7 +99,7 @@ namespace WebServiceClientG2.Base.AppConfiguration
                 // IP adresa.
                 prp_IPAddress = Preferences.Get($"{SECTION_NAME}.IPAddress", "");
 
-                // Heslo pouťívateľa.
+                // Heslo používateľa.
                 prp_UserPassword = Preferences.Get($"{SECTION_NAME}.UserPassword", "");
 
                 // Meno používateľa.

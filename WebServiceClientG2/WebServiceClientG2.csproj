@@ -72,7 +72,7 @@
 	</ItemGroup>
 
   <ItemGroup>
-    <Using Include="Exa.OBERON.ServiceGen2.Client.Exceptions.ExaException" Alias="EXC" />
+    <Using Include="Exa.OBERON.ServicesGen2.Client.Exceptions.ExaException" Alias="EXC" />
   </ItemGroup>
 
   <ItemGroup>

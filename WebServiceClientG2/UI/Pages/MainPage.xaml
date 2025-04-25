@@ -5,10 +5,281 @@
 			 xmlns:local="clr-namespace:WebServiceClientG2.UI.ViewModels"
 			 x:DataType="local:MainViewModel"
 			 NavigationPage.HasNavigationBar="False"
+			 Style="{StaticResource ContentPageTheme}"
              Title="LoginPage">
 
-    <ScrollView>
-        
-    </ScrollView>
+	<ContentPage.Content>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+
+			<!--Toolbar-->
+			<Grid 
+				Grid.Row="0"
+				Background="{StaticResource BackgroundDarkColor}"
+				HeightRequest="62">
+
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="48"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="48"/>
+				</Grid.ColumnDefinitions>
+
+				<!--Titulka text-->
+				<Label 
+				MaxLines="1"
+				Grid.Column="1"
+				VerticalOptions="Center"
+				Text="Údaje web servisu" 
+				TextColor="{StaticResource PrimaryTextColor}"
+				FontSize="24"
+				FontFamily="RobotoRegular"/>
+
+			</Grid>
+
+			<!--Ponuka nastavení-->
+			<Grid 
+			Grid.Row="1">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="64" />
+				</Grid.RowDefinitions>
+
+				<!--IP adresa-->
+				<Grid 
+					Grid.Row="0"
+					Padding="10,0,10,0">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+
+					<!-- G - Globe -->
+					<Label
+						Grid.Column="0"
+						HorizontalOptions="Start"
+						VerticalTextAlignment="Center"
+						Text="G" 
+						FontFamily="ExaCommonFont"
+						Padding="16,0,0,0"
+						FontSize="24" 
+						TextColor="{StaticResource PrimaryTextColor}"/>
+
+					<Entry
+						Grid.Column="1"
+						Margin="5"
+						HorizontalTextAlignment="Start"
+						Text="{Binding IPAddress, Mode=TwoWay}" 
+						Keyboard="Text"
+						ReturnType="Done"
+						Placeholder="IP adresa"
+						Style="{StaticResource EntryColorTheme}"
+						FontFamily="RobotoRegular"
+						FontSize="16"
+						TextColor="{StaticResource PrimaryTextColor}"/>
+
+				</Grid>
+
+				<!--Meno používateľa-->
+				<Grid 
+					Grid.Row="1"
+					Padding="10,0,10,0">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+
+					<!-- U - User -->
+					<Label
+						Grid.Column="0"
+						Text="U" 
+						FontFamily="ExaCommonFont"
+						HorizontalOptions="Start"
+						VerticalTextAlignment="Center"
+						Padding="16,0,0,0"
+						FontSize="24" 
+						TextColor="{StaticResource PrimaryTextColor}"/>
+
+					<!--Meno používateľa-->
+					<Entry
+						Grid.Column="1"
+						Margin="5"
+						HorizontalTextAlignment="Start"
+						Text="{Binding UserName, Mode=TwoWay}" 
+						Keyboard="Text"
+						ReturnType="Done"
+						Placeholder="Meno"
+						FontFamily="RobotoRegular"
+						FontSize="16"
+						Style="{StaticResource EntryColorTheme}"
+						TextColor="{StaticResource PrimaryTextColor}"/>
+
+				</Grid>
+
+				<!--Heslo používateľa-->
+				<Grid 
+					Grid.Row="2"
+					Padding="10,0,10,0">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+
+					<!-- K - Key -->
+					<Label
+						Grid.Column="0"
+						Text="K"  
+						FontFamily="ExaCommonFont"
+						Padding="16,0,0,0"
+						FontSize="24" 
+						HorizontalOptions="Start"
+						VerticalTextAlignment="Center" 
+						TextColor="{StaticResource PrimaryTextColor}"/>
+
+					<!--Heslo používateľa-->
+					<Entry
+						Grid.Column="1"
+						Margin="5"
+						HorizontalTextAlignment="Start"
+						Text="{Binding Password, Mode=TwoWay}"
+						Placeholder="Heslo"
+						Keyboard="Text" 
+						IsPassword="True"
+						FontFamily="RobotoRegular"
+						FontSize="16"
+						Style="{StaticResource EntryColorTheme}"
+						TextColor="{StaticResource PrimaryTextColor}"/>
+
+				</Grid>
+
+				<!--SSH-->
+				<Grid 
+					Grid.Row="3"
+					Padding="10,0,10,0"
+					HorizontalOptions="Fill">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="54"/>
+					</Grid.ColumnDefinitions>
+
+					<!-- S - Shield -->
+					<Label 
+						Text="S"   
+						FontFamily="ExaCommonFont"
+						Padding="16,0,0,0"
+						FontSize="24" 
+						HorizontalOptions="Start"
+						VerticalTextAlignment="Center" 
+						TextColor="{StaticResource PrimaryTextColor}"/>
+
+					<Label
+						Padding="20,0,0,0" 
+						Grid.Column="1" 
+						Grid.ColumnSpan="2"
+						Text="Zabezpečené pripojenie" 
+						HorizontalOptions="Start"
+						VerticalOptions="Center"
+						FontFamily="RobotoRegular"
+						FontSize="18"
+						TextColor="{StaticResource PrimaryTextColor}"/>
+
+					<!--Switch-->
+					<Switch
+						Grid.Column="2"
+						HorizontalOptions="End"
+						VerticalOptions="Center"
+						IsToggled="{Binding SSL}">
+
+						<VisualStateManager.VisualStateGroups>
+							<VisualStateGroupList>
+								<VisualStateGroup x:Name="CommonStates">
+									<VisualState x:Name="On">
+										<VisualState.Setters>
+											<Setter Property="ThumbColor"
+											Value="Green" />
+											<Setter Property="OnColor"
+											Value="White" />
+										</VisualState.Setters>
+									</VisualState>
+									<VisualState x:Name="Off">
+										<VisualState.Setters>
+											<Setter Property="ThumbColor"
+											Value="Gray" />
+											<Setter Property="OnColor"
+											Value="White" />
+										</VisualState.Setters>
+									</VisualState>
+								</VisualStateGroup>
+							</VisualStateGroupList>
+						</VisualStateManager.VisualStateGroups>
+
+					</Switch>
+				</Grid>
+			</Grid>
+
+			<Grid
+				Grid.Row="2"
+				Padding="32"
+				VerticalOptions="End">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+
+
+				<!-- Tlačítko Pripojiť-->
+				<Button 
+					Text="Pripojiť"
+					Grid.Column="1"
+					HeightRequest="56" 
+					VerticalOptions="Center" 
+					WidthRequest="132"
+					FontSize="16"
+					Margin="4,0,0,0"
+					FontFamily="RobotoRegular"
+					BackgroundColor="{StaticResource PrimaryColor}" 
+					TextColor="{StaticResource PrimaryTextColor}" 
+					CornerRadius="28"
+					Command="{Binding ConnectCommand}"/>
+
+			</Grid>
+
+			<!--Activity indicator-->
+			<Border
+				IsVisible="{Binding IsRunning}"
+				Grid.Row="0"
+				Grid.RowSpan="3"
+				BackgroundColor="{StaticResource ActivityIndicatorBackgroundColor}"
+				StrokeShape="Rectangle"
+				StrokeThickness="0"
+				Padding="10">
+					<ActivityIndicator
+					IsRunning="{Binding IsRunning}"
+					IsVisible="{Binding IsRunning}"
+					IsEnabled="true"
+					Style="{StaticResource ActivityIndicatorStyle}" />
+			</Border>
+
+		</Grid>
+	</ContentPage.Content>
 
 </ContentPage>

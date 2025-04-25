@@ -12,10 +12,13 @@ namespace WebServiceClientG2.UI.ViewModels
     public class BaseViewModel : ObservableObject
     {
         private readonly IPopupService popupService;
+        public readonly Base.AppEngine _AppEngine;
 
-        public BaseViewModel(IPopupService popupService)
+        public BaseViewModel(Base.AppEngine appEngine,
+                             IPopupService popupService)
         {
             this.popupService = popupService;
+            this._AppEngine = appEngine;
         }
 
         /// <summary>
