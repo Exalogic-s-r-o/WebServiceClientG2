@@ -14,7 +14,6 @@ namespace WebServiceClientG2.UI.Popups
             this.popupService = popupService;
         }
 
-        
         private string _Title = string.Empty;
         /// <summary>
         /// Nadpis okna.
@@ -29,7 +28,6 @@ namespace WebServiceClientG2.UI.Popups
             }
         }
 
-        
         private string _Message = string.Empty;
         /// <summary>
         /// Správa okna.

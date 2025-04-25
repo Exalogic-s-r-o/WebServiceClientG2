@@ -72,12 +72,15 @@
 	</ItemGroup>
 
   <ItemGroup>
-    <Using Include="Exa.OBERON.ServiceGen2.Client.Exceptions.ExaException" Alias="EXC" />
+    <Using Include="Exa.OBERON.ServicesGen2.Client.Exceptions.ExaException" Alias="EXC" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Update="UI\Popups\WebServicePopup.xaml.cs">
       <DependentUpon>WebServicePopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="UI\TabBarPages\WebServicePage.xaml.cs">
+      <DependentUpon>WebServicePage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -85,6 +88,16 @@
     <MauiXaml Update="UI\Popups\WebServicePopup.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="UI\TabBarPages\CompanyPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="UI\TabBarPages\StockCardsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UI\Pages\" />
   </ItemGroup>
 
 </Project>

@@ -5,10 +5,32 @@
              x:Class="WebServiceClientG2.App">
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
-                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+				<ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+
+			<Style TargetType="ContentPage" x:Key="ContentPageTheme">
+				<Setter Property="BackgroundColor" Value="Black" />
+			</Style>
+
+			<Style TargetType="Entry" x:Key="EntryColorTheme" ApplyToDerivedTypes="True">
+
+				<Setter Property="TextColor" Value="#ffffff" />
+				<Setter Property="Background" Value="Black"/>
+				<Setter Property="BackgroundColor" Value="Black"/>
+				<Setter Property="IsSpellCheckEnabled" Value="false"/>
+				<Setter Property="IsTextPredictionEnabled" Value="false"/>
+
+			</Style>
+
+			<!--ACTIVITY INDICATOR-->
+			<Style TargetType="ActivityIndicator" x:Key="ActivityIndicatorStyle" ApplyToDerivedTypes="True">
+				<Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+				<Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+				<Setter Property="Color" Value="{StaticResource ActivityIndicatorColor}" />
+			</Style>
+			
+		</ResourceDictionary>
     </Application.Resources>
 </Application>

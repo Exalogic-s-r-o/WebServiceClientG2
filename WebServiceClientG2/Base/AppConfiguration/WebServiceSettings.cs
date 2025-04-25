@@ -15,6 +15,11 @@ namespace WebServiceClientG2.Base.AppConfiguration
 
         #endregion
 
+        public WebServiceSettings()
+        {
+            this.Load();
+        }
+
         #region PROPERTIES
 
         private string prp_IPAddress = string.Empty;
@@ -97,9 +102,9 @@ namespace WebServiceClientG2.Base.AppConfiguration
             try
             {
                 // IP adresa.
-                prp_IPAddress = Preferences.Get($"{SECTION_NAME}.IPAddress", "");
+                prp_IPAddress = Preferences.Get($"{SECTION_NAME}.IPAddress", "192.168.16.236");
 
-                // Heslo pouťívateľa.
+                // Heslo používateľa.
                 prp_UserPassword = Preferences.Get($"{SECTION_NAME}.UserPassword", "");
 
                 // Meno používateľa.
