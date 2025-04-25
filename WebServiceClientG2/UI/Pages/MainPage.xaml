@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WebServiceClientG2.UI.Pages.MainPage"
+			 xmlns:local="clr-namespace:WebServiceClientG2.UI.ViewModels"
+			 x:DataType="local:MainViewModel"
+			 NavigationPage.HasNavigationBar="False"
+             Title="LoginPage">
+
+    <ScrollView>
+        
+    </ScrollView>
+
+</ContentPage>
