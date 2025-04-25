@@ -56,6 +56,7 @@ namespace Exa.OBERON.ServicesGen2.Client
             }
 
             System = new Services.SystemService(this);
+
         }
         #endregion
 
