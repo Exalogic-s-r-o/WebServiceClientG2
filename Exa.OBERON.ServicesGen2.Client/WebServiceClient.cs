@@ -148,8 +148,6 @@ namespace Exa.OBERON.ServicesGen2.Client
             return myEx;
         }
 
-        
-
         #endregion
 
         #region IDisposable
