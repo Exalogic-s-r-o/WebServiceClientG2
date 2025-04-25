@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="WebServiceClientG2.UI.Pages.MainPage"
+             x:Class="WebServiceClientG2.UI.TabBarPages.WebServicePage"
 			 xmlns:local="clr-namespace:WebServiceClientG2.UI.ViewModels"
-			 x:DataType="local:MainViewModel"
+			 x:DataType="local:WebServiceViewModel"
 			 NavigationPage.HasNavigationBar="False"
 			 Style="{StaticResource ContentPageTheme}"
              Title="LoginPage">
@@ -33,7 +33,7 @@
 				MaxLines="1"
 				Grid.Column="1"
 				VerticalOptions="Center"
-				Text="Údaje web servisu" 
+				Text="Nastavenia web servisu" 
 				TextColor="{StaticResource PrimaryTextColor}"
 				FontSize="24"
 				FontFamily="RobotoRegular"/>
@@ -242,14 +242,11 @@
 				VerticalOptions="End">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-
 
 				<!-- Tlačítko Pripojiť-->
 				<Button 
 					Text="Pripojiť"
-					Grid.Column="1"
 					HeightRequest="56" 
 					VerticalOptions="Center" 
 					WidthRequest="132"

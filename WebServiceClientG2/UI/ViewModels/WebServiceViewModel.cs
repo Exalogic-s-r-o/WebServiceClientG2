@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace WebServiceClientG2.UI.ViewModels
 {
-    public partial class MainViewModel : BaseViewModel
+    public partial class WebServiceViewModel : BaseViewModel
     {
 
         #region CONSTRUCTOR
@@ -17,12 +17,14 @@ namespace WebServiceClientG2.UI.ViewModels
         /// <summary>
         /// Konštruktor.
         /// </summary>
-        public MainViewModel(Base.AppEngine appEngine, 
+        public WebServiceViewModel(Base.AppEngine appEngine, 
                              IPopupService popupService) : base(appEngine, popupService)
         {
-
+            this.IPAddress = appEngine.WebServiceSettings.IPAddress;
+            this.UserName = appEngine.WebServiceSettings.UserName;
+            this.Password = appEngine.WebServiceSettings.UserPassword;
+            this.SSL = appEngine.WebServiceSettings.SSL;
         }
-
         #endregion
 
         #region PROPERTIES
@@ -150,6 +152,8 @@ namespace WebServiceClientG2.UI.ViewModels
                     // Chyba.
                     await ShowPopup(myEx);
                 }
+
+                await Shell.Current.GoToAsync("//tabs");
 
                 // Pripojenie.
                 //myEx = await this._AppEngine.Connect();

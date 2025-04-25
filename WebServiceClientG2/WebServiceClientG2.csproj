@@ -79,12 +79,25 @@
     <Compile Update="UI\Popups\WebServicePopup.xaml.cs">
       <DependentUpon>WebServicePopup.xaml</DependentUpon>
     </Compile>
+    <Compile Update="UI\TabBarPages\WebServicePage.xaml.cs">
+      <DependentUpon>WebServicePage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <MauiXaml Update="UI\Popups\WebServicePopup.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="UI\TabBarPages\CompanyPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="UI\TabBarPages\StockCardsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UI\Pages\" />
   </ItemGroup>
 
 </Project>

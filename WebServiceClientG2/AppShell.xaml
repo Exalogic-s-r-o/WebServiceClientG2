@@ -4,14 +4,24 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:WebServiceClientG2.UI.Pages"
+	xmlns:tabs="clr-namespace:WebServiceClientG2.UI.TabBarPages"
     Shell.PresentationMode="Animated"
     Shell.NavBarIsVisible="False"
     Shell.FlyoutBehavior="Disabled"
     Title="WebServiceClientG2">
 
-    <ShellContent
+    <!--<ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Route="MainPage" />-->
 
+	<!--<TabBar Route="tabs">
+		<Tab Title="Firma" Icon="settings.png">
+			<ShellContent Route="Company" ContentTemplate="{DataTemplate tabs:CompanyPage}"/>
+		</Tab>
+		<Tab Title="Skladové karty" Icon="profile.png">
+			<ShellContent Route="profile" ContentTemplate="{DataTemplate tabs:StockCardsPage}"/>
+		</Tab>
+	</TabBar>-->
+	
 </Shell>
