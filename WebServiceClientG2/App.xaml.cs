@@ -1,4 +1,6 @@
-﻿namespace WebServiceClientG2
+﻿using CommunityToolkit.Maui.Core;
+
+namespace WebServiceClientG2
 {
     public partial class App : Application
     {
@@ -15,17 +17,25 @@
 
         private int sizeChangedReq = 0;
 
+        Base.AppEngine _AppEngine;
+        IPopupService PopupService;
+
         #endregion
 
-        public App()
+        public App(Base.AppEngine appEngine, 
+                   IPopupService popupService)
         {
             InitializeComponent();
+
+            this._AppEngine = appEngine;
+            this.PopupService = popupService;
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
 
-            var window = new Window(new AppShell());
+            var window = new Window(new NavigationPage(new UI.Pages.MainPage(this._AppEngine, this.PopupService)));
+
 
             // nastav uloženú pozíciu okna. Niekedy sa uloží záporná hodnota. tu je ošetrenie ak bola uložená záporná pozícia
             var window_X = Preferences.Default.Get(Pref_MainWindowX, window.X);

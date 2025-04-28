@@ -18,7 +18,7 @@ namespace WebServiceClientG2.UI.ViewModels
         /// Konštruktor.
         /// </summary>
         public WebServiceViewModel(Base.AppEngine appEngine, 
-                             IPopupService popupService) : base(appEngine, popupService)
+                                   IPopupService popupService) : base(appEngine, popupService)
         {
             this.IPAddress = appEngine.WebServiceSettings.IPAddress;
             this.UserName = appEngine.WebServiceSettings.UserName;
