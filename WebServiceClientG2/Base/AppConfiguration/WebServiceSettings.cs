@@ -95,7 +95,7 @@ namespace WebServiceClientG2.Base.AppConfiguration
         #region PUBLIC METHODS
 
         /// <summary>
-        /// Načíta nastavenia uložené pomocou 
+        /// Načíta nastavenia uložené pomocou secure storage.
         /// </summary>
         public void Load()
         {

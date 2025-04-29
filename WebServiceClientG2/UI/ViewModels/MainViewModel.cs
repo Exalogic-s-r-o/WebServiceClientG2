@@ -1,12 +1,7 @@
 ﻿using CommunityToolkit.Maui.Core;
-using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+
 
 namespace WebServiceClientG2.UI.ViewModels
 {
@@ -16,17 +11,92 @@ namespace WebServiceClientG2.UI.ViewModels
 
         #region MESSAGES
 
-
         void IRecipient<WebServiceClientG2.Messages.AddTextMessage>.
             Receive(WebServiceClientG2.Messages.AddTextMessage text) => ConsoleTextAdd(text.Value);
 
         #endregion
 
-        private object currentTabContent;
-        private Color settingsTabColor;
-        private Color profileTabColor;
-        private string consoleText;
+        #region CONSTRUCTOR
+        public MainViewModel(Base.AppEngine appEngine,
+                             IPopupService popupService) : base(appEngine, popupService)
+        {
+            WeakReferenceMessenger.Default.RegisterAll(this);
 
+            this.webServiceView = new Views.WebServiceView(appEngine, popupService);
+            this.systemView = new Views.SystemView(appEngine, popupService);
+
+            this.webServiceTab = new Models.TabItem(name: "WebService", contentView: webServiceView);
+            this.systemTab = new Models.TabItem(name: "System", contentView: systemView);
+
+            this.Tabs = new ObservableCollection<Models.TabItem>();
+            this.SelectedTab = webServiceTab;
+
+            CreateTabMenu();
+
+            // Initialize console.
+            ConsoleText = $"Testovacia aplikácia k OBERONGen2 webovej službe. Verzia z dňa: '{WebServiceClientG2.Base.AppEngine.CONST_APP_VERSION_DATE}'\n";
+        }
+
+        #endregion
+
+        #region FIELDS
+
+        private readonly UI.Views.WebServiceView webServiceView;
+        private readonly UI.Views.SystemView systemView;
+
+        private readonly Models.TabItem webServiceTab;
+        private readonly Models.TabItem systemTab;
+
+        #endregion
+
+        #region PROPERTIES
+
+        private ObservableCollection<Models.TabItem> tabs = new ObservableCollection<Models.TabItem>();
+        /// <summary>
+        /// Zoznam záložiek v liste.
+        /// </summary>
+        public ObservableCollection<Models.TabItem> Tabs
+        {
+            get { return tabs; }
+            set
+            {
+                tabs = value;
+                OnPropertyChanged("Tabs");
+            }
+        }
+
+        
+
+        private Models.TabItem selectedTab = new Models.TabItem("Test", new ContentView());
+        /// <summary>
+        /// Vybraná záložka.
+        /// </summary>
+        public Models.TabItem SelectedTab
+        {
+            get { return selectedTab; }
+            set
+            {
+                if (selectedTab == value)
+                {
+                    return;
+                }
+
+                selectedTab = value;
+
+                try
+                {
+                    ChangeView(value);
+                }
+                catch
+                {
+                }
+
+                OnPropertyChanged("SelectedTab");
+            }
+        }
+
+
+        private object currentTabContent = new object();
         public object CurrentTabContent
         {
             get { return currentTabContent; }
@@ -37,26 +107,7 @@ namespace WebServiceClientG2.UI.ViewModels
             }
         }
 
-        public Color SettingsTabColor
-        {
-            get { return settingsTabColor; }
-            set
-            {
-                settingsTabColor = value;
-                OnPropertyChanged("SettingsTabColor");
-            }
-        }
-
-        public Color ProfileTabColor
-        {
-            get { return profileTabColor; }
-            set
-            {
-                profileTabColor = value;
-                OnPropertyChanged("ProfileTabColor");
-            }
-        }
-
+        private string consoleText = string.Empty;
         public string ConsoleText
         {
             get { return consoleText; }
@@ -67,80 +118,41 @@ namespace WebServiceClientG2.UI.ViewModels
             }
         }
 
-        private readonly UI.Views.ProfilView profilView;
-        private readonly UI.Views.StockView stockView;
-        private readonly UI.Views.WebServiceView webServiceView;
+        #endregion
 
-        public MainViewModel(Base.AppEngine appEngine,
-                             IPopupService popupService) : base(appEngine, popupService)
+        #region METHODS
+
+        private void ChangeView(Models.TabItem u_TabItem)
         {
-            WeakReferenceMessenger.Default.RegisterAll(this);
-
-            webServiceView = new Views.WebServiceView(appEngine, popupService);
-            profilView = new Views.ProfilView();
-            stockView = new Views.StockView();
-
-            // Initialize console
-            ConsoleText = $"Testovacia aplikácia k OBERONGen2 webovej službe. Verzia z dňa: '{WebServiceClientG2.Base.AppEngine.CONST_APP_VERSION_DATE}'\n";
-
-            // Default to Settings tab
-            ShowWebService();
-        }
-
-        [RelayCommand]
-        private void ShowWebService()
-        {
-            if (CurrentTabContent == webServiceView)
+            if (CurrentTabContent == u_TabItem.ContentView)
             {
                 return;
             }
 
-            CurrentTabContent = webServiceView;
-            SettingsTabColor = Colors.DarkGray;
-            ProfileTabColor = Colors.LightGray;
-            ConsoleText += "Switched to webService Tab\n";
+            CurrentTabContent = u_TabItem.ContentView;
         }
 
-        [RelayCommand]
-        private void ShowSettings()
-        {
-            if (CurrentTabContent == profilView)
-            {
-                return;
-            }
-
-            CurrentTabContent = profilView;
-            SettingsTabColor = Colors.DarkGray;
-            ProfileTabColor = Colors.LightGray;
-            ConsoleText += "Switched to Settings Tab\n";
-        }
-
-        [RelayCommand]
-        private void ShowProfile()
-        {
-            if (CurrentTabContent == stockView)
-            {
-                return;
-            }
-
-            CurrentTabContent = stockView;
-            SettingsTabColor = Colors.LightGray;
-            ProfileTabColor = Colors.DarkGray;
-            ConsoleText += "Switched to Profile Tab\n";
-        }
-
+        /// <summary>
+        /// Pridanie textu do konzoly.
+        /// </summary>
+        /// <param name="u_NewText"></param>
         public void ConsoleTextAdd(string u_NewText)
         {
             ConsoleText += $"{u_NewText}\n";
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
+        private void CreateTabMenu()
         {
-            if (PropertyChanged != null)
+            try
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                this.tabs.Add(webServiceTab);
+                this.tabs.Add(systemTab);
+            }
+            catch
+            {
             }
         }
+        #endregion
+
     }
 }
