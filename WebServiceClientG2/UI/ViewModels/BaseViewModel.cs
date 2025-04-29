@@ -63,15 +63,13 @@ namespace WebServiceClientG2.UI.ViewModels
                     // Chyba.
                     await this.popupService.ShowPopupAsync<WebServiceClientG2.UI.Popups.WebServicePopupViewModel>(onPresenting: viewModel =>
                     {
-                        viewModel.Title = "ASTON";
+                        viewModel.Title = "WebServiceClientG2";
                         viewModel.Message = myEx.Message;
                         viewModel.PopupType = 0;
                     });
                 }
-
-
             }
-            catch (Exception ex)
+            catch
             {
 
             }

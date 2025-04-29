@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using EXC = Exa.OBERON.ServicesGen2.Client.Exceptions.ExaException;
 using Exa.OBERON.ServicesGen2.Client.Models;
+using System.Security.Cryptography;
 
 namespace Exa.OBERON.ServicesGen2.Client.Services
 {
@@ -48,8 +49,8 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
         /// <param name="u_TimeOut">Timeout daného volania (v sekundách) a čakania na odpoveď.</param>
         [DebuggerNonUserCode]
         protected async Task<(EXC exc, JObject rsp)> RequestAsync(string u_Description,
-                                                                   HttpRequestMessage u_Request,
-                                                                   uint u_TimeOut = 12)
+                                                                  HttpRequestMessage u_Request,
+                                                                  uint u_TimeOut = 12)
         {
             EXC myEx = EXC.GetDefault();
             HttpResponseMessage m_Response = null;
@@ -81,8 +82,8 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
 
                 if (m_Response.Content != null)
                 {
-                    m_ResponseContentStr = await m_Response.Content.ReadAsStringAsync().ConfigureAwait(false);
                     string m_MediaType = m_Response.Content.Headers.ContentType?.MediaType.ToLower() ?? "/json";
+                    m_ResponseContentStr = await m_Response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
                     if (!string.IsNullOrWhiteSpace(m_MediaType))
                     {

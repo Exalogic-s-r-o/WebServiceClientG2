@@ -42,7 +42,7 @@ namespace WebServiceClientG2.Models
             set
             {
                 contentView = value;
-                OnPropertyChanged("IsSelected");
+                OnPropertyChanged("ContentView");
             }
         }
 

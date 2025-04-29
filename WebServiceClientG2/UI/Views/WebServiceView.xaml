@@ -232,26 +232,43 @@
 		</Grid>
 
 		<Grid
-		Grid.Row="2"
-		Padding="32"
-		VerticalOptions="End">
+			Grid.Row="2"
+			Padding="32"
+			VerticalOptions="End">
 			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
 				<ColumnDefinition Width="*"/>
 			</Grid.ColumnDefinitions>
 
+			<!-- Inicializovať-->
+			<Button
+				Grid.Column="0"
+				Text="Inicializovať"
+				HeightRequest="56" 
+				VerticalOptions="Center" 
+				WidthRequest="132"
+				FontSize="16"
+				Margin="4,0,0,0"
+				FontFamily="RobotoRegular"
+				BackgroundColor="{StaticResource PrimaryColor}" 
+				TextColor="{StaticResource PrimaryTextColor}" 
+				CornerRadius="28"
+				Command="{Binding InitializeWebServiceCommand}"/>
+			
 			<!-- Tlačítko Pripojiť-->
-			<Button 
-			Text="Pripojiť"
-			HeightRequest="56" 
-			VerticalOptions="Center" 
-			WidthRequest="132"
-			FontSize="16"
-			Margin="4,0,0,0"
-			FontFamily="RobotoRegular"
-			BackgroundColor="{StaticResource PrimaryColor}" 
-			TextColor="{StaticResource PrimaryTextColor}" 
-			CornerRadius="28"
-			Command="{Binding ConnectCommand}"/>
+			<Button
+				Grid.Column="1"
+				Text="Pripojiť"
+				HeightRequest="56" 
+				VerticalOptions="Center" 
+				WidthRequest="132"
+				FontSize="16"
+				Margin="4,0,0,0"
+				FontFamily="RobotoRegular"
+				BackgroundColor="{StaticResource PrimaryColor}" 
+				TextColor="{StaticResource PrimaryTextColor}" 
+				CornerRadius="28"
+				Command="{Binding ConnectCommand}"/>
 
 		</Grid>
 

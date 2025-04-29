@@ -25,7 +25,7 @@ namespace WebServiceClientG2.UI.ViewModels
             this.webServiceView = new Views.WebServiceView(appEngine, popupService);
             this.systemView = new Views.SystemView(appEngine, popupService);
 
-            this.webServiceTab = new Models.TabItem(name: "WebService", contentView: webServiceView);
+            this.webServiceTab = new Models.TabItem(name: "WebService", contentView: webServiceView, isSelected: true);
             this.systemTab = new Models.TabItem(name: "System", contentView: systemView);
 
             this.Tabs = new ObservableCollection<Models.TabItem>();
@@ -65,8 +65,6 @@ namespace WebServiceClientG2.UI.ViewModels
             }
         }
 
-        
-
         private Models.TabItem selectedTab = new Models.TabItem("Test", new ContentView());
         /// <summary>
         /// Vybraná záložka.
@@ -95,8 +93,10 @@ namespace WebServiceClientG2.UI.ViewModels
             }
         }
 
-
         private object currentTabContent = new object();
+        /// <summary>
+        /// Obsah aktuálnej záložky.
+        /// </summary>
         public object CurrentTabContent
         {
             get { return currentTabContent; }
@@ -108,6 +108,9 @@ namespace WebServiceClientG2.UI.ViewModels
         }
 
         private string consoleText = string.Empty;
+        /// <summary>
+        /// Text v konzole.
+        /// </summary>
         public string ConsoleText
         {
             get { return consoleText; }

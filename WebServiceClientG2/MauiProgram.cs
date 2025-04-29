@@ -21,6 +21,8 @@ namespace WebServiceClientG2
                 });
 
             builder.Services.AddSingleton<WebServiceClientG2.Base.AppEngine>();
+
+            builder.Services.AddTransientPopup<WebServiceClientG2.UI.Popups.WebServicePopup, WebServiceClientG2.UI.Popups.WebServicePopupViewModel>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

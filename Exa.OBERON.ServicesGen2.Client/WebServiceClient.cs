@@ -62,6 +62,17 @@ namespace Exa.OBERON.ServicesGen2.Client
 
         #region PROPERTIES
 
+        private bool prp_IsInitialized = false;
+        /// <summary>
+        /// Indikuje, či je klient inicializovaný. Inicializácia prebehne po nastavení URL adresy servera a nastavení timeoutu.
+        /// </summary>
+        public bool IsInitialized
+        {
+            get
+            {
+                return prp_IsInitialized;
+            }
+        }
 
         /// <summary>
         /// Prihlasovací token pre komunikáciu s API. Používa sa len vtedy, ak server pre autentifikáciu používa daný typ prihlasovania a overovania.
@@ -135,8 +146,9 @@ namespace Exa.OBERON.ServicesGen2.Client
                     return myEx;
                 }
 
-                HttpClient.BaseAddress = new Uri(u_BaseAddress);
+                HttpClient.BaseAddress = new Uri($"http://{u_BaseAddress}");
 
+                this.prp_IsInitialized = true;
                 myEx.Result = true;
 
             }
