@@ -83,10 +83,12 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
         /// </remarks>
         /// </summary>
         /// <param name="userName"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
+        /// <param name="password"></param>     
         public async Task<ResultModel<Models.Login.UserInfo>> Login(string userName,
-                                                                    string password)
+                                                                    string password,
+                                                                    string loginTag = null,
+                                                                    string languageCode = null)
+     
         {
 
             ResultModel<Models.Login.UserInfo> result = new ResultModel<Models.Login.UserInfo>();
@@ -97,10 +99,10 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
                 login.UserName = userName;
                 login.Password = password;
                 login.PasswordType = 0;
-                login.ApplicationName = "Test klient";
-                login.ApplicationVersion = "1.0.0";
-                login.LoginTag = string.Empty;
-                login.LanguageCode = string.Empty; 
+                login.ApplicationName = WebServiceClient.ApplicationName;   
+                login.ApplicationVersion = WebServiceClient.ApplicationVersion;
+                login.LoginTag = loginTag;
+                login.LanguageCode = languageCode; 
 
                 var loginResult = await this.PostAsync<Models.Login.UserInfo>(u_Description: "Login",
                                                                               u_ApiPath: CONST_LOGIN_SALT,
