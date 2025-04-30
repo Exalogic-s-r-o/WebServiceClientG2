@@ -120,20 +120,18 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
                     default: message = "Požiadavku sa nepodarilo odoslať."; break;
                 }
 
-                myEx = EXC.Get(message, ex);
+                myEx = EXC.Get(message);
             }
 
             catch (System.Threading.Tasks.TaskCanceledException ex)
             {
                 myEx = EXC.Get($"Server '{this.WebServiceClient.HttpClient.BaseAddress.ToString()}' nie je v tejto chvíli dostupný (neodpovedá).",
-                                u_ErrNumber: (int)Exceptions.enm_ErrNumbers.TimeOut,
-                                u_ExceptionType: EXC.enm_ExceptionTypes.Validation,
-                                u_InnerException: ex);
+                                u_ErrNumber: (int)Exceptions.enm_ErrNumbers.TimeOut);
             }
             catch (Exception ex)
             {
 
-                myEx = EXC.Get($"RequestAsync '{u_Description}' error: {ex.Message}", ex);
+                myEx = EXC.Get($"RequestAsync '{u_Description}' error: {ex.Message}");
             }
             finally
             {
@@ -194,7 +192,7 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
             }
             catch (Exception ex)
             {
-                myEx = EXC.Get($"GetAsync '{u_Description}' error: {ex.Message}", ex);
+                myEx = EXC.Get($"GetAsync '{u_Description}' error: {ex.Message}");
             }
 
             var response = new ResultModel<T>();
@@ -229,7 +227,7 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
             }
             catch (Exception ex)
             {
-                myEx = EXC.Get($"GetAsync '{u_Description}' error: {ex.Message}", ex);
+                myEx = EXC.Get($"GetAsync '{u_Description}' error: {ex.Message}");
             }
 
             return default(T);
@@ -278,7 +276,7 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
             }
             catch (Exception ex)
             {
-                myEx = EXC.Get($"PostAsync '{u_Description}' error: {ex.Message}", ex);
+                myEx = EXC.Get($"PostAsync '{u_Description}' error: {ex.Message}");
             }
 
             var response = new ResultModel<T>();
@@ -329,7 +327,7 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
             }
             catch (Exception ex)
             {
-                myEx = EXC.Get($"DeleteAsync '{u_Description}' error: {ex.Message}", ex);
+                myEx = EXC.Get($"DeleteAsync '{u_Description}' error: {ex.Message}");
             }
 
             var response = new ResultModel<T>();
