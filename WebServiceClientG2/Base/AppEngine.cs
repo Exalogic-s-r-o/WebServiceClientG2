@@ -14,7 +14,7 @@ namespace WebServiceClientG2.Base
         /// <summary>
         /// Meno aplikácie.
         /// </summary>
-        public const string CONST_APPNAME = "WebServiceClientG2";
+        public const string CONST_APPNAME = "WebServiceClientG2 test projekt";
 
         /// <summary>
         /// Dátum vydania verzie.
@@ -31,7 +31,8 @@ namespace WebServiceClientG2.Base
         public AppEngine()
         {
             this.prp_WebServiceSettings = new WebServiceClientG2.Base.AppConfiguration.WebServiceSettings();
-            this.prp_WebServiceClient = new Exa.OBERON.ServicesGen2.Client.WebServiceClient();
+            this.prp_WebServiceClient = new Exa.OBERON.ServicesGen2.Client.WebServiceClient(CONST_APPNAME,
+                                                                                            CONST_APP_VERSION_DATE);
         }
 
         #endregion

@@ -32,7 +32,7 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
         /// </summary>
         private static readonly JsonSerializerSettings JsonSerializerSetting = new JsonSerializerSettings()
         {
-            DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate,
+            DefaultValueHandling = DefaultValueHandling.Ignore,
             NullValueHandling = NullValueHandling.Ignore,
             MissingMemberHandling = MissingMemberHandling.Error,
             Error = delegate (object sender, Newtonsoft.Json.Serialization.ErrorEventArgs args)
@@ -252,9 +252,10 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
         /// <param name="u_Request"></param>                
         /// <param name="u_TimeOut">Timeout daného volania (v sekundách) a čakania na odpoveď.</param>
         protected async Task<ResultModel<T>> PostAsync<T>(string u_Description,
-                                                       string u_ApiPath,
-                                                       object u_Request,
-                                                       uint u_TimeOut = 12)
+                                                          string u_ApiPath,
+                                                          object u_Request,
+                                                          string u_RequestRootName = null,
+                                                          uint u_TimeOut = 12)
         {
             EXC myEx = EXC.GetDefault();
 
@@ -275,8 +276,15 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
                     m_Request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", this.WebServiceClient.JWTToken);
                 }
 
-                // Vytvor JSON data
+                // Vytvor JSON data.
                 var m_JsonRequest = Newtonsoft.Json.JsonConvert.SerializeObject(u_Request, settings: JsonSerializerSetting);
+
+                if (string.IsNullOrEmpty(u_RequestRootName) == false)
+                {
+                    // Ak je zadaný root name, tak ho pridaj do JSON-u.
+                    m_JsonRequest = "{\"" + u_RequestRootName + "\":" + m_JsonRequest + "}";
+                }
+
                 m_Request.Content = new StringContent(content: m_JsonRequest,
                                                       encoding: Encoding.UTF8,
                                                       mediaType: "application/json");

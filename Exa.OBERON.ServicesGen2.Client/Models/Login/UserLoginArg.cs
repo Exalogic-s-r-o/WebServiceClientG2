@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
@@ -30,13 +31,11 @@ namespace Exa.OBERON.ServicesGen2.Client.Models.Login
         /// </summary>
         public int PasswordType { get; set; }
 
-
         /// <summary>
         /// Pomenovanie aplikácie, ktorá sa pripája k webovej službe.</see>. 
         /// Tým je možné napr. overiť zoznam pripojených externých zariadení do webovej služby.
         /// </summary>
         public string ApplicationName { get; set; }
-
 
         /// <summary>
         /// Číslo verzie aplikácie, ktorá sa pripája k webovej službe (odporúčame vo formáte x.x.x).</see>. 
@@ -44,10 +43,8 @@ namespace Exa.OBERON.ServicesGen2.Client.Models.Login
         /// </summary>
         public string ApplicationVersion { get; set; }
 
-
         /// <summary>Ľubovoľná textová hodnota - danú hodnotu si webová služba uloží a v prípade potreby poskytne klientovi.</see>. Tým je možné napr. overiť zoznam pripojených externých zariadení do webovej služby.</summary>
         public string LoginTag { get; set; }
-
 
         /// <summary>
         /// Kód jazyka pre preklad údajov, ktorých preklad aplikácia umožňuje napr. názvy skladových položiek, doplňujúce texty, skupiny (kategórie) v jedálnom lístku a podobne. 

@@ -121,15 +121,15 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
                 Models.Login.UserLoginArg login = new Models.Login.UserLoginArg();
                 login.UserName = userName;
                 login.Password = passwordHash;
-                login.PasswordType = 0;
-                login.ApplicationName = WebServiceClient.ApplicationName;   
+                login.ApplicationName = WebServiceClient.ApplicationName;
                 login.ApplicationVersion = WebServiceClient.ApplicationVersion;
                 login.LoginTag = loginTag;
-                login.LanguageCode = languageCode; 
+                login.LanguageCode = languageCode;
 
-                var loginResult = await this.PostAsync<ResultModel<Models.Login.UserInfo>>(u_Description: "Login",
-                                                                                           u_ApiPath: CONST_LOGIN,
-                                                                                           u_Request: login);
+                var loginResult = await this.PostAsync<Models.Login.UserInfo>(u_Description: "Login",
+                                                                              u_ApiPath: CONST_LOGIN,
+                                                                              u_Request: login ,
+                                                                              u_RequestRootName: "userLoginArg");
                 if (loginResult == null)
                 {
                     result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_LOGIN}'."));
