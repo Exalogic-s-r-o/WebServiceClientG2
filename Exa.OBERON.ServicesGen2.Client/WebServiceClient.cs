@@ -22,7 +22,7 @@ namespace Exa.OBERON.ServicesGen2.Client
 
         #region DECLARATION
 
-        public HttpClient HttpClient;
+        internal HttpClient HttpClient;
 
         #endregion
 
@@ -31,10 +31,20 @@ namespace Exa.OBERON.ServicesGen2.Client
         /// <summary>
         /// Konštuktor Http klienta - odporúča sa nastaviť maximálny http timeout daných volaní.
         /// </summary>
-        /// <param name="defaultHttpTimeout">Maximálny Timeout Http volania. Pri každom volaní http requestu (GET, POST, PUT, DEL) sa nastavuje daný timout volania samostatne (musí byť totožný alebo menší ako maximálny timeout).</param>
-        public WebServiceClient(uint defaultHttpTimeout = 60)
+        /// <param name="defaultHttpTimeout">Maximálny Timeout Http volania. Pri každom volaní http requestu (GET, POST, PUT, DEL) sa nastavuje daný timout volania samostatne (musí byť totožný alebo menší ako maximálny timeout).</param>        
+        public WebServiceClient(string ApplicationName,
+                                string ApplicationVersion,
+                                uint defaultHttpTimeout = 60)
         {
+            // Nastavenia klienta webovej služby
+            if (defaultHttpTimeout == 0)
+            {
+                defaultHttpTimeout = 60;
+            }
+            this.ApplicationName = ApplicationName;
+            this.ApplicationVersion = ApplicationVersion;
 
+            // Inicializácia HttpClient-a
             HttpClientHandler handler = new HttpClientHandler();
 
             // Attach custom certificate validation callback.
@@ -43,18 +53,15 @@ namespace Exa.OBERON.ServicesGen2.Client
             HttpClient = new HttpClient(handler);
 
             // Timeout Http Klienta - musí sa nastaviť pred prvým volaním, lebo potom sa už nedá zmeniť.
-            // Pri každom volaní http requestu (GET, POST, PUT, DEL) sa nastavuje daný timout volania samostatne (musí byť totožný alebo menší ako maximálny timeout).            
-            if (defaultHttpTimeout == 0)
-            {
-                defaultHttpTimeout = 60;
-            }
-            prp_HttpTimeout = defaultHttpTimeout;
+            // Pri každom volaní http requestu (GET, POST, PUT, DEL) sa nastavuje daný timout volania samostatne (musí byť totožný alebo menší ako maximálny timeout).                       
+            this.HttpTimeout = defaultHttpTimeout;
 
-            if (prp_HttpTimeout != 0)
+            if (this.HttpTimeout != 0)
             {
-                HttpClient.Timeout = new TimeSpan(0, 0, (int)prp_HttpTimeout);
+                HttpClient.Timeout = new TimeSpan(0, 0, (int)this.HttpTimeout);
             }
 
+            // Vytvorenie objektov konkrétnych volaní - členené podľa modulov systému OBERON (daného API)
             this.System = new Services.SystemService(this);
             this.Login = new Services.LoginService(this);
         }
@@ -79,21 +86,24 @@ namespace Exa.OBERON.ServicesGen2.Client
         /// Ak si ho client po Login-e nastaví, bude automaticky použitý pri daných volaniach.
         /// (nastavuje Request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", this.JWTToken));
         /// </summary>      
-        public string JWTToken { get; set; }
+        internal string JWTToken { get; set; }
 
 
-        private uint prp_HttpTimeout;
         /// <summary>
         /// Maximálny timeout http volania a čakania na odpoveď (v sekundách). 
         /// Pri každom volaní http requestu (GET, POST, PUT, DEL) sa nastavuje daný timout volania samostatne (musí byť totožný alebo menší ako maximálny timeout). 
         /// </summary>
-        public uint HttpTimeout
-        {
-            get
-            {
-                return prp_HttpTimeout;
-            }
-        }
+        public uint HttpTimeout { get;}
+
+        /// <summary>
+        /// Meno aplikácie, ktorá používa klienta webovej služby OBERON. Nastavuje sa v konštruktore, zapisuje sa do log-ov systému OBERON. 
+        /// </summary>
+        public string ApplicationName { get; }
+
+        /// <summary>
+        /// Verzia aplikácie (napr. "1.0.0"), ktorá používa klienta webovej služby OBERON.  Nastavuje sa v konštruktore, zapisuje sa do log-ov systému OBERON.. 
+        /// </summary>
+        public string ApplicationVersion { get; }
 
         /// <summary>
         /// Obsahuje systémové funkcie bez prihlásenia (ping, version, atď.).
