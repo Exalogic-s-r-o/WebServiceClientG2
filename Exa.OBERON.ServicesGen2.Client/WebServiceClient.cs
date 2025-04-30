@@ -55,8 +55,8 @@ namespace Exa.OBERON.ServicesGen2.Client
                 HttpClient.Timeout = new TimeSpan(0, 0, (int)prp_HttpTimeout);
             }
 
-            System = new Services.SystemService(this);
-
+            this.System = new Services.SystemService(this);
+            this.Login = new Services.LoginService(this);
         }
         #endregion
 
@@ -100,14 +100,19 @@ namespace Exa.OBERON.ServicesGen2.Client
         /// </summary>
         public Exa.OBERON.ServicesGen2.Client.Services.SystemService System;
 
+        /// <summary>
+        /// Obsahuje funkcie pre prihlásenie a autentifikáciu.
+        /// </summary>
+        public Exa.OBERON.ServicesGen2.Client.Services.LoginService Login;
+
         #endregion
 
         #region PRIVATE METHODS
 
         public virtual bool ValidateCertificate(HttpRequestMessage requestMessage,
-                                         X509Certificate2 certificate,
-                                         X509Chain chain,
-                                         SslPolicyErrors sslPolicyErrors)
+                                                X509Certificate2 certificate,
+                                                X509Chain chain,
+                                                SslPolicyErrors sslPolicyErrors)
         {
             // Check if there are SSL policy errors
             if (sslPolicyErrors != SslPolicyErrors.None)
@@ -154,7 +159,7 @@ namespace Exa.OBERON.ServicesGen2.Client
             }
             catch (Exception ex)
             {
-                myEx = EXC.Get($"SetBaseAddress error: {ex.Message}", ex);
+                myEx = EXC.Get($"SetBaseAddress error: {ex.Message}");
             }
 
             return myEx;

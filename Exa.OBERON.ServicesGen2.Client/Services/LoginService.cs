@@ -1,0 +1,131 @@
+﻿using Exa.OBERON.ServicesGen2.Client.Models;
+using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+using EXC = Exa.OBERON.ServicesGen2.Client.Exceptions.ExaException;
+
+namespace Exa.OBERON.ServicesGen2.Client.Services
+{
+    public class LoginService : BaseService
+    {
+
+        #region CONSTANTS
+
+        private const string CONST_LOGIN_SALT = "/v1/user/login/salt";
+        
+
+        #endregion
+
+        #region CONSTRUCTOR
+
+        public LoginService(Exa.OBERON.ServicesGen2.Client.WebServiceClient webServiceClient) : base(webServiceClient)
+        {
+
+        }
+
+        #endregion
+
+        #region METHODS
+
+        /// <summary>Vráti tzv. SALT, ktorý je používaný pri hashovaní hesla pri prihlásení používateľa. Volá sa tesne pred metódou LoginUser.</summary>
+        /// <remarks>
+        /// Pri prihlásení používateľa nezabezpečenou komunikáciou (HTTP - nezabezpečená, HTTPS -> zabezpečená) môže pri odpočúvaní komunikácie útočník pomerne ľahko zistiť prihlasovacie údaje (hlavne heslo).
+        /// Čiastočne to rieši systém zasielania hesla len vo forme HASH (OBERON používa SHA-1), avšak pri slabých (krátkych) heslách je veľmi jednoduché pomocou hashovacích tabuliek (databáz) získať aj takého heslo.
+        /// Z tohto dôvodu je možné pri prihlásení zasielaný HASH hesla "obohatiť" o tento SALT a tým znemožniť využitie hashovacích tabuliek.	
+        /// </remarks>
+        /// <param name="userName">Meno používateľa pre ktorý sa salt generuje a následne pri ďalšom prihlásení (metóda LoginUser) použije.</param>
+        /// <returns>V ResultValue.Data vracia SALT. Ide o textovú hodnotu, ku ktorej sa pripojí heslo -> z týchto hodnôt sa následne vytvorí HASH (typ SHA-1), ktorý sa už použije pri prihlásení v parametri 'password'.</returns>
+        /// <example>Url:  http://address:port/v1/user/login/salt</example>
+        public async Task<ResultModel<string>> LoginSalt(string userName)
+        {
+
+            ResultModel<string> result = new ResultModel<string>();
+
+            try
+            {
+                Models.Login.LoginSalt loginSalt = new Models.Login.LoginSalt();
+                loginSalt.userName = userName;
+
+                var loginResult = await this.PostAsync<string>(u_Description: "LoginSalt",
+                                                              u_ApiPath: CONST_LOGIN_SALT,
+                                                              u_Request: loginSalt);
+                if (loginResult == null)
+                {
+                    result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_LOGIN_SALT}'."));
+                    return result;
+                }
+
+                result.result = true;
+                result.data = loginResult.data;
+
+            }
+            catch (System.TimeoutException)
+            {
+                // Timeout - služba nie je dostupná.
+                result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_LOGIN_SALT}'. 'TIMEOUT' "));
+            }
+            catch (Exception ex)
+            {
+                result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_LOGIN_SALT}'. '{ex.Message}' "));
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// <summary>Prihlási používateľa do webovej služby (záleží však na nastavení spôsobu autentifikácie služby). Je potrebné volať na začiatku komunikácie s webovou službou, nakoľko sa generuje tzv. GUID pre ďalšiu komunikáciu (ten musí byť súčasťou hlavičky danej požiadavky).</summary>
+        /// <remarks>
+        /// Pri prihlásení používateľa nezabezpečenou komunikáciou (HTTP - nezabezpečená, HTTPS -> zabezpečená) môže pri odpočúvaní komunikácie útočník pomerne ľahko zistiť prihlasovacie údaje (hlavne heslo).
+        /// Čiastočne to rieši systém zasielania hesla len vo forme HASH (OBERON používa SHA-1), avšak pri slabých (krátkych) heslách je veľmi jednoduché pomocou hashovacích tabuliek (databáz) získať aj takého heslo.
+        /// Z tohto dôvodu je možné pri prihlásení zasielaný HASH hesla "obohatiť" o SALT a tým znemožniť využitie hashovacích tabuliek.
+        /// Po úspešnom prihlásení sa v ďalších požiadavkách na webovú službu musí v hlavičke dopytu uvádzať daný GUID (userData), podľa ktorého sa overuje daná požiadavka.  
+        /// </remarks>
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public async Task<ResultModel<Models.Login.UserInfo>> Login(string userName,
+                                                                    string password)
+        {
+
+            ResultModel<Models.Login.UserInfo> result = new ResultModel<Models.Login.UserInfo>();
+
+            try
+            {
+                Models.Login.UserLoginArg login = new Models.Login.UserLoginArg();
+                login.UserName = userName;
+                login.Password = password;
+                login.PasswordType = 0;
+                login.ApplicationName = "Test klient";
+                login.ApplicationVersion = "1.0.0";
+                login.LoginTag = string.Empty;
+                login.LanguageCode = string.Empty; 
+
+                var loginResult = await this.PostAsync<Models.Login.UserInfo>(u_Description: "Login",
+                                                                              u_ApiPath: CONST_LOGIN_SALT,
+                                                                              u_Request: login);
+                if (loginResult == null)
+                {
+                    result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_LOGIN_SALT}'."));
+                    return result;
+                }
+
+                result.result = true;
+                result.data = loginResult.data;
+
+            }
+            catch (System.TimeoutException)
+            {
+                // Timeout - služba nie je dostupná.
+                result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_LOGIN_SALT}'. 'TIMEOUT' "));
+            }
+            catch (Exception ex)
+            {
+                result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_LOGIN_SALT}'. '{ex.Message}' "));
+            }
+            return result;
+        }
+        #endregion
+    }
+}

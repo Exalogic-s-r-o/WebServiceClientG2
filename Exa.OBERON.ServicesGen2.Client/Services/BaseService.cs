@@ -172,6 +172,15 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
         {
             EXC myEx = EXC.GetDefault();
 
+            var response = new ResultModel<T>();
+
+            if (this.WebServiceClient.IsInitialized == false)
+            {
+                myEx = EXC.Get("WebServiceClient nie je inicializovaný.");
+                response.FromExaException(myEx);
+                return response;
+            }
+
             try
             {
                 HttpRequestMessage m_Request = new HttpRequestMessage(HttpMethod.Get, u_ApiPath);
@@ -196,14 +205,13 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
                 myEx = EXC.Get($"GetAsync '{u_Description}' error: {ex.Message}");
             }
 
-            var response = new ResultModel<T>();
             response.FromExaException(myEx);
             return response;
         }
 
         protected async Task<T> GetAsync<T>(string u_Description,
-                                                         string u_ApiPath,
-                                                         uint u_TimeOut = 12)
+                                            string u_ApiPath,
+                                            uint u_TimeOut = 12)
         {
             EXC myEx = EXC.GetDefault();
 
@@ -250,6 +258,15 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
         {
             EXC myEx = EXC.GetDefault();
 
+            var response = new ResultModel<T>();
+
+            if (this.WebServiceClient.IsInitialized == false)
+            {
+                myEx = EXC.Get("WebServiceClient nie je inicializovaný.");
+                response.FromExaException(myEx);
+                return response;
+            }
+
             try
             {
                 HttpRequestMessage m_Request = new HttpRequestMessage(HttpMethod.Post, u_ApiPath);
@@ -280,7 +297,6 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
                 myEx = EXC.Get($"PostAsync '{u_Description}' error: {ex.Message}");
             }
 
-            var response = new ResultModel<T>();
             response.FromExaException(myEx);
             return response;
         }
