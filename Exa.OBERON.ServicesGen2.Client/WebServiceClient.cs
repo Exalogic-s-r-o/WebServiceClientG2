@@ -22,7 +22,7 @@ namespace Exa.OBERON.ServicesGen2.Client
 
         #region DECLARATION
 
-        public HttpClient HttpClient;
+        internal HttpClient HttpClient;
 
         #endregion
 
@@ -154,7 +154,7 @@ namespace Exa.OBERON.ServicesGen2.Client
             }
             catch (Exception ex)
             {
-                myEx = EXC.Get($"SetBaseAddress error: {ex.Message}", ex);
+                myEx = EXC.Get($"SetBaseAddress error: {ex.Message}");
             }
 
             return myEx;
