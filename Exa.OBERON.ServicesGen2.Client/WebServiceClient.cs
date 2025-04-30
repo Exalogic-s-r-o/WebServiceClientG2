@@ -84,9 +84,8 @@ namespace Exa.OBERON.ServicesGen2.Client
         /// <summary>
         /// Prihlasovací token pre komunikáciu s API. Používa sa len vtedy, ak server pre autentifikáciu používa daný typ prihlasovania a overovania.
         /// Ak si ho client po Login-e nastaví, bude automaticky použitý pri daných volaniach.
-        /// (nastavuje Request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", this.JWTToken));
         /// </summary>      
-        internal string JWTToken { get; set; }
+        internal string UserData { get; set; }
 
 
         /// <summary>

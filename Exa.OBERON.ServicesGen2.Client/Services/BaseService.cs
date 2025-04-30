@@ -184,9 +184,9 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
             try
             {
                 HttpRequestMessage m_Request = new HttpRequestMessage(HttpMethod.Get, u_ApiPath);
-                if (string.IsNullOrEmpty(this.WebServiceClient.JWTToken) == false)
+                if (string.IsNullOrEmpty(this.WebServiceClient.UserData) == false)
                 {
-                    m_Request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", this.WebServiceClient.JWTToken);
+                    m_Request.Headers.Authorization = new AuthenticationHeaderValue("userData", this.WebServiceClient.UserData);
                 }
 
                 var m_Result = await this.RequestAsync(u_Description, m_Request, u_TimeOut: u_TimeOut);
@@ -218,9 +218,9 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
             try
             {
                 HttpRequestMessage m_Request = new HttpRequestMessage(HttpMethod.Get, u_ApiPath);
-                if (string.IsNullOrEmpty(this.WebServiceClient.JWTToken) == false)
+                if (string.IsNullOrEmpty(this.WebServiceClient.UserData) == false)
                 {
-                    m_Request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", this.WebServiceClient.JWTToken);
+                    m_Request.Headers.Authorization = new AuthenticationHeaderValue("userData", this.WebServiceClient.UserData);
                 }
 
                 var m_Result = await this.RequestAsync(u_Description, m_Request, u_TimeOut: u_TimeOut);
@@ -271,9 +271,9 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
             try
             {
                 HttpRequestMessage m_Request = new HttpRequestMessage(HttpMethod.Post, u_ApiPath);
-                if (string.IsNullOrEmpty(this.WebServiceClient.JWTToken) == false)
+                if (string.IsNullOrEmpty(this.WebServiceClient.UserData) == false)
                 {
-                    m_Request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", this.WebServiceClient.JWTToken);
+                    m_Request.Headers.Authorization = new AuthenticationHeaderValue("userData", this.WebServiceClient.UserData);
                 }
 
                 // Vytvor JSON data.
@@ -327,9 +327,9 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
             try
             {
                 HttpRequestMessage m_Request = new HttpRequestMessage(HttpMethod.Delete, u_ApiPath);
-                if (string.IsNullOrEmpty(this.WebServiceClient.JWTToken) == false)
+                if (string.IsNullOrEmpty(this.WebServiceClient.UserData) == false)
                 {
-                    m_Request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", this.WebServiceClient.JWTToken);
+                    m_Request.Headers.Authorization = new AuthenticationHeaderValue("userData", this.WebServiceClient.UserData);
                 }
 
                 // Vytvor JSON data

@@ -128,7 +128,7 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
 
                 var loginResult = await this.PostAsync<Models.Login.UserInfo>(u_Description: "Login",
                                                                               u_ApiPath: CONST_LOGIN,
-                                                                              u_Request: login ,
+                                                                              u_Request: login,
                                                                               u_RequestRootName: "userLoginArg");
                 if (loginResult == null)
                 {
@@ -137,7 +137,16 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
                 }
 
                 result.result = true;
-                //result.data = loginResult.data;
+                // Uložiť user GUID do webovej služby. Slúži na identifikáciu používateľa pri ďalších volaniach.
+                this.WebServiceClient.UserData = loginResult.data.GUID;
+
+                result.data.ShortName = loginResult.data.ShortName;
+                result.data.UserName = loginResult.data.UserName;
+                result.data.UserIDNum = loginResult.data.UserIDNum;
+                result.data.DocumentName = loginResult.data.DocumentName;
+                result.data.BranchName = loginResult.data.BranchName;
+                result.data.PasswordType = loginResult.data.PasswordType;
+                result.data.GUID = loginResult.data.GUID;
 
             }
             catch (System.TimeoutException)
@@ -149,6 +158,7 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
             {
                 result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_LOGIN}'. '{ex.Message}' "));
             }
+
             return result;
         }
 
