@@ -8,7 +8,7 @@ namespace Exa.OBERON.ServicesGen2.Client.Models.Login
 
     /// <summary>Obsahuje údaje o prihlásenom používateľovi, napr. meno uvádzané na dokladoch, prihlasovacie meno ak sa prihlasuje cez PIN a ďalšie údaje.
     /// Je to návratová hodnota prihlásenia používateľa do webovej služby.</see>.</summary>
-    public partial class UserInfo
+    public class UserInfo
     {
 
         /// <summary>

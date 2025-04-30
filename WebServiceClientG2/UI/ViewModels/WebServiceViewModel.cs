@@ -147,9 +147,17 @@ namespace WebServiceClientG2.UI.ViewModels
                     await ShowPopup(myEx);
                 }
 
-
+                // Login salt.
                 var result = await this._AppEngine.WebServiceClient.Login.LoginSalt(this.UserName);
+                if (result.result == false)
+                {
+                    // Chyba.
+                    await ShowPopup(EXC.Get(result.description));
+                    return;
+                }
 
+                // Odoslať správu do konzoly.
+                WeakReferenceMessenger.Default.Send(new WebServiceClientG2.Messages.AddTextMessage($"Login salt: '{result.data}'"));
             }
             catch (Exception ex)
             {
@@ -213,7 +221,9 @@ namespace WebServiceClientG2.UI.ViewModels
                     await ShowPopup(myEx);
                 }
 
-                var result = await this._AppEngine.WebServiceClient.Login.Login(this.UserName);
+                // Login.
+                var result = await this._AppEngine.WebServiceClient.Login.Login(userName: this.UserName,
+                                                                                password: this.Password);
 
             }
             catch (Exception ex)

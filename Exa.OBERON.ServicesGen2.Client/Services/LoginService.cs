@@ -14,7 +14,7 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
         #region CONSTANTS
 
         private const string CONST_LOGIN_SALT = "/v1/user/login/salt";
-        
+        private const string CONST_LOGIN = "v1/user/login";
 
         #endregion
 
@@ -93,38 +93,101 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
 
             try
             {
+                // Vytvoriť hash hesla pomocou SHA-1.
+                Models.Login.LoginSalt loginSalt = new Models.Login.LoginSalt();
+                loginSalt.userName = userName;
+
+                var saltResult = await this.PostAsync<string>(u_Description: "LoginSalt",
+                                                               u_ApiPath: CONST_LOGIN_SALT,
+                                                               u_Request: loginSalt);
+                if (saltResult == null)
+                {
+                    result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_LOGIN_SALT}'."));
+                    return result;
+                }
+
+                var passwordHash = this.PasswordHashSHA1(password, 
+                                                         saltResult.data);
+
+                if (string.IsNullOrEmpty(passwordHash) == true)
+                {
+                    result.FromExaException(EXC.Get($"Chyba pri vytváraní hash hesla '{password}'."));
+                    return result;
+                }
+
+                // Volanie login.
                 Models.Login.UserLoginArg login = new Models.Login.UserLoginArg();
                 login.UserName = userName;
-                login.Password = password;
+                login.Password = passwordHash;
                 login.PasswordType = 0;
                 login.ApplicationName = "Test klient";
                 login.ApplicationVersion = "1.0.0";
                 login.LoginTag = string.Empty;
                 login.LanguageCode = string.Empty; 
 
-                var loginResult = await this.PostAsync<Models.Login.UserInfo>(u_Description: "Login",
-                                                                              u_ApiPath: CONST_LOGIN_SALT,
-                                                                              u_Request: login);
+                var loginResult = await this.PostAsync<ResultModel<Models.Login.UserInfo>>(u_Description: "Login",
+                                                                                           u_ApiPath: CONST_LOGIN,
+                                                                                           u_Request: login);
                 if (loginResult == null)
                 {
-                    result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_LOGIN_SALT}'."));
+                    result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_LOGIN}'."));
                     return result;
                 }
 
                 result.result = true;
-                result.data = loginResult.data;
+                //result.data = loginResult.data;
 
             }
             catch (System.TimeoutException)
             {
                 // Timeout - služba nie je dostupná.
-                result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_LOGIN_SALT}'. 'TIMEOUT' "));
+                result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_LOGIN}'. 'TIMEOUT' "));
             }
             catch (Exception ex)
             {
-                result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_LOGIN_SALT}'. '{ex.Message}' "));
+                result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_LOGIN}'. '{ex.Message}' "));
             }
             return result;
+        }
+
+        /// <summary>
+        /// Vytvorí hash hesla pomocou SHA-1.
+        /// </summary>
+        /// <param name="u_Password"></param>
+        /// <param name="u_Salt"></param>
+        /// <returns></returns>
+        private string PasswordHashSHA1(string u_Password, 
+                                        string u_Salt)
+        {
+            try
+            {
+                string tmp_Password = string.Empty;
+                if (string.IsNullOrEmpty(u_Salt) == true)
+                {
+                    // Heslo bez SALT.
+                    tmp_Password = u_Password;
+                }
+                else
+                {
+                    // Je zadaný SALT - Heslo "zväčšiť" o SALT - k saltu pripojiť heslo.
+                    tmp_Password = u_Salt + u_Password;
+                }
+
+                var m_SHA1 = System.Security.Cryptography.SHA1.Create();
+                var m_bInput = Encoding.Default.GetBytes(tmp_Password);
+                byte[] m_bOutput;
+                string tmp_PasswordHashWtthSHA1;
+                m_bOutput = m_SHA1.ComputeHash(m_bInput);
+                tmp_PasswordHashWtthSHA1 = BitConverter.ToString(m_bOutput);
+                tmp_PasswordHashWtthSHA1 = tmp_PasswordHashWtthSHA1.Replace("-", "");
+                tmp_PasswordHashWtthSHA1 = tmp_PasswordHashWtthSHA1.ToLower();
+
+                return tmp_PasswordHashWtthSHA1;
+            }
+            catch
+            {
+                return string.Empty;
+            }
         }
         #endregion
     }
