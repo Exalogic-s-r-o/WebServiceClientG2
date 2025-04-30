@@ -67,7 +67,7 @@
 						Grid.Column="2"
 						Text="Otvoriť log súbor"
 						Margin="10"
-						Command="{Binding ClearConsoleCommand}" 
+						Command="{Binding OpenConsoleFileCommand}" 
 						HorizontalOptions="End"
 						VerticalOptions="Center"/>
 

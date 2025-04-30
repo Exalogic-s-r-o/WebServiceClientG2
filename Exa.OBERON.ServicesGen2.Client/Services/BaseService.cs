@@ -17,6 +17,11 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
 {
     public class BaseService
     {
+        #region EVENTS
+
+        public Action<string> JSONLog;
+
+        #endregion
 
         public Exa.OBERON.ServicesGen2.Client.WebServiceClient WebServiceClient;
 
@@ -58,13 +63,18 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
             string m_ResponseContentStr = null;
             JObject m_ResponseJson = null;
             CancellationTokenSource cts = null;
-
+            
 
             try
             {
 
                 cts = new CancellationTokenSource();
                 cts.CancelAfter(TimeSpan.FromSeconds(u_TimeOut));
+
+                if (u_Request.Content != null)
+                {
+                    m_RequestContentStr = await u_Request.Content.ReadAsStringAsync();
+                }
 
                 m_Response = await this.WebServiceClient.HttpClient.SendAsync(u_Request, HttpCompletionOption.ResponseHeadersRead, cancellationToken: cts.Token);
 
@@ -90,7 +100,7 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
                         if (m_MediaType.Contains("/json"))
                         {
                             m_ResponseJson = JObject.Parse(m_ResponseContentStr);
-                            m_RequestContentStr = m_ResponseJson.ToString();
+                            m_ResponseContentStr = m_ResponseJson.ToString();
                             myEx.Result = true;
                         }
                     }
@@ -124,7 +134,7 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
                 myEx = EXC.Get(message);
             }
 
-            catch (System.Threading.Tasks.TaskCanceledException ex)
+            catch (System.Threading.Tasks.TaskCanceledException)
             {
                 myEx = EXC.Get($"Server '{this.WebServiceClient.HttpClient.BaseAddress.ToString()}' nie je v tejto chvíli dostupný (neodpovedá).",
                                 u_ErrNumber: (int)Exceptions.enm_ErrNumbers.TimeOut);
@@ -138,6 +148,15 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
             {
                 try
                 {
+
+
+                    JSONLog?.Invoke($"RequestAsync '{u_Description}'\n" +
+                        $"Request: {u_Request.ToString()}\n" +
+                        $"RequestContent: {m_RequestContentStr}\n" +
+                        $"Response: {m_Response?.ToString()}\n" +
+                        $"ResponseContent: {m_ResponseContentStr}\n" +
+                        $"ResponseJson: {m_ResponseJson?.ToString()}");
+
                     u_Request?.Dispose();
                     m_Response?.Dispose();
                 }

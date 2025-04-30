@@ -139,7 +139,7 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
                 result.result = true;
                 // Uložiť user GUID do webovej služby. Slúži na identifikáciu používateľa pri ďalších volaniach.
                 this.WebServiceClient.UserData = loginResult.data.GUID;
-
+                result.data = new Models.Login.UserInfo();
                 result.data.ShortName = loginResult.data.ShortName;
                 result.data.UserName = loginResult.data.UserName;
                 result.data.UserIDNum = loginResult.data.UserIDNum;

@@ -17,6 +17,8 @@ namespace WebServiceClientG2.UI.ViewModels
 
         #endregion
 
+
+
         #region CONSTRUCTOR
         public MainViewModel(Base.AppEngine appEngine,
                              IPopupService popupService) : base(appEngine, popupService)
@@ -36,7 +38,10 @@ namespace WebServiceClientG2.UI.ViewModels
 
             // Initialize console.
             ConsoleText = $"Testovacia aplikácia k OBERONGen2 webovej službe. Verzia z dňa: '{WebServiceClientG2.Base.AppEngine.CONST_APP_VERSION_DATE}'\n";
-            consoleText += JSONFilePath;
+            consoleText += JSONFilePath + "\n";
+
+            this._AppEngine.WebServiceClient.System.JSONLog = SaveJSONLog;
+            this._AppEngine.WebServiceClient.Login.JSONLog = SaveJSONLog;
         }
 
         #endregion
@@ -155,6 +160,24 @@ namespace WebServiceClientG2.UI.ViewModels
         }
 
         /// <summary>
+        /// Uloženie JSON logu do súboru.
+        /// </summary>
+        /// <param name="log"></param>
+        /// <returns></returns>
+        private void SaveJSONLog(string log)
+        {
+            try
+            {
+                string filePath = System.IO.Path.Combine(FileSystem.CacheDirectory, $"console_log.txt");
+                System.IO.File.AppendAllText(filePath, log);
+            }
+            catch (System.Exception ex)
+            {
+                ConsoleText += "Error saving log file: " + ex.Message + "\n";
+            }
+        }
+
+        /// <summary>
         /// Vyčistenie konzoly.
         /// </summary>
         [RelayCommand]
@@ -168,7 +191,7 @@ namespace WebServiceClientG2.UI.ViewModels
         {
             try
             {
-                string filePath = System.IO.Path.Combine(FileSystem.CacheDirectory, $"console_log_{DateTime.Now:yyyyMMdd_HHmmss}.txt");
+                string filePath = System.IO.Path.Combine(FileSystem.CacheDirectory, $"console_log.txt");
                 if (!System.IO.File.Exists(filePath))
                 {
                     ConsoleText += "File not found: " + filePath + "\nPlease save the console first.\n";
