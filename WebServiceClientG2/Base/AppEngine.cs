@@ -118,7 +118,7 @@ namespace WebServiceClientG2.Base
                 return tmp_PasswordHashWtthSHA1;
 
             }
-            catch (Exception ex)
+            catch
             {
 
                 return string.Empty;

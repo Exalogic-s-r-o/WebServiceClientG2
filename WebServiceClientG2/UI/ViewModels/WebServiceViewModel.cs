@@ -113,12 +113,60 @@ namespace WebServiceClientG2.UI.ViewModels
             }
         }
 
+        [RelayCommand]
+        private async Task LoginSalt()
+        {
+            EXC myEx = EXC.GetDefault();
+
+            if (this.IsRunning == true)
+            {
+                return;
+            }
+
+            try
+            {
+                this.IsRunning = true;
+
+                if (this._AppEngine.WebServiceClient.IsInitialized == false)
+                {
+                    // Inicializácia webovej služby.
+                    myEx = this._AppEngine.WebServiceClient.SetBaseAddress(this.IPAddress);
+                    if (myEx.Result == false)
+                    {
+                        // Chyba.
+                        await ShowPopup(myEx);
+                        return;
+                    }
+                }
+
+                // Uloží data zadané používateľom.
+                myEx = SaveUserCredentials();
+                if (myEx.Result == false)
+                {
+                    // Chyba.
+                    await ShowPopup(myEx);
+                }
+
+
+                var result = await this._AppEngine.WebServiceClient.Login.LoginSalt(this.UserName);
+
+            }
+            catch (Exception ex)
+            {
+                await ShowPopup(EXC.Get(ex.Message));
+            }
+            finally
+            {
+                this.IsRunning = false;
+            }
+        }
+
         /// <summary>
         /// Úloha na prihlásenie používateľa.
         /// </summary>
         /// <returns></returns>
         [RelayCommand]
-        private async Task Connect()
+        private async Task Login()
         {
             EXC myEx = EXC.GetDefault();
 
@@ -145,6 +193,18 @@ namespace WebServiceClientG2.UI.ViewModels
                     return;
                 }
 
+                if (this._AppEngine.WebServiceClient.IsInitialized == false)
+                {
+                    // Inicializácia webovej služby.
+                    myEx = this._AppEngine.WebServiceClient.SetBaseAddress(this.IPAddress);
+                    if (myEx.Result == false)
+                    {
+                        // Chyba.
+                        await ShowPopup(myEx);
+                        return;
+                    }
+                }
+
                 // Uloží data zadané používateľom.
                 myEx = SaveUserCredentials();
                 if (myEx.Result == false)
@@ -153,19 +213,8 @@ namespace WebServiceClientG2.UI.ViewModels
                     await ShowPopup(myEx);
                 }
 
-                await Shell.Current.GoToAsync("//tabs");
+                var result = await this._AppEngine.WebServiceClient.Login.Login(this.UserName);
 
-                // Pripojenie.
-                //myEx = await this._AppEngine.Connect();
-                //if (myEx.Result == false)
-                //{
-                //    // Chyba.
-                //    await ShowPopup(myEx);
-                //}
-                //else
-                //{
-                //    // OK.
-                //}
             }
             catch (Exception ex)
             {

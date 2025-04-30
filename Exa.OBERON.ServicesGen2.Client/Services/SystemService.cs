@@ -28,6 +28,10 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
 
         #region PUBLIC METHODS
 
+        /// <summary>
+        /// Informácie o verzii webovej služby.
+        /// </summary>
+        /// <returns></returns>
         public async Task<ResultModel<Models.System.Version>> Version()
         {
 
@@ -46,6 +50,11 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
                 result.result = true;
                 result.data = versionResult;
                 
+            }
+            catch (System.TimeoutException)
+            {
+                // Timeout - služba nie je dostupná.
+                result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_SYSTEM_PING}'. 'TIMEOUT' "));
             }
             catch (Exception ex)
             {
@@ -74,6 +83,11 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
 
                 result.data = pingresult;
                 result.result = true;
+            }
+            catch (System.TimeoutException)
+            {
+                // Timeout - služba nie je dostupná.
+                result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_SYSTEM_PING}'. 'TIMEOUT' "));
             }
             catch (Exception ex)
             {
