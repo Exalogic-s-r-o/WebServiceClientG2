@@ -31,11 +31,29 @@ namespace WebServiceClientG2.Base
         public AppEngine()
         {
             this.prp_WebServiceSettings = new WebServiceClientG2.Base.AppConfiguration.WebServiceSettings();
+            this.prp_WebServiceClient = new Exa.OBERON.ServicesGen2.Client.WebServiceClient();
         }
 
         #endregion
 
         #region PROPERTIES
+
+        private Exa.OBERON.ServicesGen2.Client.WebServiceClient prp_WebServiceClient;
+        /// <summary>
+        /// Client webovej služby, obsahuje volania na webovú službu.
+        /// </summary>
+        public Exa.OBERON.ServicesGen2.Client.WebServiceClient WebServiceClient
+        {
+            get
+            {
+                return prp_WebServiceClient;
+            }
+
+            set
+            {
+                prp_WebServiceClient = value;
+            }
+        }
 
         private WebServiceClientG2.Base.AppConfiguration.WebServiceSettings prp_WebServiceSettings;
         /// <summary>
@@ -63,7 +81,6 @@ namespace WebServiceClientG2.Base
         #endregion
 
         #region PRIVATE METHODS
-
 
         /// <summary>
         /// Vráti hash hesla rozšíreného o SALT. Používa sa pri Login.

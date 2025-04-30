@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WebServiceClientG2.UI.Views.SystemView"
+			 xmlns:local="clr-namespace:WebServiceClientG2.UI.ViewModels"
+			 x:DataType="local:SystemViewModel">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<!--Toolbar-->
+		<Grid 
+		Grid.Row="0"
+		HeightRequest="62">
+
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="48"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="48"/>
+			</Grid.ColumnDefinitions>
+
+			<!--Titulka text-->
+			<Label 
+				MaxLines="1"
+				Grid.Column="1"
+				VerticalOptions="Center"
+				HorizontalOptions="Center"
+				Text="Systém" 
+				TextColor="{StaticResource PrimaryTextColor}"
+				FontSize="24"
+				FontFamily="RobotoRegular"/>
+
+		</Grid>
+
+		<Grid
+			Grid.Row="1">
+
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+
+			<Button
+				Text="Ping"
+				Command="{Binding PingCommand}">
+				
+			</Button>
+		</Grid>
+
+
+		<!--Activity indicator-->
+		<Border
+			IsVisible="{Binding IsRunning}"
+			Grid.Row="0"
+			Grid.RowSpan="2"
+			BackgroundColor="{StaticResource ActivityIndicatorBackgroundColor}"
+			StrokeShape="Rectangle"
+			StrokeThickness="0"
+			Padding="10">
+			<ActivityIndicator
+				IsRunning="{Binding IsRunning}"
+				IsVisible="{Binding IsRunning}"
+				IsEnabled="true"
+				Style="{StaticResource ActivityIndicatorStyle}" />
+		</Border>
+
+	</Grid>
+</ContentView>

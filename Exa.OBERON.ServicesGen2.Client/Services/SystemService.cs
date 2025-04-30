@@ -54,28 +54,25 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
             return result;
         }
 
-
+        /// <summary>
+        /// Ping - test pripojenia na server.
+        /// </summary>
+        /// <returns></returns>
         public async Task<ResultModel<string>> Ping()
         {
             ResultModel<string> result = new ResultModel<string>();
 
             try
             {
-                var pingresult = await this.GetAsync<System.IO.Stream>(u_Description: "Ping",
-                                                                       u_ApiPath: CONST_SYSTEM_PING);
+                string pingresult = await this.WebServiceClient.HttpClient.GetStringAsync(CONST_SYSTEM_PING);
 
-                if (pingresult == null)
+                if (pingresult == string.Empty)
                 {
-                    result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_SYSTEM_PING}'."));
+                    result.FromExaException(EXC.Get($"Odpoveď je prázdna '{CONST_SYSTEM_PING}'."));
                     return result;
                 }
 
-                // Convert stream to string
-                using (var reader = new System.IO.StreamReader(pingresult))
-                {
-                    result.data = await reader.ReadToEndAsync();
-                }
-
+                result.data = pingresult;
                 result.result = true;
             }
             catch (Exception ex)

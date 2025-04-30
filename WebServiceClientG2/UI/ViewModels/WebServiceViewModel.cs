@@ -18,7 +18,7 @@ namespace WebServiceClientG2.UI.ViewModels
         /// Konštruktor.
         /// </summary>
         public WebServiceViewModel(Base.AppEngine appEngine, 
-                             IPopupService popupService) : base(appEngine, popupService)
+                                   IPopupService popupService) : base(appEngine, popupService)
         {
             this.IPAddress = appEngine.WebServiceSettings.IPAddress;
             this.UserName = appEngine.WebServiceSettings.UserName;
@@ -166,6 +166,69 @@ namespace WebServiceClientG2.UI.ViewModels
                 //{
                 //    // OK.
                 //}
+            }
+            catch (Exception ex)
+            {
+                await ShowPopup(EXC.Get(ex.Message));
+            }
+            finally
+            {
+                this.IsRunning = false;
+            }
+        }
+
+        /// <summary>
+        /// Initializácia webovej služby.
+        /// </summary>
+        /// <returns></returns>
+        [RelayCommand]
+        private async Task InitializeWebService()
+        {
+            EXC myEx = EXC.GetDefault();
+
+            if (this.IsRunning == true)
+            {
+                return;
+            }
+
+            try
+            {
+                this.IsRunning = true;
+
+                if (string.IsNullOrEmpty(this.IPAddress) == true)
+                {
+                    // Chyba
+                    await ShowPopup(EXC.Get("Nie je zadaná adresa webovej služby."));
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(this.UserName) == true)
+                {
+                    // Chyba
+                    await ShowPopup(EXC.Get("Nie je zadané používateľské meno."));
+                    return;
+                }
+
+                // Uloží data zadané používateľom.
+                myEx = SaveUserCredentials();
+                if (myEx.Result == false)
+                {
+                    // Chyba.
+                    await ShowPopup(myEx);
+                    return;
+                }
+
+                // Inicializácia webovej služby.
+                myEx = this._AppEngine.WebServiceClient.SetBaseAddress(this.IPAddress);
+                if (myEx.Result == false)
+                {
+                    // Chyba.
+                    await ShowPopup(myEx);
+                    return;
+                }
+
+                // Odoslať správu do konzoly.
+                WeakReferenceMessenger.Default.Send(new WebServiceClientG2.Messages.AddTextMessage($"Webová služba bola inicializovaná na adrese: '{this.IPAddress}'"));
             }
             catch (Exception ex)
             {
