@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
 
@@ -35,6 +36,7 @@ namespace WebServiceClientG2.UI.ViewModels
 
             // Initialize console.
             ConsoleText = $"Testovacia aplikácia k OBERONGen2 webovej službe. Verzia z dňa: '{WebServiceClientG2.Base.AppEngine.CONST_APP_VERSION_DATE}'\n";
+            consoleText += JSONFilePath;
         }
 
         #endregion
@@ -121,6 +123,14 @@ namespace WebServiceClientG2.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Umiestnenie súboru s JSON logmi.
+        /// </summary>
+        public string JSONFilePath
+        {
+            get { return  $"Umiestnenie log súboru s JSON volaniami: {FileSystem.CacheDirectory}"; }
+        }
+
         #endregion
 
         #region METHODS
@@ -142,6 +152,38 @@ namespace WebServiceClientG2.UI.ViewModels
         public void ConsoleTextAdd(string u_NewText)
         {
             ConsoleText += $"{u_NewText}\n";
+        }
+
+        /// <summary>
+        /// Vyčistenie konzoly.
+        /// </summary>
+        [RelayCommand]
+        public void ClearConsole()
+        {
+            ConsoleText = string.Empty;
+        }
+
+        [RelayCommand]
+        private async Task OpenConsoleFile()
+        {
+            try
+            {
+                string filePath = System.IO.Path.Combine(FileSystem.CacheDirectory, $"console_log_{DateTime.Now:yyyyMMdd_HHmmss}.txt");
+                if (!System.IO.File.Exists(filePath))
+                {
+                    ConsoleText += "File not found: " + filePath + "\nPlease save the console first.\n";
+                    return;
+                }
+
+                await Launcher.OpenAsync(new OpenFileRequest
+                {
+                    File = new ReadOnlyFile(filePath)
+                });
+            }
+            catch (System.Exception ex)
+            {
+                ConsoleText += "Error opening console file: " + ex.Message + "\n";
+            }
         }
 
         private void CreateTabMenu()
