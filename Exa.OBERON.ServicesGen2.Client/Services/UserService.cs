@@ -135,6 +135,12 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
                     result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_LOGIN}'."));
                     return result;
                 }
+                if (loginResult.result == false)
+                {
+                    result.FromExaException(EXC.Get(loginResult.description, 
+                                            u_ErrNumber: loginResult.errNumber));
+                    return result;
+                }
 
                 result.result = true;
                 // Uložiť user GUID do webovej služby. Slúži na identifikáciu používateľa pri ďalších volaniach.
