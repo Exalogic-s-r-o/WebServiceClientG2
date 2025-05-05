@@ -8,7 +8,7 @@ using EXC = Exa.OBERON.ServicesGen2.Client.Exceptions.ExaException;
 
 namespace Exa.OBERON.ServicesGen2.Client.Services
 {
-    public class LoginService : BaseService
+    public class UserService : BaseService
     {
 
         #region CONSTANTS
@@ -20,7 +20,7 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
 
         #region CONSTRUCTOR
 
-        public LoginService(Exa.OBERON.ServicesGen2.Client.WebServiceClient webServiceClient) : base(webServiceClient)
+        public UserService(Exa.OBERON.ServicesGen2.Client.WebServiceClient webServiceClient) : base(webServiceClient)
         {
 
         }
@@ -148,12 +148,7 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
                 result.data.PasswordType = loginResult.data.PasswordType;
                 result.data.GUID = loginResult.data.GUID;
 
-            }
-            catch (System.TimeoutException)
-            {
-                // Timeout - služba nie je dostupná.
-                result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_LOGIN}'. 'TIMEOUT' "));
-            }
+            }            
             catch (Exception ex)
             {
                 result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_LOGIN}'. '{ex.Message}' "));

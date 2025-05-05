@@ -261,6 +261,65 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
             return default(T);
         }
 
+
+        protected async Task<ResultModel<string>> GetAsync(string u_Description,
+                                                        string u_ApiPath,
+                                                        uint u_TimeOut = 12)
+        {
+            ResultModel<string> result = new ResultModel<string>();
+
+            try
+            {
+                string pingresult = await this.WebServiceClient.HttpClient.GetStringAsync(u_ApiPath);
+
+                if (pingresult == string.Empty)
+                {
+                    result.FromExaException(EXC.Get($"Na volanie '{u_ApiPath}' prišla prázdna odpoveď."));
+                    return result;
+                }
+
+                result.data = pingresult;
+                result.result = true;
+            }
+            catch (System.TimeoutException)
+            {
+                // Timeout - služba nie je dostupná.
+                result.FromExaException(EXC.Get($"Chyba pri volaní '{u_ApiPath}'. 'TIMEOUT' "));
+            }
+            catch (HttpRequestException ex)
+            {
+                string message;
+                switch ((ex.InnerException as WebException)?.Status ?? WebExceptionStatus.UnknownError)
+                {
+                    case WebExceptionStatus.ConnectFailure:
+                        message = "Spojenie sa nepodarilo vytvoriť.";
+                        break;
+                    case WebExceptionStatus.TrustFailure:
+                        // The remote certificate is invalid according to the validation procedure.
+                        // Klient nezvalidoval certifikát v metóde ValidateCertificate, t.j. odmietol ho.
+                        message = "Spojenie sa nepodarilo vytvoriť (certifikát servera bol zamietnutý).";
+                        break;
+                    case WebExceptionStatus.NameResolutionFailure:
+                        message = $"The name resolver service could not resolve the host name.";
+                        break;
+                    default: message = "Požiadavku sa nepodarilo odoslať."; break;
+                }
+
+                result.FromExaException(EXC.Get(message));
+            }
+
+            catch (System.Threading.Tasks.TaskCanceledException)
+            {
+                result.FromExaException(EXC.Get($"Server '{this.WebServiceClient.HttpClient.BaseAddress.ToString()}' nie je v tejto chvíli dostupný (neodpovedá).",
+                                u_ErrNumber: (int)Exceptions.enm_ErrNumbers.TimeOut));
+            }
+            catch (Exception ex)
+            {
+                result.FromExaException(EXC.Get($"Chyba pri volaní '{u_ApiPath}'. '{ex.Message}' "));
+            }
+            return result;
+        }
+
         /// <summary>
         /// Všeobecný POST z lokálneho http clienta.
         /// </summary>
@@ -268,7 +327,9 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
         /// <typeparam name="T"></typeparam>
         /// <param name="u_Description">Popis dopytu (popis vrchnej metódy, ktorá volá túto metódu).</param>
         /// <param name="u_ApiPath"></param>
-        /// <param name="u_Request"></param>                
+        /// <param name="u_Request">Objekt, ktorý sa má serializovať.</param>
+        /// <param name="u_RequestRootName">Meno root (hlavného) elementu, do ktorého bude vložený celý serializovaný objekt. 
+        /// Spravidla sa zadáva meno argumentu pri POST volaní.</param>
         /// <param name="u_TimeOut">Timeout daného volania (v sekundách) a čakania na odpoveď.</param>
         protected async Task<ResultModel<T>> PostAsync<T>(string u_Description,
                                                           string u_ApiPath,

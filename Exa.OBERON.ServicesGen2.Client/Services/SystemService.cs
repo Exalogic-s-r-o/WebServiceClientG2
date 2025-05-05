@@ -15,6 +15,7 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
         private const string CONST_SYSTEM_PING = "/ping";
         private const string CONST_SYSTEM_VERSION = "/version";
 
+
         #endregion
 
         #region CONSTRUCTOR
@@ -50,12 +51,7 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
                 result.result = true;
                 result.data = versionResult;
                 
-            }
-            catch (System.TimeoutException)
-            {
-                // Timeout - služba nie je dostupná.
-                result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_SYSTEM_PING}'. 'TIMEOUT' "));
-            }
+            }           
             catch (Exception ex)
             {
                 result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_SYSTEM_VERSION}'. '{ex.Message}' "));
@@ -69,31 +65,34 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
         /// <returns></returns>
         public async Task<ResultModel<string>> Ping()
         {
-            ResultModel<string> result = new ResultModel<string>();
+            ResultModel<string> resultPing = new ResultModel<string>();
 
             try
             {
-                string pingresult = await this.WebServiceClient.HttpClient.GetStringAsync(CONST_SYSTEM_PING);
+                resultPing = await this.WebServiceClient.System.GetAsync(u_Description: CONST_SYSTEM_PING, u_ApiPath: CONST_SYSTEM_PING, u_TimeOut: 3);
 
-                if (pingresult == string.Empty)
+                if (resultPing == null)
                 {
-                    result.FromExaException(EXC.Get($"Odpoveď je prázdna '{CONST_SYSTEM_PING}'."));
-                    return result;
+                    resultPing.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_SYSTEM_PING}'."));
+                    return resultPing;
                 }
-
-                result.data = pingresult;
-                result.result = true;
+                                
             }
             catch (System.TimeoutException)
             {
                 // Timeout - služba nie je dostupná.
-                result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_SYSTEM_PING}'. 'TIMEOUT' "));
+                resultPing.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_SYSTEM_PING}'. 'TIMEOUT' "));
+            }
+            catch (System.Net.Http.HttpRequestException)
+            {
+                // Timeout - služba nie je dostupná.
+                resultPing.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_SYSTEM_PING}'. 'TIMEOUT' "));
             }
             catch (Exception ex)
             {
-                result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_SYSTEM_PING}'. '{ex.Message}' "));
+                resultPing.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_SYSTEM_PING}'. '{ex.Message}' "));
             }
-            return result;
+            return resultPing;
         }
 
         #endregion

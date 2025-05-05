@@ -63,7 +63,7 @@ namespace Exa.OBERON.ServicesGen2.Client
 
             // Vytvorenie objektov konkrétnych volaní - členené podľa modulov systému OBERON (daného API)
             this.System = new Services.SystemService(this);
-            this.Login = new Services.LoginService(this);
+            this.User = new Services.UserService(this);
         }
         #endregion
 
@@ -105,14 +105,14 @@ namespace Exa.OBERON.ServicesGen2.Client
         public string ApplicationVersion { get; }
 
         /// <summary>
-        /// Obsahuje systémové funkcie bez prihlásenia (ping, version, atď.).
+        /// Obsahuje systémové funkcie, pri ktorých sa nevyžaduje prihlásenie klienta (ping, version, atď.).
         /// </summary>
         public Exa.OBERON.ServicesGen2.Client.Services.SystemService System;
 
         /// <summary>
         /// Obsahuje funkcie pre prihlásenie a autentifikáciu.
         /// </summary>
-        public Exa.OBERON.ServicesGen2.Client.Services.LoginService Login;
+        public Exa.OBERON.ServicesGen2.Client.Services.UserService User;
 
         #endregion
 
