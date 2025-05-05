@@ -60,12 +60,7 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
                 result.result = true;
                 result.data = loginResult.data;
 
-            }
-            catch (System.TimeoutException)
-            {
-                // Timeout - služba nie je dostupná.
-                result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_LOGIN_SALT}'. 'TIMEOUT' "));
-            }
+            }           
             catch (Exception ex)
             {
                 result.FromExaException(EXC.Get($"Chyba pri volaní '{CONST_LOGIN_SALT}'. '{ex.Message}' "));
@@ -74,16 +69,15 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
         }
 
         /// <summary>
-        /// <summary>Prihlási používateľa do webovej služby (záleží však na nastavení spôsobu autentifikácie služby). Je potrebné volať na začiatku komunikácie s webovou službou, nakoľko sa generuje tzv. GUID pre ďalšiu komunikáciu (ten musí byť súčasťou hlavičky danej požiadavky).</summary>
+        /// Prihlási používateľa do webovej služby (záleží však na nastavení spôsobu autentifikácie služby). Je potrebné volať na začiatku komunikácie s webovou službou, nakoľko sa generuje tzv. GUID pre ďalšiu komunikáciu (ten musí byť súčasťou hlavičky danej požiadavky).
+        /// </summary>
         /// <remarks>
         /// Pri prihlásení používateľa nezabezpečenou komunikáciou (HTTP - nezabezpečená, HTTPS -> zabezpečená) môže pri odpočúvaní komunikácie útočník pomerne ľahko zistiť prihlasovacie údaje (hlavne heslo).
         /// Čiastočne to rieši systém zasielania hesla len vo forme HASH (OBERON používa SHA-1), avšak pri slabých (krátkych) heslách je veľmi jednoduché pomocou hashovacích tabuliek (databáz) získať aj takého heslo.
         /// Z tohto dôvodu je možné pri prihlásení zasielaný HASH hesla "obohatiť" o SALT a tým znemožniť využitie hashovacích tabuliek.
         /// Po úspešnom prihlásení sa v ďalších požiadavkách na webovú službu musí v hlavičke dopytu uvádzať daný GUID (userData), podľa ktorého sa overuje daná požiadavka.  
         /// </remarks>
-        /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="password"></param>     
+        /// </summary>        
         public async Task<ResultModel<Models.Login.UserInfo>> Login(string userName,
                                                                     string password,
                                                                     string loginTag = null,
