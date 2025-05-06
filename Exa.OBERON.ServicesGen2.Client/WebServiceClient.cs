@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Exa.OBERON.ServicesGen2.Client.Models;
 using EXC = Exa.OBERON.ServicesGen2.Client.Exceptions.ExaException;
+using System.Runtime.InteropServices;
 
 namespace Exa.OBERON.ServicesGen2.Client
 {
@@ -64,6 +65,7 @@ namespace Exa.OBERON.ServicesGen2.Client
             // Vytvorenie objektov konkrétnych volaní - členené podľa modulov systému OBERON (daného API)
             this.System = new Services.SystemService(this);
             this.User = new Services.UserService(this);
+            this.BillJournal = new Services.BillJournalService(this);
         }
         #endregion
 
@@ -114,6 +116,11 @@ namespace Exa.OBERON.ServicesGen2.Client
         /// </summary>
         public Exa.OBERON.ServicesGen2.Client.Services.UserService User;
 
+        /// <summary>
+        /// Obsahuje funkcie pre pokladničný predaj, t.j. predaje na module Pokladnica OBERON.
+        /// </summary>
+        public Exa.OBERON.ServicesGen2.Client.Services.BillJournalService BillJournal;
+        
         #endregion
 
         #region PRIVATE METHODS
@@ -189,10 +196,24 @@ namespace Exa.OBERON.ServicesGen2.Client
                     try
                     {
                         if (HttpClient != null)
-                        {
+                        {                            
                             HttpClient.Dispose();
                             HttpClient = null;
                         }
+
+                        if (BillJournal != null)
+                        {
+                            BillJournal = null;
+                        }
+
+                        if (System != null)
+                        {
+                            System = null;
+                        }
+                        if (User != null)
+                        {
+                            User = null;
+                        }                                              
                     }
                     catch (Exception)
                     {
