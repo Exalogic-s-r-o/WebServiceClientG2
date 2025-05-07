@@ -40,6 +40,9 @@ namespace Exa.OBERON.ServicesGen2.Client.Models.BillJournal
         /// <summary>Skladová skupina - priradenie položky ku skladovej skupine.</summary>
         public string StockGroup { get; set; }
 
+        ///<summary>Tovarová skupina - priradenie položky ku tovarovej skupine. Umožňuje členiť predané položky (tržby) podľa ďalšieho hľadiska.</summary>
+        public string CommodityGroup { get; set; }
+        
         /// <summary>Stromové kategórie skladovej karty.</summary>
         public string[] TreeCategories { get; set; }
 
