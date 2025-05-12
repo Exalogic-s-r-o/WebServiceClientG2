@@ -41,7 +41,7 @@ namespace WebServiceClientG2.UI.ViewModels
             consoleText += JSONFilePath + "\n";
 
             this._AppEngine.WebServiceClient.System.JSONLog = SaveJSONLog;
-            this._AppEngine.WebServiceClient.Login.JSONLog = SaveJSONLog;
+            this._AppEngine.WebServiceClient.User.JSONLog = SaveJSONLog;
         }
 
         #endregion

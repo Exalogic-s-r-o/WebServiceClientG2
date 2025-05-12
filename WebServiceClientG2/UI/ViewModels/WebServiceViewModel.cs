@@ -148,7 +148,7 @@ namespace WebServiceClientG2.UI.ViewModels
                 }
 
                 // Login salt.
-                var result = await this._AppEngine.WebServiceClient.Login.LoginSalt(this.UserName);
+                var result = await this._AppEngine.WebServiceClient.User.LoginSalt(this.UserName);
                 if (result.result == false)
                 {
                     // Chyba.
@@ -222,7 +222,7 @@ namespace WebServiceClientG2.UI.ViewModels
                 }
 
                 // Login.
-                var result = await this._AppEngine.WebServiceClient.Login.Login(userName: this.UserName,
+                var result = await this._AppEngine.WebServiceClient.User.Login(userName: this.UserName,
                                                                                 password: this.Password);
 
             }
