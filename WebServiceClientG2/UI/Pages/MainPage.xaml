@@ -7,15 +7,16 @@
 			 xmlns:tabitem="clr-namespace:WebServiceClientG2.Models">
 	<Grid 
 		RowDefinitions="*,Auto" 
-		ColumnDefinitions="150,*" 
+		ColumnDefinitions="200,*" 
 		Padding="10">
 		<!-- CollectionView (Left Sidebar) -->
-		<CollectionView Grid.Row="0" 
-						Grid.Column="0"
-                        ItemsSource="{Binding Tabs}"
-                        SelectedItem="{Binding SelectedTab, Mode=TwoWay}"
-                        SelectionMode="Single"
-                        BackgroundColor="Black">
+		<CollectionView 
+            Grid.Row="0" 
+			Grid.Column="0"
+            ItemsSource="{Binding Tabs}"
+            SelectedItem="{Binding SelectedTab, Mode=TwoWay}"
+            SelectionMode="Single"
+            BackgroundColor="Black">
 			<CollectionView.ItemTemplate>
 				<DataTemplate x:DataType="tabitem:TabItem">
 					<StackLayout 

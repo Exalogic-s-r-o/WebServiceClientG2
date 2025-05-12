@@ -26,10 +26,13 @@ namespace WebServiceClientG2.UI.ViewModels
             WeakReferenceMessenger.Default.RegisterAll(this);
 
             this.webServiceView = new Views.WebServiceView(appEngine, popupService);
-            this.systemView = new Views.SystemView(appEngine, popupService);
-
             this.webServiceTab = new Models.TabItem(name: "WebService", contentView: webServiceView, isSelected: true);
+
+            this.systemView = new Views.SystemView(appEngine, popupService);
             this.systemTab = new Models.TabItem(name: "System", contentView: systemView);
+
+            this.businessPartnerView = new Views.BusinessPartnerView(appEngine, popupService);
+            this.businessPartnerTab = new Models.TabItem(name: "BusinessPartner", contentView: businessPartnerView);
 
             this.Tabs = new ObservableCollection<Models.TabItem>();
             this.SelectedTab = webServiceTab;
@@ -50,9 +53,11 @@ namespace WebServiceClientG2.UI.ViewModels
 
         private readonly UI.Views.WebServiceView webServiceView;
         private readonly UI.Views.SystemView systemView;
+        private readonly UI.Views.BusinessPartnerView businessPartnerView;
 
         private readonly Models.TabItem webServiceTab;
         private readonly Models.TabItem systemTab;
+        private readonly Models.TabItem businessPartnerTab;
 
         #endregion
 
@@ -215,6 +220,7 @@ namespace WebServiceClientG2.UI.ViewModels
             {
                 this.tabs.Add(webServiceTab);
                 this.tabs.Add(systemTab);
+                this.tabs.Add(businessPartnerTab);
             }
             catch
             {

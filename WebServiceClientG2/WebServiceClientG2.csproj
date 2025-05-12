@@ -88,6 +88,9 @@
     <MauiXaml Update="UI\Popups\WebServicePopup.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="UI\Views\BusinessPartnerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="UI\Views\SystemView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
