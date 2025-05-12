@@ -148,14 +148,18 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
             {
                 try
                 {
-
-
-                    JSONLog?.Invoke($"RequestAsync '{u_Description}'\n" +
+                    JSONLog?.Invoke($"RequestAsync '{u_Description}' - {DateTime.Now.ToString("d.M.yyyy")} \n" +
+                        "------ \n" +
+                        "------ \n" +
+                        "------ \n" +
                         $"Request: {u_Request.ToString()}\n" +
                         $"RequestContent: {m_RequestContentStr}\n" +
                         $"Response: {m_Response?.ToString()}\n" +
                         $"ResponseContent: {m_ResponseContentStr}\n" +
-                        $"ResponseJson: {m_ResponseJson?.ToString()}");
+                        $"ResponseJson: {m_ResponseJson?.ToString()} \n" +
+                        "\n" +
+                        "\n" +
+                        "\n");
 
                     u_Request?.Dispose();
                     m_Response?.Dispose();

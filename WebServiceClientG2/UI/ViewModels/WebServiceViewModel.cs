@@ -223,7 +223,7 @@ namespace WebServiceClientG2.UI.ViewModels
 
                 // Login.
                 var result = await this._AppEngine.WebServiceClient.User.Login(userName: this.UserName,
-                                                                                password: this.Password);
+                                                                               password: this.Password);
 
             }
             catch (Exception ex)
