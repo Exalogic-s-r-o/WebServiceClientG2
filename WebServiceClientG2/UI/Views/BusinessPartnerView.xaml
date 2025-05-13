@@ -3,11 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WebServiceClientG2.UI.Views.BusinessPartnerView"
              xmlns:local="clr-namespace:WebServiceClientG2.UI.ViewModels"
-			 x:DataType="local:BusinessPartnerViewModel">
-    <Grid>
+			 x:DataType="local:BusinessPartnerViewModel"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+    <Grid
+		RowSpacing="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!--Toolbar-->
@@ -34,23 +37,331 @@
 
         </Grid>
 
-        <Grid
+		<!--Business partner add-->
+
+		<toolkit:Expander 
+			Grid.Row="1">
+			<toolkit:Expander.Header>
+				
+				
+				<Label
+					Text="business-partner/add"
+					FontSize="16"
+					HorizontalTextAlignment="Center"/>
+			</toolkit:Expander.Header>
+
+			<Grid
+				Grid.Row="1">
+
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+
+				<Grid
+					Grid.Row="0">
+
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<Label
+						Padding="10,0,0,5"
+						Grid.Row="0"
+						Text="GUID"
+						FontSize="14"
+						TextColor="{StaticResource PrimaryLightColor}">
+
+					</Label>
+
+					<Entry
+						Grid.Row="1">
+					</Entry>
+				</Grid>
+
+				<Grid
+					Grid.Row="1">
+
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<Label
+						Padding="10,0,0,5"
+						Grid.Row="0"
+						Text="Názov"
+						FontSize="14"
+						TextColor="{StaticResource PrimaryLightColor}">
+
+					</Label>
+
+					<Entry
+						Grid.Row="1">
+					</Entry>
+				</Grid>
+
+				<Grid
+					Grid.Row="2">
+
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<Label
+						Padding="10,0,0,5"
+						Grid.Row="0"
+						Text="IČO"
+						FontSize="14"
+						TextColor="{StaticResource PrimaryLightColor}">
+
+					</Label>
+
+					<Entry
+						Grid.Row="1">
+					</Entry>
+				</Grid>
+
+				<Grid
+					Grid.Row="3">
+
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<Label
+						Padding="10,0,0,5"
+						Grid.Row="0"
+						Text="Mesto"
+						FontSize="14"
+						TextColor="{StaticResource PrimaryLightColor}">
+
+					</Label>
+
+					<Entry
+						Grid.Row="1">
+					</Entry>
+				</Grid>
+
+				<Grid
+					Grid.Row="4">
+
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<Label
+						Padding="10,0,0,5"
+						Grid.Row="0"
+						Text="Ulica"
+						FontSize="14"
+						TextColor="{StaticResource PrimaryLightColor}">
+
+					</Label>
+
+					<Entry
+						Grid.Row="1">
+					</Entry>
+				</Grid>
+
+				<Button
+					Grid.Row="5"
+					Text="Pridať"
+					Command="{Binding PingCommand}"
+					Margin="10"/>
+
+			</Grid>
+			
+		</toolkit:Expander>
+
+		
+		<!--<Grid
 			Grid.Row="1">
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
 
-            <Button
+
+
+			<Grid
+				Grid.Row="1">
+
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+
+				<Grid
+					Grid.Row="0">
+					
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<Label
+						Padding="10,0,0,5"
+						Grid.Row="0"
+						Text="GUID"
+						FontSize="14"
+						TextColor="{StaticResource PrimaryLightColor}">
+
+					</Label>
+
+					<Entry
+						Grid.Row="1">
+					</Entry>
+				</Grid>
+
+				<Grid
+					Grid.Row="1">
+
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<Label
+						Padding="10,0,0,5"
+						Grid.Row="0"
+						Text="Názov"
+						FontSize="14"
+						TextColor="{StaticResource PrimaryLightColor}">
+
+					</Label>
+
+					<Entry
+						Grid.Row="1">
+					</Entry>
+				</Grid>
+
+				<Grid
+					Grid.Row="2">
+
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<Label
+						Padding="10,0,0,5"
+						Grid.Row="0"
+						Text="IČO"
+						FontSize="14"
+						TextColor="{StaticResource PrimaryLightColor}">
+
+					</Label>
+
+					<Entry
+						Grid.Row="1">
+					</Entry>
+				</Grid>
+
+				<Grid
+					Grid.Row="3">
+
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<Label
+						Padding="10,0,0,5"
+						Grid.Row="0"
+						Text="Mesto"
+						FontSize="14"
+						TextColor="{StaticResource PrimaryLightColor}">
+
+					</Label>
+
+					<Entry
+						Grid.Row="1">
+					</Entry>
+				</Grid>
+
+				<Grid
+					Grid.Row="4">
+
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<Label
+						Padding="10,0,0,5"
+						Grid.Row="0"
+						Text="Ulica"
+						FontSize="14"
+						TextColor="{StaticResource PrimaryLightColor}">
+
+					</Label>
+
+					<Entry
+						Grid.Row="1">
+					</Entry>
+				</Grid>
+
+				<Button
+					Grid.Row="5"
+					Text="BusinessPartner add"
+					Command="{Binding PingCommand}"
+					Margin="10"/>
+				
+			</Grid>
+
+
+
+        </Grid>-->
+		
+		<!--Business partner find-->
+		<Grid
+			Grid.Row="2">
+
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+
+			<Label
 				Grid.Row="0"
-				Text="Ping"
-				Command="{Binding PingCommand}"
-				Margin="10"/>
+				Text="business-partner/find"
+				FontSize="16"
+				HorizontalTextAlignment="Center"/>
+			
+			<Picker
+				Grid.Row="1"
+				x:Name="picker_BusinessPartnerFindMethod"
+				Title="Vyber metódu hľadania obchodného partnera">
+				<Picker.ItemsSource>
+					<x:Array Type="{x:Type x:String}">
+						<x:String>Identifikátor</x:String>
+						<x:String>IČO</x:String>
+						<x:String>Názov obsahuje</x:String>
+						<x:String>Názov</x:String>
+					</x:Array>
+				</Picker.ItemsSource>
+			</Picker>
 
-        </Grid>
 
-        <!--Activity indicator-->
+		</Grid>
+
+		<!--Activity indicator-->
         <Border
 			IsVisible="{Binding IsRunning}"
 			Grid.Row="0"

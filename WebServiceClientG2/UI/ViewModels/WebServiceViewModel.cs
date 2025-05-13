@@ -225,6 +225,16 @@ namespace WebServiceClientG2.UI.ViewModels
                 var result = await this._AppEngine.WebServiceClient.User.Login(userName: this.UserName,
                                                                                password: this.Password);
 
+                if (result.result == false)
+                {
+                    // Chyba.
+                    await ShowPopup(EXC.Get(result.description));
+                    return;
+                }
+
+                // OK, odoslať správu do konzoly.
+                WeakReferenceMessenger.Default.Send(new WebServiceClientG2.Messages.AddTextMessage($"Login successful: '{result.data.UserName}'"));
+
             }
             catch (Exception ex)
             {

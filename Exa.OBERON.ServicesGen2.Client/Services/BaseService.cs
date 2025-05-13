@@ -15,7 +15,7 @@ using System.Security.Cryptography;
 
 namespace Exa.OBERON.ServicesGen2.Client.Services
 {
-    public class BaseService
+    public abstract class BaseService
     {
         #region EVENTS
 

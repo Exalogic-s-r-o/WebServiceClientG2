@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Syncfusion.Maui.Toolkit.Hosting;
 
 namespace WebServiceClientG2
 {
@@ -11,6 +12,8 @@ namespace WebServiceClientG2
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                .ConfigureSyncfusionToolkit()
+
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("ExaCommonFont.ttf", "ExaCommonFont");

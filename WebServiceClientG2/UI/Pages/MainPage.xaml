@@ -5,6 +5,25 @@
 			 xmlns:local="clr-namespace:WebServiceClientG2.UI.ViewModels"
 			 x:DataType="local:MainViewModel"
 			 xmlns:tabitem="clr-namespace:WebServiceClientG2.Models">
+
+	<ContentPage.Resources>
+		<Style TargetType="Grid">
+			<Setter Property="VisualStateManager.VisualStateGroups">
+				<VisualStateGroupList>
+					<VisualStateGroup x:Name="CommonStates">
+						<VisualState x:Name="Normal" />
+						<VisualState x:Name="Selected">
+							<VisualState.Setters>
+								<Setter Property="BackgroundColor"
+                                        Value="{StaticResource PrimaryLightColor}" />
+							</VisualState.Setters>
+						</VisualState>
+					</VisualStateGroup>
+				</VisualStateGroupList>
+			</Setter>
+		</Style>
+	</ContentPage.Resources>
+	
 	<Grid 
 		RowDefinitions="*,Auto" 
 		ColumnDefinitions="200,*" 
@@ -19,13 +38,13 @@
             BackgroundColor="Black">
 			<CollectionView.ItemTemplate>
 				<DataTemplate x:DataType="tabitem:TabItem">
-					<StackLayout 
+					<Grid 
 						Padding="10">
 						<Label Text="{Binding Name}" 
                                FontSize="18"
                                TextColor="White"
                                HorizontalOptions="Start"/>
-					</StackLayout>
+					</Grid>
 				</DataTemplate>
 			</CollectionView.ItemTemplate>
 		</CollectionView>
@@ -33,7 +52,8 @@
 		<!-- Tab Content (Right Side) -->
 		<ContentView Grid.Row="0" 
 					 Grid.Column="1" 
-                     x:Name="TabContent" 
+                     x:Name="TabContent"
+					 Padding="10"
                      Content="{Binding CurrentTabContent}"/>
 
 		<!-- Console (Bottom) -->
@@ -66,7 +86,7 @@
 
 					<Button
 						Grid.Column="2"
-						Text="Otvoriť log súbor"
+						Text="Otvoriť JSON log súbor"
 						Margin="10"
 						Command="{Binding OpenConsoleFileCommand}" 
 						HorizontalOptions="End"
