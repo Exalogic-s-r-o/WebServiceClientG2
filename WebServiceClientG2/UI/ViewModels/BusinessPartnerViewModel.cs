@@ -32,6 +32,17 @@ namespace WebServiceClientG2.UI.ViewModels
             }
         }
 
+        private string prp_BusinessPartnerFindMethod = string.Empty;
+        public string BusinessPartnerFindMethod
+        {
+            get { return prp_BusinessPartnerFindMethod; }
+            set
+            {
+                prp_BusinessPartnerFindMethod = value;
+                OnPropertyChanged("BusinessPartnerFindMethod");
+            }
+        }
+
         #endregion
 
         #region METHODS
@@ -41,17 +52,24 @@ namespace WebServiceClientG2.UI.ViewModels
         {
             EXC myEx = EXC.GetDefault();
 
+            if (this.IsRunning == true)
+            {
+                return;
+            }
+
             try
             {
+                this.IsRunning = true;
+
                 Exa.OBERON.ServicesGen2.Client.Models.BusinessPartner.BusinessPartnerFindArg businessPartnerFindArg =
                     new Exa.OBERON.ServicesGen2.Client.Models.BusinessPartner.BusinessPartnerFindArg();
 
-                //if (string.IsNullOrEmpty(valueType))
-                //{
-                //    myEx = EXC.Get("Nebol zadaný typ vyhľadávania.");
-                //    await ShowPopup(myEx);
-                //    return;
-                //}
+                if (string.IsNullOrEmpty(BusinessPartnerFindMethod))
+                {
+                    myEx = EXC.Get("Nebol zadaný typ vyhľadávania.");
+                    await ShowPopup(myEx);
+                    return;
+                }
 
                 if (string.IsNullOrEmpty(BusinessPartnerFindValue))
                 {
@@ -60,8 +78,28 @@ namespace WebServiceClientG2.UI.ViewModels
                     return;
                 }
 
+                switch (BusinessPartnerFindMethod)
+                {
+                    case "GUID":
+                        businessPartnerFindArg.FindMethod = 0;
+                        break;
+                    case "IČO":
+                        businessPartnerFindArg.FindMethod = 1;
+                        break;
+                    case "Čiarový kód":
+                        businessPartnerFindArg.FindMethod = 2;
+                        break;
+                    case "Názov obsahuje":
+                        businessPartnerFindArg.FindMethod = 8;
+                        break;
+                    case "Názov":
+                        businessPartnerFindArg.FindMethod = 9;
+                        break;
+                    default:
+                        businessPartnerFindArg.FindMethod = 8;
+                        break;
+                }
 
-                businessPartnerFindArg.FindMethod = 8;
                 businessPartnerFindArg.FindValue = BusinessPartnerFindValue;
                 businessPartnerFindArg.GetBranches = false;
                 businessPartnerFindArg.GetFileRepository = false;
@@ -76,27 +114,31 @@ namespace WebServiceClientG2.UI.ViewModels
                     return;
                 }
 
-                if (result.data == null)
-                {
-                    WeakReferenceMessenger.Default.Send(new WebServiceClientG2.Messages.AddTextMessage($"Podľa hodnoty '{BusinessPartnerFindValue}' sa nenašli sa žiadne záznamy."));
-                    return;
-                }
+
 
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine($"BusinessPartner_Find:");
                 sb.AppendLine();
 
-                foreach (BusinessPartner e_businessPartner in result.data.Items)
+                if (result.data.Items.Count == 0)
                 {
-                    sb.AppendLine($"{e_businessPartner.Name}");
+                    sb.AppendLine($"Podľa hodnoty '{BusinessPartnerFindValue}' sa nenašli sa žiadne záznamy.");
+                }
+
+                foreach (BusinessPartner e_businessPartner in result.data.Items ?? Enumerable.Empty<BusinessPartner>())
+                {
+                    sb.AppendLine($"{e_businessPartner.Name} IČO: {e_businessPartner.IdentificationNumber} Mesto: {e_businessPartner.Address.City}");
                 }
 
                 WeakReferenceMessenger.Default.Send(new WebServiceClientG2.Messages.AddTextMessage($"{sb}"));
             }
-            catch
+            catch(Exception ex)
             {
-
-                throw;
+                await ShowPopup(EXC.Get(ex.Message));
+            }
+            finally
+            {
+                this.IsRunning = false;
             }
 
         }

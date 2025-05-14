@@ -153,9 +153,13 @@ namespace Exa.OBERON.ServicesGen2.Client.Services
                         "------ \n" +
                         "------ \n" +
                         $"Request: {u_Request.ToString()}\n" +
+                        "\n" +
                         $"RequestContent: {m_RequestContentStr}\n" +
+                        "\n" +
                         $"Response: {m_Response?.ToString()}\n" +
+                        "\n" +
                         $"ResponseContent: {m_ResponseContentStr}\n" +
+                        "\n" +
                         $"ResponseJson: {m_ResponseJson?.ToString()} \n" +
                         "\n" +
                         "\n" +

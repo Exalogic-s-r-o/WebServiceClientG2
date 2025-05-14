@@ -4,6 +4,7 @@
              x:Class="WebServiceClientG2.UI.Views.WebServiceView"
 			 xmlns:local="clr-namespace:WebServiceClientG2.UI.ViewModels"
 			 x:DataType="local:WebServiceViewModel">
+	<ScrollView>
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
@@ -305,4 +306,5 @@
 		</Border>
 
 	</Grid>
+	</ScrollView>
 </ContentView>
