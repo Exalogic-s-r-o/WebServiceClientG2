@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
@@ -12,12 +13,15 @@ namespace Exa.OBERON.ServicesGen2.Client.Models.BusinessPartner
     {
 
         /// <summary>Typ hodnoty podľa, ktorej sa má vyhľadať obchodný partner. Je možné vybrať z možností, ktoré určuje <see cref="enm_BusinessPartnerFindMethod"/>.</summary>
+        [JsonProperty(Required = Required.Always, DefaultValueHandling = DefaultValueHandling.Include)]
         public int FindMethod { get; set; }
 
         /// <summary>Hodnota, podľa ktorej sa má obchodný partner vyhľadať.</summary>
+        [JsonProperty(Required = Required.Always, DefaultValueHandling = DefaultValueHandling.Include)]
         public string FindValue { get; set; }
 
         /// <summary>TRUE - Budú vrátené aj prevádzky obchodného partnera.</summary>
+        [JsonProperty(Required = Required.Always, DefaultValueHandling = DefaultValueHandling.Include)]
         public bool GetBranches { get; set; } = false;
 
         /// <summary>

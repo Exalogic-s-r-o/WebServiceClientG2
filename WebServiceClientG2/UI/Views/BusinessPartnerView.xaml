@@ -42,16 +42,39 @@
 		<toolkit:Expander 
 			Grid.Row="1">
 			<toolkit:Expander.Header>
-				
-				
-				<Label
-					Text="business-partner/add"
-					FontSize="16"
-					HorizontalTextAlignment="Center"/>
+
+				<Grid>
+
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="48"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="48"/>
+					</Grid.ColumnDefinitions>
+
+					<Label
+						Grid.Column="0"
+						Text="↓"
+						HorizontalTextAlignment="Center"
+						Style="{StaticResource expanderHeaderArrow}"/>
+
+					<Label
+						Grid.Column="1"
+						Text="business-partner/add"
+						FontSize="16"
+						HorizontalTextAlignment="Center"
+						Style="{StaticResource expanderHeaderCaption}"/>
+
+					<Label
+						Grid.Column="2"
+						Text="↓"
+						HorizontalTextAlignment="Center"
+						Style="{StaticResource expanderHeaderArrow}"/>
+
+				</Grid>
+
 			</toolkit:Expander.Header>
 
-			<Grid
-				Grid.Row="1">
+			<Grid>
 
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
@@ -183,51 +206,65 @@
 			
 		</toolkit:Expander>
 
-		
-		<!--<Grid
-			Grid.Row="1">
+		<!--Business partner find-->
 
-            <Grid.RowDefinitions>
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-			</Grid.RowDefinitions>
+		<toolkit:Expander 
+			Grid.Row="2">
+			<toolkit:Expander.Header>
 
+				<Grid>
 
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="48"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="48"/>
+					</Grid.ColumnDefinitions>
 
-			<Grid
-				Grid.Row="1">
+					<Label
+						Grid.Column="0"
+						Text="↓"
+						HorizontalTextAlignment="Center"
+						Style="{StaticResource expanderHeaderArrow}"/>
+
+					<Label
+						Grid.Column="1"
+						Text="business-partner/find"
+						HorizontalTextAlignment="Center"
+						Style="{StaticResource expanderHeaderCaption}"/>
+
+					<Label
+						Grid.Column="2"
+						Text="↓"
+						HorizontalTextAlignment="Center"
+						Style="{StaticResource expanderHeaderArrow}"/>
+
+				</Grid>
+
+			</toolkit:Expander.Header>
+
+			<Grid>
 
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
 
-				<Grid
-					Grid.Row="0">
+				<Picker
+					Grid.Row="0"
+					x:Name="picker_BusinessPartnerFindMethod"
+					Title="Vyber metódu hľadania obchodného partnera">
 					
-					<Grid.RowDefinitions>
-						<RowDefinition Height="*" />
-						<RowDefinition Height="Auto" />
-					</Grid.RowDefinitions>
-
-					<Label
-						Padding="10,0,0,5"
-						Grid.Row="0"
-						Text="GUID"
-						FontSize="14"
-						TextColor="{StaticResource PrimaryLightColor}">
-
-					</Label>
-
-					<Entry
-						Grid.Row="1">
-					</Entry>
-				</Grid>
+					<Picker.ItemsSource>
+						<x:Array Type="{x:Type x:String}">
+							<x:String>Identifikátor</x:String>
+							<x:String>IČO</x:String>
+							<x:String>Čiarový kód</x:String>
+							<x:String>Názov obsahuje</x:String>
+							<x:String>Názov</x:String>
+						</x:Array>
+					</Picker.ItemsSource>
+				</Picker>
 
 				<Grid
 					Grid.Row="1">
@@ -240,126 +277,27 @@
 					<Label
 						Padding="10,0,0,5"
 						Grid.Row="0"
-						Text="Názov"
-						FontSize="14"
-						TextColor="{StaticResource PrimaryLightColor}">
+						Text="Text"
+						FontSize="14">
 
 					</Label>
 
 					<Entry
-						Grid.Row="1">
-					</Entry>
-				</Grid>
-
-				<Grid
-					Grid.Row="2">
-
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-					</Grid.RowDefinitions>
-
-					<Label
-						Padding="10,0,0,5"
-						Grid.Row="0"
-						Text="IČO"
-						FontSize="14"
-						TextColor="{StaticResource PrimaryLightColor}">
-
-					</Label>
-
-					<Entry
-						Grid.Row="1">
-					</Entry>
-				</Grid>
-
-				<Grid
-					Grid.Row="3">
-
-					<Grid.RowDefinitions>
-						<RowDefinition Height="*" />
-						<RowDefinition Height="Auto" />
-					</Grid.RowDefinitions>
-
-					<Label
-						Padding="10,0,0,5"
-						Grid.Row="0"
-						Text="Mesto"
-						FontSize="14"
-						TextColor="{StaticResource PrimaryLightColor}">
-
-					</Label>
-
-					<Entry
-						Grid.Row="1">
-					</Entry>
-				</Grid>
-
-				<Grid
-					Grid.Row="4">
-
-					<Grid.RowDefinitions>
-						<RowDefinition Height="*" />
-						<RowDefinition Height="Auto" />
-					</Grid.RowDefinitions>
-
-					<Label
-						Padding="10,0,0,5"
-						Grid.Row="0"
-						Text="Ulica"
-						FontSize="14"
-						TextColor="{StaticResource PrimaryLightColor}">
-
-					</Label>
-
-					<Entry
-						Grid.Row="1">
+						Grid.Row="1"
+						Text="{Binding BusinessPartnerFindValue}">
 					</Entry>
 				</Grid>
 
 				<Button
-					Grid.Row="5"
-					Text="BusinessPartner add"
-					Command="{Binding PingCommand}"
-					Margin="10"/>
-				
+					Grid.Row="2"
+					Text="Vyhľadať"
+					Command="{Binding BusinessPartner_FindCommand}"/>
 			</Grid>
 
-
-
-        </Grid>-->
+		</toolkit:Expander>
 		
-		<!--Business partner find-->
-		<Grid
-			Grid.Row="2">
-
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-			</Grid.RowDefinitions>
-
-			<Label
-				Grid.Row="0"
-				Text="business-partner/find"
-				FontSize="16"
-				HorizontalTextAlignment="Center"/>
-			
-			<Picker
-				Grid.Row="1"
-				x:Name="picker_BusinessPartnerFindMethod"
-				Title="Vyber metódu hľadania obchodného partnera">
-				<Picker.ItemsSource>
-					<x:Array Type="{x:Type x:String}">
-						<x:String>Identifikátor</x:String>
-						<x:String>IČO</x:String>
-						<x:String>Názov obsahuje</x:String>
-						<x:String>Názov</x:String>
-					</x:Array>
-				</Picker.ItemsSource>
-			</Picker>
-
-
-		</Grid>
+		
+		
 
 		<!--Activity indicator-->
         <Border

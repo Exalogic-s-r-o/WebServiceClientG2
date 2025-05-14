@@ -45,6 +45,8 @@ namespace WebServiceClientG2.UI.ViewModels
 
             this._AppEngine.WebServiceClient.System.JSONLog = SaveJSONLog;
             this._AppEngine.WebServiceClient.User.JSONLog = SaveJSONLog;
+            this._AppEngine.WebServiceClient.BillJournal.JSONLog = SaveJSONLog;
+            this._AppEngine.WebServiceClient.BusinessPartner.JSONLog = SaveJSONLog;
         }
 
         #endregion

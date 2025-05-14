@@ -66,6 +66,7 @@ namespace Exa.OBERON.ServicesGen2.Client
             this.System = new Services.SystemService(this);
             this.User = new Services.UserService(this);
             this.BillJournal = new Services.BillJournalService(this);
+            this.BusinessPartner = new Services.BusinessPartnerService(this);
         }
         #endregion
 
@@ -120,7 +121,12 @@ namespace Exa.OBERON.ServicesGen2.Client
         /// Obsahuje funkcie pre pokladničný predaj, t.j. predaje na module Pokladnica OBERON.
         /// </summary>
         public Exa.OBERON.ServicesGen2.Client.Services.BillJournalService BillJournal;
-        
+
+        /// <summary>
+        /// Obsahuje funkcie pre načítanie, uloženie a prácu s obchodným partnerom.
+        /// </summary>
+        public Exa.OBERON.ServicesGen2.Client.Services.BusinessPartnerService BusinessPartner;
+
         #endregion
 
         #region PRIVATE METHODS
