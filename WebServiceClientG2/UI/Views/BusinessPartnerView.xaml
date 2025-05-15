@@ -106,7 +106,8 @@
 					</Label>
 
 					<Entry
-						Grid.Row="1">
+						Grid.Row="1"
+						Text="{Binding BusinessPartnerAddGUID}">
 					</Entry>
 				</Grid>
 
@@ -128,7 +129,8 @@
 					</Label>
 
 					<Entry
-						Grid.Row="1">
+						Grid.Row="1"
+						Text="{Binding BusinessPartnerAddName}">
 					</Entry>
 				</Grid>
 
@@ -150,7 +152,8 @@
 					</Label>
 
 					<Entry
-						Grid.Row="1">
+						Grid.Row="1"
+						Text="{Binding BusinessPartnerAddICO}">
 					</Entry>
 				</Grid>
 
@@ -172,7 +175,8 @@
 					</Label>
 
 					<Entry
-						Grid.Row="1">
+						Grid.Row="1"
+						Text="{Binding BusinessPartnerAddCity}">
 					</Entry>
 				</Grid>
 
@@ -194,7 +198,8 @@
 					</Label>
 
 					<Entry
-						Grid.Row="1">
+						Grid.Row="1"
+						Text="{Binding BusinessPartnerAddStreet}">
 					</Entry>
 				</Grid>
 

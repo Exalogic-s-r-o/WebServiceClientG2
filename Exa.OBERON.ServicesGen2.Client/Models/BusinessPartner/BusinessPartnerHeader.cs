@@ -74,6 +74,9 @@ namespace Exa.OBERON.ServicesGen2.Client.Models.BusinessPartner
         /// <summary>Jednoznačný identifikátor záznamu v systéme OBERON.</summary>
         public long IDNum { get; set; }
 
+        /// <summary>Jednoznačný identifikátor obchodného partnera.</summary>
+        public string RecordGuid { get; set; }
+
         /// <summary>Názov obchodného partnera.</summary>
         public string Name { get; set; }
 

@@ -21,6 +21,61 @@ namespace WebServiceClientG2.UI.ViewModels
 
         #region PROPERTIES
 
+        private string prp_BusinessPartnerAddGUID = string.Empty;
+        public string BusinessPartnerAddGUID
+        {
+            get { return prp_BusinessPartnerAddGUID; }
+            set
+            {
+                prp_BusinessPartnerAddGUID = value;
+                OnPropertyChanged("BusinessPartnerAddGUID");
+            }
+        }
+
+        private string prp_BusinessPartnerAddName = string.Empty;
+        public string BusinessPartnerAddName
+        {
+            get { return prp_BusinessPartnerAddName; }
+            set
+            {
+                prp_BusinessPartnerAddName = value;
+                OnPropertyChanged("BusinessPartnerAddName");
+            }
+        }
+
+        private string prp_BusinessPartnerAddICO = string.Empty;
+        public string BusinessPartnerAddICO
+        {
+            get { return prp_BusinessPartnerAddICO; }
+            set
+            {
+                prp_BusinessPartnerAddICO = value;
+                OnPropertyChanged("BusinessPartnerAddICO");
+            }
+        }
+
+        private string prp_BusinessPartnerAddCity = string.Empty;
+        public string BusinessPartnerAddCity
+        {
+            get { return prp_BusinessPartnerAddCity; }
+            set
+            {
+                prp_BusinessPartnerAddCity = value;
+                OnPropertyChanged("BusinessPartnerAddCity");
+            }
+        }
+
+        private string prp_BusinessPartnerAddStreet = string.Empty;
+        public string BusinessPartnerAddStreet
+        {
+            get { return prp_BusinessPartnerAddStreet; }
+            set
+            {
+                prp_BusinessPartnerAddStreet = value;
+                OnPropertyChanged("BusinessPartnerAddStreet");
+            }
+        }
+
         private string prp_BusinessPartnerFindValue = string.Empty;
         public string BusinessPartnerFindValue
         {
@@ -47,6 +102,10 @@ namespace WebServiceClientG2.UI.ViewModels
 
         #region METHODS
 
+        /// <summary>
+        /// Vyhľadanie obchodného partnera.
+        /// </summary>
+        /// <returns></returns>
         [RelayCommand]
         private async Task BusinessPartner_Find()
         {
@@ -81,7 +140,7 @@ namespace WebServiceClientG2.UI.ViewModels
                 switch (BusinessPartnerFindMethod)
                 {
                     case "GUID":
-                        businessPartnerFindArg.FindMethod = 0;
+                        businessPartnerFindArg.FindMethod = 20;
                         break;
                     case "IČO":
                         businessPartnerFindArg.FindMethod = 1;
@@ -114,10 +173,8 @@ namespace WebServiceClientG2.UI.ViewModels
                     return;
                 }
 
-
-
                 StringBuilder sb = new StringBuilder();
-                sb.AppendLine($"BusinessPartner_Find:");
+                sb.AppendLine($"BusinessPartnerFind:");
                 sb.AppendLine();
 
                 if (result.data.Items.Count == 0)
@@ -133,6 +190,86 @@ namespace WebServiceClientG2.UI.ViewModels
                 WeakReferenceMessenger.Default.Send(new WebServiceClientG2.Messages.AddTextMessage($"{sb}"));
             }
             catch(Exception ex)
+            {
+                await ShowPopup(EXC.Get(ex.Message));
+            }
+            finally
+            {
+                this.IsRunning = false;
+            }
+
+        }
+
+        /// <summary>
+        /// Pridanie obchodného partnera.
+        /// </summary>
+        /// <returns></returns>
+        [RelayCommand]
+        private async Task BusinessPartner_Add()
+        {
+            EXC myEx = EXC.GetDefault();
+
+            if (this.IsRunning == true)
+            {
+                return;
+            }
+
+            try
+            {
+                this.IsRunning = true;
+
+                Exa.OBERON.ServicesGen2.Client.Models.BusinessPartner.BusinessPartnerAddArg businessPartnerAddArg =
+                    new Exa.OBERON.ServicesGen2.Client.Models.BusinessPartner.BusinessPartnerAddArg();
+
+                if (string.IsNullOrEmpty(this.BusinessPartnerAddGUID))
+                {
+                    myEx = EXC.Get("Nebol zadaný jednoznačný identifikátor obchodného partnera.");
+                    await ShowPopup(myEx);
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(this.BusinessPartnerAddName))
+                {
+                    myEx = EXC.Get("Nebol zadaný názov obchodného partnera.");
+                    await ShowPopup(myEx);
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(this.BusinessPartnerAddCity))
+                {
+                    myEx = EXC.Get("Nebolo zadané mesto obchodného partnera.");
+                    await ShowPopup(myEx);
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(this.BusinessPartnerAddStreet))
+                {
+                    myEx = EXC.Get("Nebola zadaná ulica obchodného partnera.");
+                    await ShowPopup(myEx);
+                    return;
+                }
+
+                businessPartnerAddArg.BusinessPartner.RecordGuid = this.BusinessPartnerAddGUID;
+                businessPartnerAddArg.BusinessPartner.Name = this.BusinessPartnerAddName;
+                businessPartnerAddArg.BusinessPartner.IdentificationNumber = this.BusinessPartnerAddICO;
+                businessPartnerAddArg.BusinessPartner.Address.Street = this.BusinessPartnerAddStreet;
+                businessPartnerAddArg.BusinessPartner.Address.City = this.BusinessPartnerAddCity;
+
+                var result = await this._AppEngine.WebServiceClient.BusinessPartner.BusinessPartner_Add(businessPartnerAddArg);
+                if (result.result == false)
+                {
+                    myEx = EXC.Get($"Chyba pri volaní 'BusinessPartner_Add'. '{result.description}'");
+                    await ShowPopup(myEx);
+                    return;
+                }
+
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine($"BusinessPartnerAdd:");
+                sb.AppendLine();
+
+                WeakReferenceMessenger.Default.Send(new WebServiceClientG2.Messages.AddTextMessage($"{sb}"));
+            }
+            catch (Exception ex)
             {
                 await ShowPopup(EXC.Get(ex.Message));
             }
