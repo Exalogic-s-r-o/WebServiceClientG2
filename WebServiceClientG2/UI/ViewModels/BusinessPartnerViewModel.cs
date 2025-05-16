@@ -258,14 +258,16 @@ namespace WebServiceClientG2.UI.ViewModels
                 var result = await this._AppEngine.WebServiceClient.BusinessPartner.BusinessPartner_Add(businessPartnerAddArg);
                 if (result.result == false)
                 {
-                    myEx = EXC.Get($"Chyba pri volaní 'BusinessPartner_Add'. '{result.description}'");
-                    await ShowPopup(myEx);
+                    WeakReferenceMessenger.Default.Send(new WebServiceClientG2.Messages.AddTextMessage($"Chyba pri volaní 'BusinessPartner_Add'. '{result.description}'"));
                     return;
                 }
 
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine($"BusinessPartnerAdd:");
                 sb.AppendLine();
+                sb.AppendLine($"{result.data.GUID}");
+                sb.AppendLine($"{result.data.Info}");
+                sb.AppendLine($"{result.data.Value}");
 
                 WeakReferenceMessenger.Default.Send(new WebServiceClientG2.Messages.AddTextMessage($"{sb}"));
             }

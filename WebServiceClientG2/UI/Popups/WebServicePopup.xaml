@@ -6,7 +6,7 @@
     xmlns:viewModels="clr-namespace:WebServiceClientG2.UI.Popups"
     x:Class="WebServiceClientG2.UI.Popups.WebServicePopup"
     x:DataType="viewModels:WebServicePopupViewModel"
-	CanBeDismissedByTappingOutsideOfPopup="false"
+	CanBeDismissedByTappingOutsideOfPopup="True"
     VerticalOptions="End"
 	HorizontalOptions="Fill"
 	Color="Transparent">
