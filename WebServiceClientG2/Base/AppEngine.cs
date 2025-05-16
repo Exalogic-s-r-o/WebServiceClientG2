@@ -19,7 +19,7 @@ namespace WebServiceClientG2.Base
         /// <summary>
         /// Dátum vydania verzie.
         /// </summary>
-        public const string CONST_APP_VERSION_DATE = "25.4.2025";
+        public const string CONST_APP_VERSION_DATE = "16.5.2025";
 
         #endregion
 
