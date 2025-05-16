@@ -32,7 +32,7 @@ namespace WebServiceClientG2.UI.ViewModels
             }
         }
 
-        private string prp_BusinessPartnerAddName = string.Empty;
+        private string prp_BusinessPartnerAddName = "Rudo";
         public string BusinessPartnerAddName
         {
             get { return prp_BusinessPartnerAddName; }
@@ -43,7 +43,7 @@ namespace WebServiceClientG2.UI.ViewModels
             }
         }
 
-        private string prp_BusinessPartnerAddICO = string.Empty;
+        private string prp_BusinessPartnerAddICO = "123456789";
         public string BusinessPartnerAddICO
         {
             get { return prp_BusinessPartnerAddICO; }
@@ -54,7 +54,7 @@ namespace WebServiceClientG2.UI.ViewModels
             }
         }
 
-        private string prp_BusinessPartnerAddCity = string.Empty;
+        private string prp_BusinessPartnerAddCity = "Buzica";
         public string BusinessPartnerAddCity
         {
             get { return prp_BusinessPartnerAddCity; }
@@ -65,7 +65,7 @@ namespace WebServiceClientG2.UI.ViewModels
             }
         }
 
-        private string prp_BusinessPartnerAddStreet = string.Empty;
+        private string prp_BusinessPartnerAddStreet = "Pečeňehova";
         public string BusinessPartnerAddStreet
         {
             get { return prp_BusinessPartnerAddStreet; }
@@ -278,6 +278,33 @@ namespace WebServiceClientG2.UI.ViewModels
                 this.IsRunning = false;
             }
 
+        }
+
+        /// <summary>
+        /// Generovanie GUID.
+        /// </summary>
+        /// <returns></returns>
+        [RelayCommand]
+        private async Task GUIDGenerate()
+        {
+            if (this.IsRunning == true)
+            {
+                return;
+            }
+            try
+            {
+                this.IsRunning = true;
+
+                this.BusinessPartnerAddGUID = Guid.NewGuid().ToString();
+            }
+            catch (Exception ex)
+            {
+                await ShowPopup(EXC.Get(ex.Message));
+            }
+            finally
+            {
+                this.IsRunning = false;
+            }
         }
         #endregion
 
