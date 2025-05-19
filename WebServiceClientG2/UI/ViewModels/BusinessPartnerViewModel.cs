@@ -184,7 +184,7 @@ namespace WebServiceClientG2.UI.ViewModels
 
                 foreach (BusinessPartner e_businessPartner in result.data.Items ?? Enumerable.Empty<BusinessPartner>())
                 {
-                    sb.AppendLine($"{e_businessPartner.Name} IČO: {e_businessPartner.IdentificationNumber} Mesto: {e_businessPartner.Address.City}");
+                    sb.AppendLine($"GUID:'{e_businessPartner.RecordGuid}' {e_businessPartner.Name} IČO: {e_businessPartner.IdentificationNumber} Mesto: {e_businessPartner.Address.City}");
                 }
 
                 WeakReferenceMessenger.Default.Send(new WebServiceClientG2.Messages.AddTextMessage($"{sb}"));

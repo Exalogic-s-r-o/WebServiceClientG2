@@ -134,7 +134,7 @@ namespace WebServiceClientG2.UI.ViewModels
                     if (myEx.Result == false)
                     {
                         // Chyba.
-                        await ShowPopup(myEx);
+                        WeakReferenceMessenger.Default.Send(new WebServiceClientG2.Messages.AddTextMessage($"SetBaseAddress error: '{myEx.Message}'"));
                         return;
                     }
                 }
@@ -152,7 +152,7 @@ namespace WebServiceClientG2.UI.ViewModels
                 if (result.result == false)
                 {
                     // Chyba.
-                    await ShowPopup(EXC.Get(result.description));
+                    WeakReferenceMessenger.Default.Send(new WebServiceClientG2.Messages.AddTextMessage($"LoginSalt error: '{result.description}'"));
                     return;
                 }
 
@@ -208,7 +208,7 @@ namespace WebServiceClientG2.UI.ViewModels
                     if (myEx.Result == false)
                     {
                         // Chyba.
-                        await ShowPopup(myEx);
+                        WeakReferenceMessenger.Default.Send(new WebServiceClientG2.Messages.AddTextMessage($"SetBaseAddress error: '{myEx.Message}'"));
                         return;
                     }
                 }
@@ -228,7 +228,7 @@ namespace WebServiceClientG2.UI.ViewModels
                 if (result.result == false)
                 {
                     // Chyba.
-                    await ShowPopup(EXC.Get(result.description));
+                    WeakReferenceMessenger.Default.Send(new WebServiceClientG2.Messages.AddTextMessage($"Login error: '{result.description}'"));
                     return;
                 }
 

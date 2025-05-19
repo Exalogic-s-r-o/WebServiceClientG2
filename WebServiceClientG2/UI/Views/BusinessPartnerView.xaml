@@ -39,10 +39,101 @@
 
         </Grid>
 
-		<!--Business partner add-->
+		<!--Business partner find-->
 
 		<toolkit:Expander 
 			Grid.Row="1">
+			<toolkit:Expander.Header>
+
+				<Grid>
+
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="48"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="48"/>
+					</Grid.ColumnDefinitions>
+
+					<Label
+						Grid.Column="0"
+						Text="↓"
+						HorizontalTextAlignment="Center"
+						Style="{StaticResource expanderHeaderArrow}"/>
+
+					<Label
+						Grid.Column="1"
+						Text="business-partner/find"
+						HorizontalTextAlignment="Center"
+						Style="{StaticResource expanderHeaderCaption}"/>
+
+					<Label
+						Grid.Column="2"
+						Text="↓"
+						HorizontalTextAlignment="Center"
+						Style="{StaticResource expanderHeaderArrow}"/>
+
+				</Grid>
+
+			</toolkit:Expander.Header>
+
+			<Grid>
+
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+
+				<Picker
+					Grid.Row="0"
+					x:Name="picker_BusinessPartnerFindMethod"
+					Title="Vyber metódu hľadania obchodného partnera"
+					SelectedItem="{Binding BusinessPartnerFindMethod}">
+					
+					<Picker.ItemsSource>
+						<x:Array Type="{x:Type x:String}">
+							<x:String>Identifikátor</x:String>
+							<x:String>IČO</x:String>
+							<x:String>Čiarový kód</x:String>
+							<x:String>Názov obsahuje</x:String>
+							<x:String>Názov</x:String>
+						</x:Array>
+					</Picker.ItemsSource>
+				</Picker>
+
+				<Grid
+					Grid.Row="1">
+
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<Label
+						Padding="10,0,0,5"
+						Grid.Row="0"
+						Text="Text"
+						FontSize="14">
+
+					</Label>
+
+					<Entry
+						Grid.Row="1"
+						Text="{Binding BusinessPartnerFindValue}">
+					</Entry>
+				</Grid>
+
+				<Button
+					Grid.Row="2"
+					Text="Vyhľadať"
+					Command="{Binding BusinessPartner_FindCommand}"/>
+			</Grid>
+
+		</toolkit:Expander>
+			
+		<!--Business partner add-->
+
+		<toolkit:Expander 
+			Grid.Row="2">
 			<toolkit:Expander.Header>
 
 				<Grid>
@@ -231,96 +322,6 @@
 			
 		</toolkit:Expander>
 
-		<!--Business partner find-->
-
-		<toolkit:Expander 
-			Grid.Row="2">
-			<toolkit:Expander.Header>
-
-				<Grid>
-
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="48"/>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="48"/>
-					</Grid.ColumnDefinitions>
-
-					<Label
-						Grid.Column="0"
-						Text="↓"
-						HorizontalTextAlignment="Center"
-						Style="{StaticResource expanderHeaderArrow}"/>
-
-					<Label
-						Grid.Column="1"
-						Text="business-partner/find"
-						HorizontalTextAlignment="Center"
-						Style="{StaticResource expanderHeaderCaption}"/>
-
-					<Label
-						Grid.Column="2"
-						Text="↓"
-						HorizontalTextAlignment="Center"
-						Style="{StaticResource expanderHeaderArrow}"/>
-
-				</Grid>
-
-			</toolkit:Expander.Header>
-
-			<Grid>
-
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-				</Grid.RowDefinitions>
-
-				<Picker
-					Grid.Row="0"
-					x:Name="picker_BusinessPartnerFindMethod"
-					Title="Vyber metódu hľadania obchodného partnera"
-					SelectedItem="{Binding BusinessPartnerFindMethod}">
-					
-					<Picker.ItemsSource>
-						<x:Array Type="{x:Type x:String}">
-							<x:String>Identifikátor</x:String>
-							<x:String>IČO</x:String>
-							<x:String>Čiarový kód</x:String>
-							<x:String>Názov obsahuje</x:String>
-							<x:String>Názov</x:String>
-						</x:Array>
-					</Picker.ItemsSource>
-				</Picker>
-
-				<Grid
-					Grid.Row="1">
-
-					<Grid.RowDefinitions>
-						<RowDefinition Height="*" />
-						<RowDefinition Height="Auto" />
-					</Grid.RowDefinitions>
-
-					<Label
-						Padding="10,0,0,5"
-						Grid.Row="0"
-						Text="Text"
-						FontSize="14">
-
-					</Label>
-
-					<Entry
-						Grid.Row="1"
-						Text="{Binding BusinessPartnerFindValue}">
-					</Entry>
-				</Grid>
-
-				<Button
-					Grid.Row="2"
-					Text="Vyhľadať"
-					Command="{Binding BusinessPartner_FindCommand}"/>
-			</Grid>
-
-		</toolkit:Expander>
 		
 		
 		

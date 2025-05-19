@@ -35,7 +35,7 @@ namespace WebServiceClientG2.UI.ViewModels
                 if (result == null)
                 {
                     // Chyba
-                    await ShowPopup(EXC.Get($"Odpoveď neprišla {result}."));
+                    WeakReferenceMessenger.Default.Send(new WebServiceClientG2.Messages.AddTextMessage($"Odpoveď neprišla: '{result}'"));
                     return;
                 }
 
@@ -70,7 +70,7 @@ namespace WebServiceClientG2.UI.ViewModels
                 if (result.result == false)
                 {
                     // Chyba
-                    await ShowPopup(EXC.Get($"Chyba pri volaní metódy 'version'. '{result.description}'."));
+                    WeakReferenceMessenger.Default.Send(new WebServiceClientG2.Messages.AddTextMessage($"Chyba pri volaní metódy 'version'. '{result.description}'."));
                     return;
                 }
 
