@@ -29,6 +29,8 @@ namespace WebServiceClientG2
 
             this._AppEngine = appEngine;
             this.PopupService = popupService;
+
+            Application.Current.UserAppTheme = AppTheme.Dark;
         }
 
         protected override Window CreateWindow(IActivationState? activationState)

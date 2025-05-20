@@ -9,7 +9,7 @@
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
-			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 
 		<!--Toolbar-->
@@ -235,16 +235,17 @@
 		<Grid
 			Grid.Row="2"
 			Padding="32"
+			HorizontalOptions="Center"
 			VerticalOptions="End">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="*"/>
-				<RowDefinition Height="*"/>
-				<RowDefinition Height="*"/>
-			</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
 
 			<!-- Inicializovať-->
 			<Button
-				Grid.Row="0"
+				Grid.Column="0"
 				Text="Inicializovať"
 				HeightRequest="56" 
 				VerticalOptions="Center" 
@@ -259,7 +260,7 @@
 			
 			<!-- Login Salt-->
 			<Button
-				Grid.Row="1"
+				Grid.Column="1"
 				Text="Login salt"
 				HeightRequest="56" 
 				VerticalOptions="Center" 
@@ -274,7 +275,7 @@
 
 			<!-- Login-->
 			<Button
-				Grid.Row="2"
+				Grid.Column="2"
 				Text="Login"
 				HeightRequest="56" 
 				VerticalOptions="Center" 

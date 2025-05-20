@@ -70,6 +70,7 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="11.2.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+		<PackageReference Include="Exa.OBERON.ServicesGen2.Client" Version="1.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.60" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.4" />
 		<PackageReference Include="Microsoft.Maui.Essentials" Version="9.0.60" />
@@ -108,8 +109,8 @@
     <Folder Include="Helpers\" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <ProjectReference Include="..\..\Windows\OBERON\System\DLL\Exa.OBERON.ServicesGen2.Client\Exa.OBERON.ServicesGen2.Client.csproj" />
-  </ItemGroup>
+  </ItemGroup>-->
 
 </Project>

@@ -102,7 +102,7 @@ namespace WebServiceClientG2.Base.AppConfiguration
             try
             {
                 // IP adresa.
-                prp_IPAddress = Preferences.Get($"{SECTION_NAME}.IPAddress", "192.168.16.236");
+                prp_IPAddress = Preferences.Get($"{SECTION_NAME}.IPAddress", "192.168.16.236:22012");
 
                 // Heslo používateľa.
                 prp_UserPassword = Preferences.Get($"{SECTION_NAME}.UserPassword", "");
