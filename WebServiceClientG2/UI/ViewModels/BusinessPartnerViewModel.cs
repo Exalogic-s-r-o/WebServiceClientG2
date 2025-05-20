@@ -76,6 +76,64 @@ namespace WebServiceClientG2.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// EDIT.
+        /// </summary>
+        private string prp_BusinessPartnerEditGUID = string.Empty;
+        public string BusinessPartnerEditGUID
+        {
+            get { return prp_BusinessPartnerEditGUID; }
+            set
+            {
+                prp_BusinessPartnerEditGUID = value;
+                OnPropertyChanged("BusinessPartnerEditGUID");
+            }
+        }
+
+        private string prp_BusinessPartnerEditName = "Rudo";
+        public string BusinessPartnerEditName
+        {
+            get { return prp_BusinessPartnerEditName; }
+            set
+            {
+                prp_BusinessPartnerEditName = value;
+                OnPropertyChanged("BusinessPartnerEditName");
+            }
+        }
+
+        private string prp_BusinessPartnerEditICO = "123456789";
+        public string BusinessPartnerEditICO
+        {
+            get { return prp_BusinessPartnerAddICO; }
+            set
+            {
+                prp_BusinessPartnerEditICO = value;
+                OnPropertyChanged("BusinessPartnerEditICO");
+            }
+        }
+
+        private string prp_BusinessPartnerEditCity = "Buzica";
+        public string BusinessPartnerEditCity
+        {
+            get { return prp_BusinessPartnerEditCity; }
+            set
+            {
+                prp_BusinessPartnerEditCity = value;
+                OnPropertyChanged("BusinessPartnerEditCity");
+            }
+        }
+
+        private string prp_BusinessPartnerEditStreet = "Pečeňehova";
+        public string BusinessPartnerEditStreet
+        {
+            get { return prp_BusinessPartnerEditStreet; }
+            set
+            {
+                prp_BusinessPartnerEditStreet = value;
+                OnPropertyChanged("BusinessPartnerEditStreet");
+            }
+        }
+
         private string prp_BusinessPartnerFindValue = string.Empty;
         public string BusinessPartnerFindValue
         {
@@ -279,7 +337,87 @@ namespace WebServiceClientG2.UI.ViewModels
             {
                 this.IsRunning = false;
             }
+        }
 
+        /// <summary>
+        /// Aktualizácia obchodného partnera.
+        /// </summary>
+        /// <returns></returns>
+        [RelayCommand]
+        private async Task BusinessPartner_Update()
+        {
+            EXC myEx = EXC.GetDefault();
+
+            if (this.IsRunning == true)
+            {
+                return;
+            }
+
+            try
+            {
+                this.IsRunning = true;
+
+                Exa.OBERON.ServicesGen2.Client.Models.BusinessPartner.BusinessPartnerHeader businessPartnerHeader =
+                    new Exa.OBERON.ServicesGen2.Client.Models.BusinessPartner.BusinessPartnerHeader();
+
+                if (string.IsNullOrEmpty(this.BusinessPartnerEditGUID))
+                {
+                    myEx = EXC.Get("Nebol zadaný jednoznačný identifikátor obchodného partnera.");
+                    await ShowPopup(myEx);
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(this.BusinessPartnerEditName))
+                {
+                    myEx = EXC.Get("Nebol zadaný názov obchodného partnera.");
+                    await ShowPopup(myEx);
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(this.BusinessPartnerEditCity))
+                {
+                    myEx = EXC.Get("Nebolo zadané mesto obchodného partnera.");
+                    await ShowPopup(myEx);
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(this.BusinessPartnerEditStreet))
+                {
+                    myEx = EXC.Get("Nebola zadaná ulica obchodného partnera.");
+                    await ShowPopup(myEx);
+                    return;
+                }
+
+                businessPartnerHeader.RecordGuid = this.BusinessPartnerEditGUID;
+                businessPartnerHeader.Name = this.BusinessPartnerEditName;
+                businessPartnerHeader.IdentificationNumber = this.BusinessPartnerEditICO;
+                businessPartnerHeader.Address.Street = this.BusinessPartnerEditStreet;
+                businessPartnerHeader.Address.City = this.BusinessPartnerEditCity;
+
+                var result = await this._AppEngine.WebServiceClient.BusinessPartner.BusinessPartner_Update(businessPartnerHeader);
+                if (result.result == false)
+                {
+                    WeakReferenceMessenger.Default.Send(new WebServiceClientG2.Messages.AddTextMessage($"Chyba pri volaní 'BusinessPartner_Update'. '{result.description}'"));
+                    return;
+                }
+
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine($"BusinessPartnerUpdate:");
+                sb.AppendLine();
+                sb.AppendLine($"{result.data.GUID}");
+                sb.AppendLine($"{result.data.Info}");
+                sb.AppendLine($"{result.data.Value}");
+
+                WeakReferenceMessenger.Default.Send(new WebServiceClientG2.Messages.AddTextMessage($"{sb}"));
+            }
+            catch (Exception ex)
+            {
+                await ShowPopup(EXC.Get(ex.Message));
+            }
+            finally
+            {
+                this.IsRunning = false;
+            }
         }
 
         /// <summary>

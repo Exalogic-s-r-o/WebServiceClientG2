@@ -9,25 +9,26 @@
 	<ScrollView>
 		<Grid
 		RowSpacing="15">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-			<RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
 
-        <!--Toolbar-->
-        <Grid 
+			<!--Toolbar-->
+			<Grid 
 			Grid.Row="0"
 			HeightRequest="62">
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="48"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="48"/>
-            </Grid.ColumnDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="48"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="48"/>
+				</Grid.ColumnDefinitions>
 
-            <!--Titulka text-->
-            <Label 
+				<!--Titulka text-->
+				<Label 
 				MaxLines="1"
 				Grid.Column="1"
 				VerticalOptions="Center"
@@ -37,164 +38,165 @@
 				FontSize="24"
 				FontFamily="RobotoRegular"/>
 
-        </Grid>
+			</Grid>
 
-		<!--Business partner find-->
+			<!--Business partner find-->
 
-		<toolkit:Expander 
+			<toolkit:Expander 
 			Grid.Row="1">
-			<toolkit:Expander.Header>
+				<toolkit:Expander.Header>
 
-				<Grid>
+					<Grid>
 
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="48"/>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="48"/>
-					</Grid.ColumnDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="48"/>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="48"/>
+						</Grid.ColumnDefinitions>
 
-					<Label
+						<Label
 						Grid.Column="0"
 						Text="↓"
 						HorizontalTextAlignment="Center"
 						Style="{StaticResource expanderHeaderArrow}"/>
 
-					<Label
+						<Label
 						Grid.Column="1"
 						Text="business-partner/find"
 						HorizontalTextAlignment="Center"
 						Style="{StaticResource expanderHeaderCaption}"/>
 
-					<Label
+						<Label
 						Grid.Column="2"
 						Text="↓"
 						HorizontalTextAlignment="Center"
 						Style="{StaticResource expanderHeaderArrow}"/>
 
-				</Grid>
+					</Grid>
 
-			</toolkit:Expander.Header>
+				</toolkit:Expander.Header>
 
-			<Grid>
+				<Grid>
 
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-				</Grid.RowDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
 
-				<Picker
+					<Picker
 					Grid.Row="0"
 					x:Name="picker_BusinessPartnerFindMethod"
 					Title="Vyber metódu hľadania obchodného partnera"
 					SelectedItem="{Binding BusinessPartnerFindMethod}">
-					
-					<Picker.ItemsSource>
-						<x:Array Type="{x:Type x:String}">
-							<x:String>Identifikátor</x:String>
-							<x:String>IČO</x:String>
-							<x:String>Čiarový kód</x:String>
-							<x:String>Názov obsahuje</x:String>
-							<x:String>Názov</x:String>
-						</x:Array>
-					</Picker.ItemsSource>
-				</Picker>
 
-				<Grid
+						<Picker.ItemsSource>
+							<x:Array Type="{x:Type x:String}">
+								<x:String>Identifikátor</x:String>
+								<x:String>IČO</x:String>
+								<x:String>Čiarový kód</x:String>
+								<x:String>Názov obsahuje</x:String>
+								<x:String>Názov</x:String>
+							</x:Array>
+						</Picker.ItemsSource>
+					</Picker>
+
+					<Grid
 					Grid.Row="1">
 
-					<Grid.RowDefinitions>
-						<RowDefinition Height="*" />
-						<RowDefinition Height="Auto" />
-					</Grid.RowDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
 
-					<Label
+						<Label
 						Padding="10,0,0,5"
 						Grid.Row="0"
 						Text="Text"
 						FontSize="14">
 
-					</Label>
+						</Label>
 
-					<Entry
+						<Entry
 						Grid.Row="1"
 						Text="{Binding BusinessPartnerFindValue}">
-					</Entry>
-				</Grid>
+						</Entry>
+					</Grid>
 
-				<Button
+					<Button
 					Grid.Row="2"
+					Margin="10"
 					Text="Vyhľadať"
 					Command="{Binding BusinessPartner_FindCommand}"/>
-			</Grid>
+				</Grid>
 
-		</toolkit:Expander>
-			
-		<!--Business partner add-->
+			</toolkit:Expander>
 
-		<toolkit:Expander 
+			<!--Business partner add-->
+
+			<toolkit:Expander 
 			Grid.Row="2">
-			<toolkit:Expander.Header>
+				<toolkit:Expander.Header>
 
-				<Grid>
+					<Grid>
 
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="48"/>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="48"/>
-					</Grid.ColumnDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="48"/>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="48"/>
+						</Grid.ColumnDefinitions>
 
-					<Label
+						<Label
 						Grid.Column="0"
 						Text="↓"
 						HorizontalTextAlignment="Center"
 						Style="{StaticResource expanderHeaderArrow}"/>
 
-					<Label
+						<Label
 						Grid.Column="1"
 						Text="business-partner/add"
 						FontSize="16"
 						HorizontalTextAlignment="Center"
 						Style="{StaticResource expanderHeaderCaption}"/>
 
-					<Label
+						<Label
 						Grid.Column="2"
 						Text="↓"
 						HorizontalTextAlignment="Center"
 						Style="{StaticResource expanderHeaderArrow}"/>
 
-				</Grid>
+					</Grid>
 
-			</toolkit:Expander.Header>
+				</toolkit:Expander.Header>
 
-			<Grid>
-
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-				</Grid.RowDefinitions>
-
-				<Grid
-					Grid.Row="0">
+				<Grid>
 
 					<Grid.RowDefinitions>
-						<RowDefinition Height="*" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
 					</Grid.RowDefinitions>
 
-					<Label
+					<Grid
+					Grid.Row="0">
+
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+
+						<Label
 						Padding="10,0,0,5"
 						Grid.Row="0"
 						Text="GUID"
 						FontSize="14"
 						TextColor="{StaticResource PrimaryLightColor}">
 
-					</Label>
+						</Label>
 
 						<Grid 
 							Grid.Row="1">
@@ -218,130 +220,314 @@
 						</Grid>
 
 
-				</Grid>
+					</Grid>
 
-				<Grid
+					<Grid
 					Grid.Row="1">
 
-					<Grid.RowDefinitions>
-						<RowDefinition Height="*" />
-						<RowDefinition Height="Auto" />
-					</Grid.RowDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
 
-					<Label
+						<Label
 						Padding="10,0,0,5"
 						Grid.Row="0"
 						Text="Názov"
 						FontSize="14"
 						TextColor="{StaticResource PrimaryLightColor}">
 
-					</Label>
+						</Label>
 
-					<Entry
+						<Entry
 						Grid.Row="1"
 						Text="{Binding BusinessPartnerAddName}">
-					</Entry>
-				</Grid>
+						</Entry>
+					</Grid>
 
-				<Grid
+					<Grid
 					Grid.Row="2">
 
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-					</Grid.RowDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
 
-					<Label
+						<Label
 						Padding="10,0,0,5"
 						Grid.Row="0"
 						Text="IČO"
 						FontSize="14"
 						TextColor="{StaticResource PrimaryLightColor}">
 
-					</Label>
+						</Label>
 
-					<Entry
+						<Entry
 						Grid.Row="1"
 						Text="{Binding BusinessPartnerAddICO}">
-					</Entry>
-				</Grid>
+						</Entry>
+					</Grid>
 
-				<Grid
+					<Grid
 					Grid.Row="3">
 
-					<Grid.RowDefinitions>
-						<RowDefinition Height="*" />
-						<RowDefinition Height="Auto" />
-					</Grid.RowDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
 
-					<Label
+						<Label
 						Padding="10,0,0,5"
 						Grid.Row="0"
 						Text="Mesto"
 						FontSize="14"
 						TextColor="{StaticResource PrimaryLightColor}">
 
-					</Label>
+						</Label>
 
-					<Entry
+						<Entry
 						Grid.Row="1"
 						Text="{Binding BusinessPartnerAddCity}">
-					</Entry>
-				</Grid>
+						</Entry>
+					</Grid>
 
-				<Grid
+					<Grid
 					Grid.Row="4">
 
-					<Grid.RowDefinitions>
-						<RowDefinition Height="*" />
-						<RowDefinition Height="Auto" />
-					</Grid.RowDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
 
-					<Label
+						<Label
 						Padding="10,0,0,5"
 						Grid.Row="0"
 						Text="Ulica"
 						FontSize="14"
 						TextColor="{StaticResource PrimaryLightColor}">
 
-					</Label>
+						</Label>
 
-					<Entry
+						<Entry
 						Grid.Row="1"
 						Text="{Binding BusinessPartnerAddStreet}">
-					</Entry>
-				</Grid>
+						</Entry>
+					</Grid>
 
-				<Button
+					<Button
 					Grid.Row="5"
 					Text="Pridať"
 					Command="{Binding BusinessPartner_AddCommand}"
 					Margin="10"/>
 
-			</Grid>
-			
-		</toolkit:Expander>
+				</Grid>
 
-		
-		
-		
+			</toolkit:Expander>
 
-		<!--Activity indicator-->
-        <Border
+			<!--Business partner update-->
+
+			<toolkit:Expander 
+			Grid.Row="3">
+				<toolkit:Expander.Header>
+
+					<Grid>
+
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="48"/>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="48"/>
+						</Grid.ColumnDefinitions>
+
+						<Label
+						Grid.Column="0"
+						Text="↓"
+						HorizontalTextAlignment="Center"
+						Style="{StaticResource expanderHeaderArrow}"/>
+
+						<Label
+						Grid.Column="1"
+						Text="business-partner/update"
+						FontSize="16"
+						HorizontalTextAlignment="Center"
+						Style="{StaticResource expanderHeaderCaption}"/>
+
+						<Label
+						Grid.Column="2"
+						Text="↓"
+						HorizontalTextAlignment="Center"
+						Style="{StaticResource expanderHeaderArrow}"/>
+
+					</Grid>
+
+				</toolkit:Expander.Header>
+
+				<Grid>
+
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<Grid
+					Grid.Row="0">
+
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+
+						<Label
+						Padding="10,0,0,5"
+						Grid.Row="0"
+						Text="GUID"
+						FontSize="14"
+						TextColor="{StaticResource PrimaryLightColor}">
+
+						</Label>
+
+						<Grid 
+							Grid.Row="1">
+
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="Auto"/>
+							</Grid.ColumnDefinitions>
+
+							<Entry
+								Grid.Column="0"
+								Text="{Binding BusinessPartnerEditGUID}">
+							</Entry>
+
+						</Grid>
+
+
+					</Grid>
+
+					<Grid
+					Grid.Row="1">
+
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+
+						<Label
+						Padding="10,0,0,5"
+						Grid.Row="0"
+						Text="Názov"
+						FontSize="14"
+						TextColor="{StaticResource PrimaryLightColor}">
+
+						</Label>
+
+						<Entry
+						Grid.Row="1"
+						Text="{Binding BusinessPartnerEditName}">
+						</Entry>
+					</Grid>
+
+					<Grid
+					Grid.Row="2">
+
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+
+						<Label
+						Padding="10,0,0,5"
+						Grid.Row="0"
+						Text="IČO"
+						FontSize="14"
+						TextColor="{StaticResource PrimaryLightColor}">
+
+						</Label>
+
+						<Entry
+						Grid.Row="1"
+						Text="{Binding BusinessPartnerEditICO}">
+						</Entry>
+					</Grid>
+
+					<Grid
+					Grid.Row="3">
+
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+
+						<Label
+						Padding="10,0,0,5"
+						Grid.Row="0"
+						Text="Mesto"
+						FontSize="14"
+						TextColor="{StaticResource PrimaryLightColor}">
+
+						</Label>
+
+						<Entry
+						Grid.Row="1"
+						Text="{Binding BusinessPartnerEditCity}">
+						</Entry>
+					</Grid>
+
+					<Grid
+					Grid.Row="4">
+
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+
+						<Label
+						Padding="10,0,0,5"
+						Grid.Row="0"
+						Text="Ulica"
+						FontSize="14"
+						TextColor="{StaticResource PrimaryLightColor}">
+
+						</Label>
+
+						<Entry
+						Grid.Row="1"
+						Text="{Binding BusinessPartnerEditStreet}">
+						</Entry>
+					</Grid>
+
+					<Button
+					Grid.Row="5"
+					Text="Aktualizovať"
+					Command="{Binding BusinessPartner_UpdateCommand}"
+					Margin="10"/>
+
+				</Grid>
+
+			</toolkit:Expander>
+
+
+
+			<!--Activity indicator-->
+			<Border
 			IsVisible="{Binding IsRunning}"
 			Grid.Row="0"
-			Grid.RowSpan="3"
+			Grid.RowSpan="4"
 			BackgroundColor="{StaticResource ActivityIndicatorBackgroundColor}"
 			StrokeShape="Rectangle"
 			StrokeThickness="0"
 			Padding="10">
-            <ActivityIndicator
+				<ActivityIndicator
 				IsRunning="{Binding IsRunning}"
 				IsVisible="{Binding IsRunning}"
 				IsEnabled="true"
 				Style="{StaticResource ActivityIndicatorStyle}" />
-        </Border>
+			</Border>
 
-    </Grid>
+		</Grid>
 	</ScrollView>
 </ContentView>
