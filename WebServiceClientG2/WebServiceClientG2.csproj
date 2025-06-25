@@ -18,9 +18,7 @@
 		<UseMaui>true</UseMaui>
     <OutputType>Exe</OutputType>
     <WindowsPackageType>None</WindowsPackageType>
-    <PublishSingleFile>true</PublishSingleFile>
-    <!-- Optional: Creates a single .exe -->
-    <SelfContained>true</SelfContained>
+
     <!-- Includes runtime dependencies -->
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
 
@@ -28,6 +26,11 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
+
+
+		    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>    
 		<!-- Display name -->
 		<ApplicationTitle>WebServiceClientG2</ApplicationTitle>
 
@@ -47,6 +50,7 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -70,7 +74,7 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="11.2.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-		<PackageReference Include="Exa.OBERON.ServicesGen2.Client" Version="1.0.0" />
+		<PackageReference Include="Exa.OBERON.ServicesGen2.Client" Version="1.0.1" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.60" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.4" />
 		<PackageReference Include="Microsoft.Maui.Essentials" Version="9.0.60" />

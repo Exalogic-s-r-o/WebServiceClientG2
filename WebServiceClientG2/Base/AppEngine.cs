@@ -19,7 +19,7 @@ namespace WebServiceClientG2.Base
         /// <summary>
         /// Dátum vydania verzie.
         /// </summary>
-        public const string CONST_APP_VERSION_DATE = "16.5.2025";
+        public const string CONST_APP_VERSION_DATE = "25.6.2025";
 
         #endregion
 
@@ -71,58 +71,6 @@ namespace WebServiceClientG2.Base
             set
             {
                 prp_WebServiceSettings = value;
-            }
-        }
-
-        #endregion
-
-        #region PUBLIC METHODS
-
-
-        #endregion
-
-        #region PRIVATE METHODS
-
-        /// <summary>
-        /// Vráti hash hesla rozšíreného o SALT. Používa sa pri Login.
-        /// </summary>
-        /// <param name="u_Password"></param>
-        /// <param name="u_Salt"></param>
-        /// <returns></returns>
-        private string z_GetPasswordHashSHA1(string u_Password, string u_Salt)
-        {
-
-            try
-            {
-
-                string tmp_Password;
-                if ((u_Salt ?? "") == (string.Empty ?? ""))
-                {
-                    // Heslo bez SALT
-                    tmp_Password = u_Password;
-                }
-                else
-                {
-                    // Je zadaný SALT - Heslo "zväčšiť" o SALT - k saltu pripojiť heslo 
-                    tmp_Password = u_Salt + u_Password;
-                }
-
-                var m_SHA1 = System.Security.Cryptography.SHA1.Create();
-                var m_bInput = Encoding.Default.GetBytes(tmp_Password);
-                byte[] m_bOutput;
-                string tmp_PasswordHashWtthSHA1;
-                m_bOutput = m_SHA1.ComputeHash(m_bInput);
-                tmp_PasswordHashWtthSHA1 = BitConverter.ToString(m_bOutput);
-                tmp_PasswordHashWtthSHA1 = tmp_PasswordHashWtthSHA1.Replace("-", "");
-                tmp_PasswordHashWtthSHA1 = tmp_PasswordHashWtthSHA1.ToLower();
-
-                return tmp_PasswordHashWtthSHA1;
-
-            }
-            catch
-            {
-
-                return string.Empty;
             }
         }
 
