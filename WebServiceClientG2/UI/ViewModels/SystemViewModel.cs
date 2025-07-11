@@ -31,17 +31,25 @@ namespace WebServiceClientG2.UI.ViewModels
             {
                 this.IsRunning = true;
 
-                var result = await this._AppEngine.WebServiceClient.System.Ping();
-                if (result == null)
+                var resultEx = await this._AppEngine.WebServiceClient.System.Ping();
+                if (resultEx == null)
                 {
                     // Chyba
-                    WeakReferenceMessenger.Default.Send(new WebServiceClientG2.Messages.AddTextMessage($"Odpoveď neprišla: '{result}'"));
+                    WeakReferenceMessenger.Default.Send(new WebServiceClientG2.Messages.AddTextMessage($"Odpoveď neprišla: '{resultEx}'"));
                     return;
                 }
 
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine($"Ping");
-                sb.AppendLine($"{result.data}");
+                if (resultEx.result==false)
+                {
+                    sb.AppendLine($"{resultEx.description}");
+                }
+                else
+                {
+                    sb.AppendLine($"{resultEx.data}");
+                }
+                
 
                 WeakReferenceMessenger.Default.Send(new WebServiceClientG2.Messages.AddTextMessage($"{sb}"));
             }
