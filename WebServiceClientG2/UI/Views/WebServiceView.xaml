@@ -10,7 +10,9 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
-		</Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+             <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
 		<!--Toolbar-->
 		<Grid 
@@ -88,7 +90,7 @@
 
 			<!--Meno používateľa-->
 			<Grid 
-			Grid.Row="1"
+			Grid.Row="2"
 			Padding="10,0,10,0">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
@@ -128,7 +130,7 @@
 
 			<!--Heslo používateľa-->
 			<Grid 
-			Grid.Row="2"
+			Grid.Row="3"
 			Padding="10,0,10,0">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
@@ -168,7 +170,7 @@
 
 			<!--SSH-->
 			<Grid 
-			Grid.Row="3"
+			Grid.Row="4"
 			Padding="10,0,10,0"
 			HorizontalOptions="Fill">
 				<Grid.ColumnDefinitions>
@@ -233,7 +235,7 @@
 		</Grid>
 
 		<Grid
-			Grid.Row="2"
+			Grid.Row="5"
 			Padding="32"
 			HorizontalOptions="Center"
 			VerticalOptions="End">

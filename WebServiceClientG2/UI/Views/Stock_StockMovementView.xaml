@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WebServiceClientG2.UI.Views.Stock_StockMovementView"
+             xmlns:local="clr-namespace:WebServiceClientG2.UI.ViewModels"
+			 x:DataType="local:Stock_StockMovementViewModel"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+
+    <ScrollView>
+        <Grid
+		RowSpacing="15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!--Toolbar-->
+            <Grid 
+		Grid.Row="0"
+		HeightRequest="62">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="48"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Titulka text-->
+                <Label 
+				MaxLines="1"
+				Grid.Column="1"
+				VerticalOptions="Center"
+				HorizontalOptions="Center"
+				Text="Stock" 
+				TextColor="{StaticResource PrimaryTextColor}"
+				FontSize="24"
+				FontFamily="RobotoRegular"/>
+
+            </Grid>
+
+            <!--FoodMenu list-->
+            <toolkit:Expander 
+			Grid.Row="1">
+                <toolkit:Expander.Header>
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="48"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+			Grid.Column="0"
+			Text="↓"
+			HorizontalTextAlignment="Center"
+			Style="{StaticResource expanderHeaderArrow}"/>
+
+                        <Label
+			Grid.Column="1"
+			Text="stockCardsList"
+			HorizontalTextAlignment="Center"
+			Style="{StaticResource expanderHeaderCaption}"/>
+
+                        <Label
+			Grid.Column="2"
+			Text="↓"
+			HorizontalTextAlignment="Center"
+			Style="{StaticResource expanderHeaderArrow}"/>
+
+                    </Grid>
+
+                </toolkit:Expander.Header>
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid
+					Grid.Row="0">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label
+						Padding="10,0,0,5"
+						Grid.Row="0"
+						Text="Page index"
+						FontSize="14">
+
+                        </Label>
+
+                        <Entry
+						Grid.Row="1"
+						Text="{Binding StockMovementList_PageIndex}"
+                        Style="{StaticResource EntryColorTheme}"
+                        TextColor="{StaticResource PrimaryTextColor}">
+                        </Entry>
+                    </Grid>
+
+                    <Grid
+					Grid.Row="1">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label
+				Padding="10,0,0,5"
+				Grid.Row="0"
+				Text="Page size"
+				FontSize="14">
+
+                        </Label>
+
+                        <Entry
+						Grid.Row="1"
+						Text="{Binding StockMovementList_PageSize}"
+                        Style="{StaticResource EntryColorTheme}"
+                        TextColor="{StaticResource PrimaryTextColor}">
+                        </Entry>
+                    </Grid>
+
+                    <Button
+					Grid.Row="2"
+					Margin="10"
+					Text="stock-stockMovementsList"
+					Command="{Binding StockMovementsLoadCommand}"/>
+                </Grid>
+
+            </toolkit:Expander>
+
+
+
+
+
+            <!--Activity indicator-->
+            <Border
+			IsVisible="{Binding IsRunning}"
+			Grid.Row="0"
+			Grid.RowSpan="4"
+			BackgroundColor="{StaticResource ActivityIndicatorBackgroundColor}"
+			StrokeShape="Rectangle"
+			StrokeThickness="0"
+			Padding="10">
+                <ActivityIndicator
+				IsRunning="{Binding IsRunning}"
+				IsVisible="{Binding IsRunning}"
+				IsEnabled="true"
+				Style="{StaticResource ActivityIndicatorStyle}" />
+            </Border>
+
+        </Grid>
+    </ScrollView>
+    
+</ContentView>

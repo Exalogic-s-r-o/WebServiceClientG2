@@ -88,7 +88,8 @@
 					Grid.Row="0"
 					x:Name="picker_BusinessPartnerFindMethod"
 					Title="Vyber metódu hľadania obchodného partnera"
-					SelectedItem="{Binding BusinessPartnerFindMethod}">
+					SelectedItem="{Binding BusinessPartnerFindMethod}"
+                    Style="{StaticResource EntryColorTheme}">
 
 						<Picker.ItemsSource>
 							<x:Array Type="{x:Type x:String}">
@@ -117,10 +118,13 @@
 
 						</Label>
 
-						<Entry
+                        <Entry
 						Grid.Row="1"
-						Text="{Binding BusinessPartnerFindValue}">
-						</Entry>
+						Text="{Binding BusinessPartnerFindValue}"
+                        Style="{StaticResource EntryColorTheme}"
+						TextColor="{StaticResource PrimaryTextColor}">                            
+                         
+                        </Entry>
 					</Grid>
 
 					<Button
@@ -208,7 +212,9 @@
 
 							<Entry
 								Grid.Column="0"
-								Text="{Binding BusinessPartnerAddGUID}">
+								Text="{Binding BusinessPartnerAddGUID}"
+                                Style="{StaticResource EntryColorTheme}"
+								TextColor="{StaticResource PrimaryTextColor}">
 							</Entry>
 
 							<Button
@@ -241,7 +247,9 @@
 
 						<Entry
 						Grid.Row="1"
-						Text="{Binding BusinessPartnerAddName}">
+						Text="{Binding BusinessPartnerAddName}"
+                        Style="{StaticResource EntryColorTheme}"
+						TextColor="{StaticResource PrimaryTextColor}">
 						</Entry>
 					</Grid>
 
@@ -264,7 +272,9 @@
 
 						<Entry
 						Grid.Row="1"
-						Text="{Binding BusinessPartnerAddICO}">
+						Text="{Binding BusinessPartnerAddICO}"
+                        Style="{StaticResource EntryColorTheme}"
+						TextColor="{StaticResource PrimaryTextColor}">
 						</Entry>
 					</Grid>
 
@@ -287,7 +297,9 @@
 
 						<Entry
 						Grid.Row="1"
-						Text="{Binding BusinessPartnerAddCity}">
+						Text="{Binding BusinessPartnerAddCity}"
+                        Style="{StaticResource EntryColorTheme}"
+						TextColor="{StaticResource PrimaryTextColor}">
 						</Entry>
 					</Grid>
 
@@ -310,7 +322,9 @@
 
 						<Entry
 						Grid.Row="1"
-						Text="{Binding BusinessPartnerAddStreet}">
+						Text="{Binding BusinessPartnerAddStreet}"
+                        Style="{StaticResource EntryColorTheme}"
+						TextColor="{StaticResource PrimaryTextColor}">
 						</Entry>
 					</Grid>
 
@@ -400,7 +414,9 @@
 
 							<Entry
 								Grid.Column="0"
-								Text="{Binding BusinessPartnerEditGUID}">
+								Text="{Binding BusinessPartnerEditGUID}"
+                                Style="{StaticResource EntryColorTheme}"
+								TextColor="{StaticResource PrimaryTextColor}">
 							</Entry>
 
 						</Grid>
@@ -427,7 +443,9 @@
 
 						<Entry
 						Grid.Row="1"
-						Text="{Binding BusinessPartnerEditName}">
+						Text="{Binding BusinessPartnerEditName}"
+                        Style="{StaticResource EntryColorTheme}"
+						TextColor="{StaticResource PrimaryTextColor}">
 						</Entry>
 					</Grid>
 
@@ -450,7 +468,9 @@
 
 						<Entry
 						Grid.Row="1"
-						Text="{Binding BusinessPartnerEditICO}">
+						Text="{Binding BusinessPartnerEditICO}"
+                        Style="{StaticResource EntryColorTheme}"
+						TextColor="{StaticResource PrimaryTextColor}">
 						</Entry>
 					</Grid>
 
@@ -473,7 +493,9 @@
 
 						<Entry
 						Grid.Row="1"
-						Text="{Binding BusinessPartnerEditCity}">
+						Text="{Binding BusinessPartnerEditCity}"
+                        Style="{StaticResource EntryColorTheme}"
+						TextColor="{StaticResource PrimaryTextColor}">
 						</Entry>
 					</Grid>
 
@@ -496,7 +518,9 @@
 
 						<Entry
 						Grid.Row="1"
-						Text="{Binding BusinessPartnerEditStreet}">
+						Text="{Binding BusinessPartnerEditStreet}"
+                        Style="{StaticResource EntryColorTheme}"
+						TextColor="{StaticResource PrimaryTextColor}">
 						</Entry>
 					</Grid>
 

@@ -34,6 +34,9 @@ namespace WebServiceClientG2.UI.ViewModels
             this.businessPartnerView = new Views.BusinessPartnerView(appEngine, popupService);
             this.businessPartnerTab = new Models.TabItem(name: "BusinessPartner", contentView: businessPartnerView);
 
+            this.stock_StockMovementView = new Views.Stock_StockMovementView(appEngine, popupService);
+            this.stock_StockMovementTab = new Models.TabItem(name: "Stock-StockMovements", contentView: stock_StockMovementView);
+
             this.Tabs = new ObservableCollection<Models.TabItem>();
             this.SelectedTab = webServiceTab;
 
@@ -45,8 +48,11 @@ namespace WebServiceClientG2.UI.ViewModels
 
             this._AppEngine.WebServiceClient.System.JSONLog = SaveJSONLog;
             this._AppEngine.WebServiceClient.User.JSONLog = SaveJSONLog;
-            this._AppEngine.WebServiceClient.BillJournal.JSONLog = SaveJSONLog;
+
             this._AppEngine.WebServiceClient.BusinessPartner.JSONLog = SaveJSONLog;
+            this._AppEngine.WebServiceClient.Stock.JSONLog = SaveJSONLog;
+            this._AppEngine.WebServiceClient.BillJournal.JSONLog = SaveJSONLog;
+            
         }
 
         #endregion
@@ -56,10 +62,12 @@ namespace WebServiceClientG2.UI.ViewModels
         private readonly UI.Views.WebServiceView webServiceView;
         private readonly UI.Views.SystemView systemView;
         private readonly UI.Views.BusinessPartnerView businessPartnerView;
+        private readonly UI.Views.Stock_StockMovementView stock_StockMovementView;
 
         private readonly Models.TabItem webServiceTab;
         private readonly Models.TabItem systemTab;
         private readonly Models.TabItem businessPartnerTab;
+        private readonly Models.TabItem stock_StockMovementTab;
 
         #endregion
 
@@ -223,6 +231,7 @@ namespace WebServiceClientG2.UI.ViewModels
                 this.tabs.Add(webServiceTab);
                 this.tabs.Add(systemTab);
                 this.tabs.Add(businessPartnerTab);
+                this.tabs.Add(stock_StockMovementTab);
             }
             catch
             {
