@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Exa.OBERON.ServicesGen2.Client.Models.Common.BookSettings;
 using Exa.OBERON.ServicesGen2.Client.Models.Stock;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,25 @@ namespace WebServiceClientG2.UI.ViewModels
 
 
         #region PROPERTIES
+
+        private string prp_StockName = "Hlavný sklad";
+        /// <summary>
+        /// Názov skladu.
+        /// </summary>
+        public string StockName
+        {
+            get => this.prp_StockName;
+
+            set
+            {
+                if (this.prp_StockName != value)
+                {
+                    this.prp_StockName = value;
+                    OnPropertyChanged(nameof(StockName));
+                }
+            }
+        }
+
 
         private string prp_StockMovementList_PageIndex = "0";
         /// <summary>
@@ -58,6 +78,42 @@ namespace WebServiceClientG2.UI.ViewModels
             }
         }
 
+        private DateTime prp_Date_From = DateTime.Now.Date.AddDays(-30) ;
+        /// <summary>
+        /// Dátum od - filter pre načítanie skladových pohybov. 
+        /// </summary>
+        public DateTime Date_From
+        {
+            get => this.prp_Date_From;
+
+            set
+            {
+                if (this.prp_Date_From != value)
+                {
+                    this.prp_Date_From = value;
+                    OnPropertyChanged(nameof(Date_From));
+                }
+            }
+        }
+
+        private DateTime prp_Date_To = DateTime.Now.Date;
+        /// <summary>
+        /// Dátum do - filter pre načítanie skladových pohybov. 
+        /// </summary>
+        public DateTime Date_To
+        {
+            get => this.prp_Date_To;
+
+            set
+            {
+                if (this.prp_Date_To != value)
+                {
+                    this.prp_Date_To = value;
+                    OnPropertyChanged(nameof(Date_To));
+                }
+            }
+        }
+
         #endregion
 
         #region METHODS
@@ -81,21 +137,24 @@ namespace WebServiceClientG2.UI.ViewModels
                 Exa.OBERON.ServicesGen2.Client.Models.Stock.StockMovements.StockMovementListArg arg
                     = new Exa.OBERON.ServicesGen2.Client.Models.Stock.StockMovements.StockMovementListArg();
 
-                Exa.OBERON.ServicesGen2.Client.Models.Common.BookSettings.LoadFilterItem FilterItem_DateMovement
-                    = new Exa.OBERON.ServicesGen2.Client.Models.Common.BookSettings.LoadFilterItem();
-
-                //FilterItem_DateMovement.Values = new List<string>([DateTime.Now.ToString()], [DateTime.Now.ToString()]);
-                FilterItem_DateMovement.BookColumnID = (int)Exa.OBERON.ServicesGen2.Client.Models.Stock.StockMovements.StockMovement.enm_BookColumns.DateMovement;
-                FilterItem_DateMovement.ConditionType = 1;
                 arg.LoadSettings = new Exa.OBERON.ServicesGen2.Client.Models.Common.BookSettings.LoadSettingsArg()
                 {
                     PageSize = Convert.ToInt32(this.StockMovementList_PageSize),
                     PageIndex = Convert.ToInt32(this.StockMovementList_PageIndex),
                     Filters = new List<Exa.OBERON.ServicesGen2.Client.Models.Common.BookSettings.LoadFilterItem>()
                 };
-                arg.LoadSettings.Filters.Add(FilterItem_DateMovement);
 
-                arg.StockName = "Hlavný sklad";
+                // Filter - dátum pohybu    
+                Exa.OBERON.ServicesGen2.Client.Models.Common.BookSettings.LoadFilterItem FilterItem_DateMovement
+                    = new Exa.OBERON.ServicesGen2.Client.Models.Common.BookSettings.LoadFilterItem();
+                FilterItem_DateMovement.BookColumnID = (int)Exa.OBERON.ServicesGen2.Client.Models.Stock.StockMovements.StockMovement.enm_BookColumns.DateMovement;
+                FilterItem_DateMovement.ConditionType = (int)BookColumn.enm_ConditionTypes.InRange;                
+                FilterItem_DateMovement.Values = new List<string>([Exa.OBERON.ServicesGen2.Client.JsonConvert.DateToJsonString(this.Date_From), 
+                                                                   Exa.OBERON.ServicesGen2.Client.JsonConvert.DateToJsonString(this.Date_To)]);
+                arg.LoadSettings.Filters.Add(FilterItem_DateMovement);
+                
+                // Názav skladu
+                arg.StockName = this.StockName;
 
                 var StockMovementList = await this._AppEngine.WebServiceClient.Stock.StockMovements_List(arg);
                 if (StockMovementList.result == false)
@@ -118,7 +177,7 @@ namespace WebServiceClientG2.UI.ViewModels
                 {
                     foreach (var item in StockMovementList.data.Items)
                     {
-                        sb.AppendLine($"{item.DateMovement}  {item.StockMovementType}  {item.StockCardName} - {item.Amount} {item.Unit}, PriceWithVAT: {item.PriceWithVAT}  {item.BusinessPartner.Name}  ");
+                        sb.AppendLine($"{item.DateMovement}  [{item.StockMovementType}]  {item.StockCardName} - {item.Amount} {item.Unit}, PriceWithVAT: {item.PriceWithVAT}  {item.BusinessPartner.Name}  ");
                     }
                 }
 

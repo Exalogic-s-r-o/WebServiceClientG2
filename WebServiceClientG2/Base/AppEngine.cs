@@ -31,8 +31,9 @@ namespace WebServiceClientG2.Base
         public AppEngine()
         {
             this.prp_WebServiceSettings = new WebServiceClientG2.Base.AppConfiguration.WebServiceSettings();
-            this.prp_WebServiceClient = new Exa.OBERON.ServicesGen2.Client.WebServiceClient(CONST_APPNAME,
-                                                                                            CONST_APP_VERSION_DATE);
+            this.prp_WebServiceClient = new Exa.OBERON.ServicesGen2.Client.WebServiceClient(httpClientFactory:null);
+            this.prp_WebServiceClient.ApplicationName = CONST_APPNAME;  
+            this.prp_WebServiceClient.ApplicationVersion = CONST_APP_VERSION_DATE;  
         }
 
         #endregion

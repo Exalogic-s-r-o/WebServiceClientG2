@@ -28,11 +28,13 @@
 			<!--Expander header caption-->
 			<Style TargetType="Label" x:Key="expanderHeaderCaption" ApplyToDerivedTypes="True">
 				<Setter Property="FontSize" Value="14"/>
+                <Setter Property="Background" Value="Gray" />
 			</Style>
 
 			<!--Expander header arrow-->
 			<Style TargetType="Label" x:Key="expanderHeaderArrow" ApplyToDerivedTypes="True">
 				<Setter Property="FontSize" Value="26"/>
+                <Setter Property="Background" Value="Gray" />
 				<Setter Property="FontAttributes" Value="Bold"/>
 			</Style>
 

@@ -38,7 +38,7 @@
 
             </Grid>
 
-            <!--FoodMenu list-->
+            <!--Data list-->
             <toolkit:Expander 
 			Grid.Row="1">
                 <toolkit:Expander.Header>
@@ -59,7 +59,7 @@
 
                         <Label
 			Grid.Column="1"
-			Text="stockCardsList"
+			Text="stockMovementsList"
 			HorizontalTextAlignment="Center"
 			Style="{StaticResource expanderHeaderCaption}"/>
 
@@ -79,61 +79,174 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
+                 
+                    
+                    <Grid
+	                    Grid.Row="0">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label
+                            Grid.Row="0"
+					        Grid.Column="0"
+                            Padding="10,10,10,10"
+					        Text="Stock Name"
+					        FontSize="14">
+                        </Label>
+
+                        <Entry
+					        Grid.Row="0"
+                            Grid.Column ="1"
+					        Text="{Binding StockName}"
+                            Style="{StaticResource EntryColorTheme}"
+                            TextColor="{StaticResource PrimaryTextColor}">
+                        </Entry>
+                    </Grid>
+
 
                     <Grid
-					Grid.Row="0">
+	                    Grid.Row="1">
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <Label
-						Padding="10,0,0,5"
-						Grid.Row="0"
-						Text="Page index"
-						FontSize="14">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column ="0"
+                            Padding="10,10,10,10"                           
+                            Text="Date From"
+                            FontSize="14">
                         </Label>
 
                         <Entry
-						Grid.Row="1"
-						Text="{Binding StockMovementList_PageIndex}"
-                        Style="{StaticResource EntryColorTheme}"
-                        TextColor="{StaticResource PrimaryTextColor}">
+					        Grid.Row="1"
+                            Grid.Column ="1"
+					        Text="{Binding Date_From}"
+                            Style="{StaticResource EntryColorTheme}"
+                            TextColor="{StaticResource PrimaryTextColor}">
                         </Entry>
                     </Grid>
 
                     <Grid
-					Grid.Row="1">
+                         Grid.Row="2">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column ="0"
+                            Padding="10,10,10,10"                          
+                            Text="Date To"
+                            FontSize="14">
+                        </Label>
+
+                        <Entry
+	                        Grid.Row="2"
+                            Grid.Column ="1"
+	                        Text="{Binding Date_To}"
+                             Style="{StaticResource EntryColorTheme}"
+                             TextColor="{StaticResource PrimaryTextColor}">
+                        </Entry>
+                    </Grid>
+
+
+
+                    <Grid
+					    Grid.Row="3">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                   
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label
+                            Grid.Row="3"
+                            Grid.Column="0"
+						    Padding="10,10,10,10"					   
+						    Text="Page index"
+						    FontSize="14">
+
+                        </Label>
+
+                        <Entry		
+                            Grid.Row="3"
+                            Grid.Column="1"
+						    Text="{Binding StockMovementList_PageIndex}"
+                            Style="{StaticResource EntryColorTheme}"
+                            TextColor="{StaticResource PrimaryTextColor}">
+                        </Entry>
+                    </Grid>
+
+                    <Grid
+					    Grid.Row="4">
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
                         <Label
-				Padding="10,0,0,5"
-				Grid.Row="0"
-				Text="Page size"
-				FontSize="14">
-
+                            Grid.Row="4"
+                            Grid.Column="0"
+				            Padding="10,10,10,10"				            
+				            Text="Page size"
+				            FontSize="14">
                         </Label>
 
                         <Entry
-						Grid.Row="1"
-						Text="{Binding StockMovementList_PageSize}"
-                        Style="{StaticResource EntryColorTheme}"
-                        TextColor="{StaticResource PrimaryTextColor}">
+						    Grid.Row="4"
+                            Grid.Column="1"
+						    Text="{Binding StockMovementList_PageSize}"
+                            Style="{StaticResource EntryColorTheme}"
+                            TextColor="{StaticResource PrimaryTextColor}">
                         </Entry>
                     </Grid>
+
 
                     <Button
-					Grid.Row="2"
-					Margin="10"
-					Text="stock-stockMovementsList"
-					Command="{Binding StockMovementsLoadCommand}"/>
+					    Grid.Row="5"
+					    Margin="10"
+					    Text="stock-stockMovementsList"
+					    Command="{Binding StockMovementsLoadCommand}">
+                    </Button>
                 </Grid>
 
             </toolkit:Expander>
