@@ -107,6 +107,9 @@
     <MauiXaml Update="UI\Popups\WebServicePopup.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="UI\Views\StockView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="UI\Views\Stock_StockMovementView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
