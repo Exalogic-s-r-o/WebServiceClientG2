@@ -26,9 +26,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
-
-
-		    <PublishSingleFile>true</PublishSingleFile>
+		<PublishSingleFile>true</PublishSingleFile>
     <SelfContained>true</SelfContained>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>    
 		<!-- Display name -->
@@ -124,11 +122,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Windows\OBERON\System\DLL\Exa.OBERON.ServicesGen2.Client\Exa.OBERON.ServicesGen2.Client.csproj" />    
+    <PRIResource Remove="Helpers\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <PRIResource Remove="Helpers\**" />
+    <ProjectReference Include="..\..\Windows\OBERON\System\DLL\Exa.OBERON.ServicesGen2.Client\Exa.OBERON.ServicesGen2.Client.csproj" />
   </ItemGroup>
 
 </Project>
