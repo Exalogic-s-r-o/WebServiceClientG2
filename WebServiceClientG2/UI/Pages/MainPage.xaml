@@ -36,18 +36,18 @@
             SelectedItem="{Binding SelectedTab, Mode=TwoWay}"
             SelectionMode="Single"
             BackgroundColor="Black">
-			<CollectionView.ItemTemplate>
-				<DataTemplate x:DataType="tabitem:TabItem">
-					<Grid 
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="tabitem:TabItem">
+                    <Grid 
 						Padding="10">
-						<Label Text="{Binding Name}" 
+                        <Label Text="{Binding Name}" 
                                FontSize="18"
                                TextColor="White"
                                HorizontalOptions="Start"/>
-					</Grid>
-				</DataTemplate>
-			</CollectionView.ItemTemplate>
-		</CollectionView>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
 		<!-- Tab Content (Right Side) -->
 		<ContentView Grid.Row="0" 

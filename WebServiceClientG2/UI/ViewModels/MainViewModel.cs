@@ -37,6 +37,8 @@ namespace WebServiceClientG2.UI.ViewModels
 
             this.stockView = new Views.StockView(appEngine, popupService);
             this.stockTab = new Models.TabItem(name: "Stock", contentView: stockView);
+            this.ordersReceivedView = new Views.OrdersReceivedView(appEngine, popupService);
+            this.ordersReceivedTab = new Models.TabItem(name: "Orders received", contentView: ordersReceivedView);
 
             this.Tabs = new ObservableCollection<Models.TabItem>();
             this.SelectedTab = webServiceTab;
@@ -65,12 +67,15 @@ namespace WebServiceClientG2.UI.ViewModels
         private readonly UI.Views.BusinessPartnerView businessPartnerView;
         private readonly UI.Views.Stock_StockMovementView stock_StockMovementView;
         private readonly UI.Views.StockView stockView;
+        private readonly UI.Views.OrdersReceivedView ordersReceivedView;
 
         private readonly Models.TabItem webServiceTab;
         private readonly Models.TabItem systemTab;
         private readonly Models.TabItem businessPartnerTab;
         private readonly Models.TabItem stock_StockMovementTab;
         private readonly Models.TabItem stockTab;
+        private readonly Models.TabItem ordersReceivedTab;
+        
 
         #endregion
 
@@ -236,6 +241,7 @@ namespace WebServiceClientG2.UI.ViewModels
                 this.tabs.Add(businessPartnerTab);
                 this.tabs.Add(stock_StockMovementTab);
                 this.tabs.Add(stockTab);
+                this.tabs.Add(ordersReceivedTab);
             }
             catch
             {
