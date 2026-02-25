@@ -107,6 +107,9 @@
     <MauiXaml Update="UI\Popups\WebServicePopup.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="UI\Views\OrdersReceivedAddView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="UI\Views\OrdersReceivedView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>

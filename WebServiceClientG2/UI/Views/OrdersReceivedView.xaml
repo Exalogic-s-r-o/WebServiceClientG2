@@ -32,8 +32,6 @@
                     FontFamily="RobotoRegular"/>
             </Grid>
 
-            <!-- Placeholder content -->
-            <Label Grid.Row="1" Text="Placeholder for Orders received operations" Margin="10"/>
         </Grid>
     </ScrollView>
 

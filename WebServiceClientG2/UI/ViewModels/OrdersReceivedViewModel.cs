@@ -14,6 +14,8 @@ namespace WebServiceClientG2.UI.ViewModels
         public OrdersReceivedViewModel(Base.AppEngine appEngine,
                                        IPopupService popupService) : base(appEngine, popupService)
         {
+
+            this.prp_OrderReceivedItems = new System.Collections.ObjectModel.ObservableCollection<Exa.OBERON.ServicesGen2.Client.Models.OrdersReceived.OrderReceivedItem>();
         }
 
         #region PROPERTIES
@@ -39,11 +41,32 @@ namespace WebServiceClientG2.UI.ViewModels
             set { prp_OrderReceivedDateDelivery = value; OnPropertyChanged("OrderReceivedDateDelivery"); }
         }
 
-        private string prp_OrderReceivedBusinessPartnerGUID = string.Empty;
-        public string OrderReceivedBusinessPartnerGUID
+        private DateTime prp_OrderReceivedDateDeliveryDate = DateTime.Now;
+        public DateTime OrderReceivedDateDeliveryDate
         {
-            get { return prp_OrderReceivedBusinessPartnerGUID; }
-            set { prp_OrderReceivedBusinessPartnerGUID = value; OnPropertyChanged("OrderReceivedBusinessPartnerGUID"); }
+            get { return prp_OrderReceivedDateDeliveryDate; }
+            set { prp_OrderReceivedDateDeliveryDate = value; OnPropertyChanged("OrderReceivedDateDeliveryDate"); }
+        }
+
+        private TimeSpan prp_OrderReceivedDateDeliveryTime = DateTime.Now.TimeOfDay;
+        public TimeSpan OrderReceivedDateDeliveryTime
+        {
+            get { return prp_OrderReceivedDateDeliveryTime; }
+            set { prp_OrderReceivedDateDeliveryTime = value; OnPropertyChanged("OrderReceivedDateDeliveryTime"); }
+        }
+
+        private DateTime prp_OrderReceivedDateReservationDate = DateTime.Now;
+        public DateTime OrderReceivedDateReservationDate
+        {
+            get { return prp_OrderReceivedDateReservationDate; }
+            set { prp_OrderReceivedDateReservationDate = value; OnPropertyChanged("OrderReceivedDateReservationDate"); }
+        }
+
+        private string prp_OrderReceivedBusinessPartnerName = string.Empty;
+        public string OrderReceivedBusinessPartnerName
+        {
+            get { return prp_OrderReceivedBusinessPartnerName; }
+            set { prp_OrderReceivedBusinessPartnerName = value; OnPropertyChanged("OrderReceivedBusinessPartnerName"); }
         }
 
         private string prp_OrderReceivedNotice = string.Empty;
@@ -51,6 +74,49 @@ namespace WebServiceClientG2.UI.ViewModels
         {
             get { return prp_OrderReceivedNotice; }
             set { prp_OrderReceivedNotice = value; OnPropertyChanged("OrderReceivedNotice"); }
+        }
+
+        // Items for the new order
+        private System.Collections.ObjectModel.ObservableCollection<Exa.OBERON.ServicesGen2.Client.Models.OrdersReceived.OrderReceivedItem> prp_OrderReceivedItems;
+        public System.Collections.ObjectModel.ObservableCollection<Exa.OBERON.ServicesGen2.Client.Models.OrdersReceived.OrderReceivedItem> OrderReceivedItems
+        {
+            get { return prp_OrderReceivedItems; }
+            set { prp_OrderReceivedItems = value; OnPropertyChanged("OrderReceivedItems"); }
+        }
+
+        private string prp_NewItemName = string.Empty;
+        public string NewItemName
+        {
+            get { return prp_NewItemName; }
+            set { prp_NewItemName = value; OnPropertyChanged("NewItemName"); }
+        }
+
+        private string prp_NewItemAmount = string.Empty;
+        public string NewItemAmount
+        {
+            get { return prp_NewItemAmount; }
+            set { prp_NewItemAmount = value; OnPropertyChanged("NewItemAmount"); }
+        }
+
+        private string prp_NewItemUnit = string.Empty;
+        public string NewItemUnit
+        {
+            get { return prp_NewItemUnit; }
+            set { prp_NewItemUnit = value; OnPropertyChanged("NewItemUnit"); }
+        }
+
+        private string prp_NewItemPrice = string.Empty;
+        public string NewItemPrice
+        {
+            get { return prp_NewItemPrice; }
+            set { prp_NewItemPrice = value; OnPropertyChanged("NewItemPrice"); }
+        }
+
+        private string prp_NewItemReserved = string.Empty;
+        public string NewItemReserved
+        {
+            get { return prp_NewItemReserved; }
+            set { prp_NewItemReserved = value; OnPropertyChanged("NewItemReserved"); }
         }
 
         #endregion
@@ -77,6 +143,65 @@ namespace WebServiceClientG2.UI.ViewModels
         }
 
         [RelayCommand]
+        private async Task AddItem()
+        {
+            try
+            {
+                decimal amount = 0;
+                decimal price = 0;
+                decimal.TryParse(this.NewItemAmount, out amount);
+                decimal.TryParse(this.NewItemPrice, out price);
+
+                var item = new Exa.OBERON.ServicesGen2.Client.Models.OrdersReceived.OrderReceivedItem()
+                {
+                    Name = this.NewItemName,
+                    Amount = amount,
+                    Unit = this.NewItemUnit,
+                    PriceWithVATUnit = price
+                };
+
+                // parse reserved amount (nullable)
+                if (!string.IsNullOrWhiteSpace(this.NewItemReserved))
+                {
+                    if (decimal.TryParse(this.NewItemReserved, out var reservedVal))
+                    {
+                        item.AmountReserved = reservedVal;
+                    }
+                    else
+                    {
+                        item.AmountReserved = null;
+                    }
+                }
+
+                this.OrderReceivedItems.Add(item);
+
+                // clear input
+                this.NewItemName = string.Empty;
+                this.NewItemAmount = string.Empty;
+                this.NewItemUnit = string.Empty;
+                this.NewItemPrice = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                await ShowPopup(EXC.Get(ex.Message));
+            }
+        }
+
+        [RelayCommand]
+        private async Task RemoveItem(Exa.OBERON.ServicesGen2.Client.Models.OrdersReceived.OrderReceivedItem item)
+        {
+            if (item == null) return;
+            try
+            {
+                this.OrderReceivedItems.Remove(item);
+            }
+            catch (Exception ex)
+            {
+                await ShowPopup(EXC.Get(ex.Message));
+            }
+        }
+
+        [RelayCommand]
         private async Task OrderReceived_Add()
         {
             EXC myEx = EXC.GetDefault();
@@ -88,13 +213,49 @@ namespace WebServiceClientG2.UI.ViewModels
                 this.IsRunning = true;
 
                 OrderReceivedAddArg arg = new OrderReceivedAddArg();
+
+                arg.OrderReceived.DocumentType = "Objednávka";
+
+                if (string.IsNullOrEmpty(arg.OrderReceived.BusinessPartner.Name) == true)
+                { 
+                    arg.OrderReceived.BusinessPartner.Name = "EXALOGIC, s.r.o.";
+                    //arg.OrderReceived.BusinessPartner.Address = new Exa.OBERON.ServicesGen2.Client.Models.Common.Info.Address();
+                    //arg.OrderReceived.BusinessPartner.Address.Street = "Jozefa Jureka 189/3";
+                    //arg.OrderReceived.BusinessPartner.Address.City = "Bešenová";
+                }
+
+                arg.OrderReceived.BranchName = "Ružomberok";
+
                 arg.OrderReceived.RecordGUID = this.OrderReceivedAddGUID;
                 arg.OrderReceived.Number = this.OrderReceivedNumber;
-                arg.OrderReceived.DateDelivery = this.OrderReceivedDateDelivery;
-                arg.OrderReceived.Notice = this.OrderReceivedNotice;
-                if (!string.IsNullOrEmpty(this.OrderReceivedBusinessPartnerGUID))
+                // combine date and time into delivery datetime
+                try
                 {
-                    arg.OrderReceived.BusinessPartner.RecordGuid = this.OrderReceivedBusinessPartnerGUID;
+                    var dt = this.OrderReceivedDateDeliveryDate.Date + this.OrderReceivedDateDeliveryTime;
+                    //arg.OrderReceived.DateDelivery = dt.ToString("yyyy-MM-dd HH:mm:ss");
+                    arg.OrderReceived.DateDelivery = "2026-02-25T13:45:00+01:00";
+                }
+                catch
+                {
+                    arg.OrderReceived.DateDelivery = this.OrderReceivedDateDelivery;
+                }
+                // set reservation date
+                //arg.OrderReceived.DateReservation = this.OrderReceivedDateReservationDate.ToString("yyyy-MM-dd");
+
+                arg.OrderReceived.DateReservation = "2026-02-25T13:45:00+01:00";
+                arg.OrderReceived.Notice = this.OrderReceivedNotice;
+                if (!string.IsNullOrEmpty(this.OrderReceivedBusinessPartnerName))
+                {
+                    arg.OrderReceived.BusinessPartner.Name = this.OrderReceivedBusinessPartnerName;
+                }
+
+                // Add items from UI
+                if (this.OrderReceivedItems != null && this.OrderReceivedItems.Count > 0)
+                {
+                    foreach (var it in this.OrderReceivedItems)
+                    {
+                        arg.OrderReceived.Items.Add(it);
+                    }
                 }
 
                 var result = await this._AppEngine.WebServiceClient.Stock.Stock_OrderReceived_Add(arg);
