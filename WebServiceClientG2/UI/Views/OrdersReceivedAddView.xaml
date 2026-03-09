@@ -17,15 +17,17 @@
             </Grid.RowDefinitions>
 
             <!--Toolbar-->
-            <Grid Grid.Row="0" HeightRequest="62">
+            <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="48"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="48"/>
                 </Grid.ColumnDefinitions>
-
+                
                 <Label MaxLines="1" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center"
-                       Text="Orders received" TextColor="{StaticResource PrimaryTextColor}" FontSize="24" FontFamily="RobotoRegular" />
+                       Text="Orders received Add" TextColor="{StaticResource PrimaryTextColor}" FontSize="24" FontFamily="RobotoRegular" />
+
+                
             </Grid>
 
             <!-- Order received add -->
@@ -38,9 +40,9 @@
                             <ColumnDefinition Width="48"/>
                         </Grid.ColumnDefinitions>
 
-                        <Label Grid.Column="0" Text="?" HorizontalTextAlignment="Center" Style="{StaticResource expanderHeaderArrow}"/>
+                        <Label Grid.Column="0" Text="↓" HorizontalTextAlignment="Center" Style="{StaticResource expanderHeaderArrow}"/>
                         <Label Grid.Column="1" Text="stock/order-received/add" HorizontalTextAlignment="Center" Style="{StaticResource expanderHeaderCaption}"/>
-                        <Label Grid.Column="2" Text="?" HorizontalTextAlignment="Center" Style="{StaticResource expanderHeaderArrow}"/>
+                        <Label Grid.Column="2" Text="↓" HorizontalTextAlignment="Center" Style="{StaticResource expanderHeaderArrow}"/>
                     </Grid>
                 </toolkit:Expander.Header>
 

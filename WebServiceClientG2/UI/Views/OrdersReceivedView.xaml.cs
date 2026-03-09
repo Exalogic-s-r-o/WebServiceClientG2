@@ -19,7 +19,13 @@ public partial class OrdersReceivedView : ContentView
             var addView = new OrdersReceivedAddView();
             addView.BindingContext = viewModel;
             // set the content of this view to the add view
-            this.Content = addView;
+            this.ctw_OrdersReceived_Add.Content = addView;
+
+            var summaryView = new OrdersReceivedSummaryItemsView();
+            summaryView.BindingContext = viewModel;
+            // set the content of this view to the add view
+            this.ctw_OrdersReceived_SummaryItems.Content = summaryView;
+
         }
         catch
         {

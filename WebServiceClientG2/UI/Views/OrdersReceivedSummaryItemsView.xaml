@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView x:Name="root" xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WebServiceClientG2.UI.Views.OrdersReceivedSummaryItemsView"
+             xmlns:local="clr-namespace:WebServiceClientG2.UI.ViewModels"
+             xmlns:views="clr-namespace:WebServiceClientG2.UI.Views"
+             xmlns:models="clr-namespace:Exa.OBERON.ServicesGen2.Client.Models.OrdersReceived;assembly=Exa.OBERON.ServicesGen2.Client"
+             x:DataType="local:OrdersReceivedViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+
+    <ScrollView>
+        <Grid RowSpacing="15" Padding="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!--Toolbar-->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="48"/>
+                </Grid.ColumnDefinitions>
+                
+                <Label MaxLines="1" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center"
+                       Text="Orders received - Summary Items" TextColor="{StaticResource PrimaryTextColor}" FontSize="24" FontFamily="RobotoRegular" />
+
+                
+            </Grid>
+
+            <!-- Order received - summary items -->
+            <toolkit:Expander Grid.Row="1">
+                <toolkit:Expander.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="48"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Text="↓" HorizontalTextAlignment="Center" Style="{StaticResource expanderHeaderArrow}"/>
+                        <Label Grid.Column="1" Text="stock/order-received/summary/items" HorizontalTextAlignment="Center" Style="{StaticResource expanderHeaderCaption}"/>
+                        <Label Grid.Column="2" Text="↓" HorizontalTextAlignment="Center" Style="{StaticResource expanderHeaderArrow}"/>
+                    </Grid>
+                </toolkit:Expander.Header>
+
+                <Grid Padding="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Branch -->
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label Padding="10,0,0,5" 
+                               Grid.Row="0"
+                               Grid.Column ="0"
+                               Text="CompanyBranchName" FontSize="14" TextColor="{StaticResource PrimaryLightColor}" />
+                        <Entry Grid.Row="0" 
+                               Grid.Column ="1"
+                               Text="{Binding OrderReceivedSummaryItemsBranchName}" Style="{StaticResource EntryColorTheme}" TextColor="{StaticResource PrimaryTextColor}" />
+                    </Grid>
+
+                    <!-- SWITCH - SummaryByVariant -->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label Padding="10,0,0,5" 
+                               Grid.Row="0" 
+                               Text="SummaryByVariant" 
+                               FontSize="14" 
+                               TextColor="{StaticResource PrimaryLightColor}" />
+
+                        <Switch
+                            Grid.Row="0" 
+                            Grid.Column="1"
+                            HorizontalOptions="Start" 
+                            VerticalOptions="Center"
+                            IsToggled="{Binding OrderReceivedSummaryItemsHasVariants}">
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="On">
+                                            <VisualState.Setters>
+                                                <Setter Property="ThumbColor"
+								                Value="Green" />
+                                                <Setter Property="OnColor"
+								                Value="White" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="Off">
+                                            <VisualState.Setters>
+                                                <Setter Property="ThumbColor"
+								                Value="Gray" />
+                                                <Setter Property="OnColor"
+								                Value="White" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+
+                        </Switch>
+
+                    </Grid>
+
+                    <Button Grid.Row="2"
+                        Text="Stock_OrderReceived_Summary_Items" 
+                        Command="{Binding OrderReceived_SummaryItemsCommand}" 
+                        Margin="10" />          
+
+
+                </Grid>
+             </toolkit:Expander>
+
+         </Grid>
+     </ScrollView>
+
+</ContentView>

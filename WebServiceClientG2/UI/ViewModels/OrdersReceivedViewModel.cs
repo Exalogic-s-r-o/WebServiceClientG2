@@ -119,6 +119,21 @@ namespace WebServiceClientG2.UI.ViewModels
             set { prp_NewItemReserved = value; OnPropertyChanged("NewItemReserved"); }
         }
 
+
+        private string prp_OrderReceivedSummaryItemsBranchName = string.Empty;
+        public string OrderReceivedSummaryItemsBranchName
+        {
+            get { return prp_OrderReceivedSummaryItemsBranchName; }
+            set { prp_OrderReceivedSummaryItemsBranchName = value; OnPropertyChanged("OrderReceivedSummaryItemsBranchName"); }
+        }
+
+        private bool  prp_OrderReceivedSummaryItemsHasVariants = false;
+        public bool OrderReceivedSummaryItemsHasVariants
+        {
+            get { return prp_OrderReceivedSummaryItemsHasVariants; }
+            set { prp_OrderReceivedSummaryItemsHasVariants = value; OnPropertyChanged("OrderReceivedSummaryItemsHasVariants"); }
+        }
+
         #endregion
 
         #region METHODS
@@ -284,6 +299,67 @@ namespace WebServiceClientG2.UI.ViewModels
                 this.IsRunning = false;
             }
         }
+
+
+        [RelayCommand]
+        private async Task OrderReceived_SummaryItems()
+        {
+            EXC myEx = EXC.GetDefault();
+
+            if (this.IsRunning == true) return;
+
+            try
+            {
+                this.IsRunning = true;
+
+                // Argument volania
+                OrderReceivedSummaryItemsArg arg = new OrderReceivedSummaryItemsArg();              
+                if (string.IsNullOrEmpty(this.OrderReceivedSummaryItemsBranchName) == false)
+                {
+                    arg.BranchNames = new List<string>();
+                    arg.BranchNames.Add(this.OrderReceivedSummaryItemsBranchName);
+                }
+                arg.SummaryByVariant  = this.OrderReceivedSummaryItemsHasVariants;
+
+                var result = await this._AppEngine.WebServiceClient.Stock.Stock_OrderReceived_Summary_Items(arg);
+                if (result.result == false)
+                {
+                    myEx = EXC.Get($"Chyba pri volaní 'OrderReceived_SummaryItems'. '{result.description}'");
+                    await ShowPopup(myEx);
+                    return;
+                }
+
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine(new string(Convert.ToChar("-"), 255));
+                sb.AppendLine($"OrderReceived_SummaryItems");
+                sb.AppendLine(new string( Convert.ToChar("-"), 255));
+                if (result.data.Items == null || result.data.Items.Count == 0)
+                {
+                    sb.AppendLine($"No items.");
+                }
+                else
+                {
+                    sb.AppendLine($"Items count: {result.data.Items.Count - 1}");
+
+                    foreach (var item in result.data.Items)
+                    {
+                        sb.AppendLine($"{item.Number} - {item.Name } -> AmountOrder {item.AmountOrder} {item.Unit}, AmountReserved: {item.AmountReserved }  {item.Unit},   [variant: {item.VariantName}]");
+                    }
+                }
+
+                WeakReferenceMessenger.Default.Send(new WebServiceClientG2.Messages.AddTextMessage($"{sb}"));
+
+            }
+            catch (Exception ex)
+            {
+                await ShowPopup(EXC.Get(ex.Message));
+            }
+            finally
+            {
+                this.IsRunning = false;
+            }
+        }
+
 
         #endregion
 
