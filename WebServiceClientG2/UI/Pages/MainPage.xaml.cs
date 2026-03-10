@@ -31,6 +31,21 @@ public partial class MainPage : ContentPage
         
     }
 
+    private void OrdersIssued_Clicked(object sender, EventArgs e)
+    {
+        try
+        {
+            var ordersView = new UI.Views.OrdersIssuedView(_appEngine, _popupService);
+            if (this.ViewModel != null)
+            {
+                this.ViewModel.CurrentTabContent = ordersView;
+            }
+        }
+        catch
+        {
+        }
+    }
+
     private void OrdersReceived_Clicked(object sender, EventArgs e)
     {
         try

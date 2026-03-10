@@ -95,8 +95,14 @@
     <Compile Update="UI\Popups\WebServicePopup.xaml.cs">
       <DependentUpon>WebServicePopup.xaml</DependentUpon>
     </Compile>
+    <Compile Update="UI\Views\OrdersIssuedSummaryItemsView.xaml.cs">
+      <DependentUpon>OrdersIssuedSummaryItemsView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="UI\Views\OrdersReceivedSummaryItemsView.xaml.cs">
       <DependentUpon>OrdersReceivedSummaryItemsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Views\OrdersIssuedView.xaml.cs">
+      <DependentUpon>OrdersIssuedView.xaml</DependentUpon>
     </Compile>
     <Compile Update="UI\Views\Stock_StockMovementView.xaml.cs">
       <DependentUpon>Stock_StockMovementView.xaml</DependentUpon>
@@ -110,10 +116,16 @@
     <MauiXaml Update="UI\Popups\WebServicePopup.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="UI\Views\OrdersIssuedSummaryItemsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="UI\Views\OrdersReceivedSummaryItemsView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="UI\Views\OrdersReceivedAddView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="UI\Views\OrdersIssuedView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="UI\Views\OrdersReceivedView.xaml">
